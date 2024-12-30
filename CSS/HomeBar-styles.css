@@ -43,6 +43,8 @@ a:active {
 .rolling-text {
     display: inline-block;
     animation: scroll 15s linear infinite;
+    height: 2rem;
+    font-size: x-large;
 }
 @keyframes scroll {
     0% {
