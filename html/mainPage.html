@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+    	<meta charset="UTF-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Home Page</title>
+		<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+		<link rel="stylesheet" href="../css/style.css">
+  	</head>
+
+  <body>
+		<div id="header">
+			<!--import from Header-HomeBar.html-->
+		</div>
+
+		<section class="hero wrapper">
+			<div class="carousel">
+				<button class="carousel-btn left-btn" onclick="moveSlide(-1)">
+					<i class='bx bx-chevron-left'></i>
+				</button>
+
+				<div class="carousel-images">
+					<img src="../sources/crs1.jpg" alt="">
+					<img src="../sources/crs2.jpg" alt="">
+					<img src="../sources/crs3.jpg" alt="">
+				</div>
+
+				<button class="carousel-btn right-btn">
+					<i class='bx bx-chevron-right'></i>
+				</button>
+			</div>
+		</section>
+
+	<section class="item-display" id="new-arrival">
+		<h2 class="section-title">New Arrivals</h2>
+
+		<div class="menu">
+			<ul>
+				<li><a href="#new-arrival" class="active-menu" data-category="men">Men</a></li>
+				<li><a href="#new-arrival" data-category="women">Women</a></li>
+				<li><a href="#new-arrival" data-category="shoes">Shoes</a></li>
+				<li><a href="#new-arrival" data-category="bags">Bags</a></li>
+				<li><a href="#new-arrival" data-category="accessories">Accessories</a></li>
+			</ul>
+		</div>
+
+		<div class="item-container">
+			<!-- Items will be dynamically updated here-->
+		</div>
+
+		<div class="more-container">
+			<a class="more-button">More</a>
+		</div>
+
+	</section>
+
+	<section class="ads-container">
+		<div class="ads-image">
+			<img src="../sources/crs1.jpg">
+		</div>
+
+		<div class="ads-text">
+			<h2>UNIQLO x CLS</h2>
+			<p>Shop the full collection.</p>
+			<a href="#" class="ads-button">Shop</a>
+		</div>
+	</section>
+
+	<section class="item-display">
+		<h2 class="section-title">Promotions</h2>
+		<div class="item-container" id="itemContainer"></div>
+
+		<div class="more-container">
+			<a class="more-button">More</a>
+		</div>
+	</section>
+
+	<section class="ads-container">
+		<div class="ads-image">
+			<img src="../sources/crs1.jpg">
+		</div>
+
+		<div class="ads-text">
+			<h2>UNIQLO x CLS</h2>
+			<p>Shop the full collection.</p>
+			<a href="#" class="ads-button">Shop</a>
+		</div>
+	</section>
+
+	<section class="item-display">
+		<h2 class="section-title">Category</h2>
+		<div class="item-container">
+			<div class="item">
+				<img src="../sources/favicon.jpeg" alt="Top">
+				<p>Top</p>
+			</div>
+			<div class="item">
+				<img src="../sources/favicon.jpeg" alt="Bottom">
+				<p>Bottom</p>
+			</div>
+			<div class="item">
+				<img src="../sources/favicon.jpeg" alt="Item 1">
+				<p>Item 3</p>
+			</div>
+			<div class="item">
+				<img src="../sources/favicon.jpeg" alt="Item 1">
+				<p>Item 4</p>
+			</div>
+		</div>
+
+		<div class="more-container">
+			<a class="more-button">More</a>
+		</div>
+
+	</section>
+
+	<section class="about-us-container">
+		<h2 class="section-title">About Us</h2>
+		<p class="section-desc">Dummmy text</p>
+	</section>
+
+	<footer>
+		<p class="footer-text">Footer</p>
+	</footer>
+		
+		<script src="../js/mainPage.js"></script>
+
+	</body>
+
+</html>

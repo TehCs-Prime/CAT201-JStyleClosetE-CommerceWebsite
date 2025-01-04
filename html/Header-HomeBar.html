@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jstyle Closet</title>
+        <link rel="stylesheet" href="../CSS/HomeBar-styles.css">
+        <link rel="icon" href="../Sources/Jstyle LOGO.jpg" type ="image/x-icon">
+    </head>
+
+    <body>
+        <div class="Header-AdvertiseBar">
+            <div class="rolling-text">FREE SHIPPING FOR ORDER ABOVE RM300 &nbsp;&nbsp; WELCOME TO XXX STORE &nbsp;&nbsp; FREE SHIPPING FOR ORDER ABOVE RM300</div>
+        </div>
+
+        <div class="NavigationBar">
+                <div class="Logo">
+                    <a href="#">
+                    <!-- <a href ="HomePage.html"> Clicking Logo means to HomePage-->
+                        <img class = "logoPicture" src = "../Sources/Jstyle LOGO.jpg" alt="Jstyle outlet">
+                        <div class ="logoName">Jstyle</div>
+                    </a>
+                </div>
+
+                <div class="search-overlay" id="searchOverlay">
+                    <div class="search-container">
+                        <div class="search-header">
+                            <button class="search-close" onclick="closeSearch()">×</button>
+                        </div>
+                        <div class="search-input-container">
+                            <input type="text" class="search-input" placeholder="Search our store">
+                            <img src="../Sources/Search icon.png" alt="Search" class="search-icon" onclick="performSearch()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Section">
+                    <a href="#">NEW ARRIVALS</a>
+                    <a href="#">PROMOTIONS</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">CATEGORIES</a>
+                        <div class="dropdown-content mega-menu">
+                            <div class="menu-column">
+                                <h3>Clothings</h3>
+                                <a href="#">T-shirts</a>
+                                <a href="#">Top</a>
+                                <a href="#">Dress</a>
+                                <a href="#">Polos & Shirts</a>
+                                <a href="#">Sweater & Hoodies</a>
+                                <a href="#">Jackets & Outwear</a>
+                                <a href="#">Bottoms</a>
+                                <a href="#">Basic</a>
+                            </div>
+                            <div class="menu-column">
+                                <h3>Accessories</h3>
+                                <a href="#">Bags</a>
+                                <a href="#">Caps</a>
+                                <a href="#">Shoes</a>
+                                <a href="#">Socks</a>
+                                <a href="#">Glasses</a>
+                                <a href="#">Jewellery</a>
+                                <a href="#">Lifestyle</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#" class="dropbtn">SALES</a>
+                        <div class="dropdown-content mega-menu">
+                            <div class="menu-column">
+                                <h3>Events</h3>
+                                <a href="#">Chinese New Year Sales 🧧🧨</a>
+                                <a href="#">Christmas 🎅</a>
+                                <a href="#">Disney 🏰</a>
+                                <a href="#">Pokemon</a>
+                                <a href="#">Marvel 🦸‍</a>
+                            </div>
+                            <div class="menu-column">
+                                <h3></h3>
+                                <a href="#">Limited Edition 🔮</a>
+                                <a href="#">Last Chances ⏳</a>
+                                <a href="#">Next in Line 🔜</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class = "icons">
+                    <div class = "Search">
+                        <a href="#" onclick="openSearch()">
+                            <img src="../Sources/Search icon.png" alt="Search" >
+                        </a>
+                    </div>
+                    <div class = "Profile">
+                        <a href="#">
+                            <img src="../Sources/Profile.png" alt="Profile" >
+                        </a>
+                    </div>
+                    <div class = "Cart">
+                        <a href="#">
+                            <img src="../Sources/Cart.png" alt="Cart" >
+                        </a>
+                    </div>
+                </div>
+
+
+                    <div class="mobileView">
+                        <a href="#">☰</a>
+                        <div class = "Search">
+                            <a href="#" onclick="openSearch()">
+                                <img src="../Sources/Search icon.png" alt="Search">
+                            </a>
+                        </div>
+
+                    </div>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                Dashboard
+                <button class="sidebar-close" onclick="closeSidebar()">×</button>
+            </div>
+            <div class="sidebar-content">
+                <!-- Move the Section here dynamically with JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Add overlay div for darkening the background -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    </body>
+
+
+    <script>
+        function openSearch() {
+            document.getElementById('searchOverlay').classList.add('active');
+            document.querySelector('.search-input').focus();
+        }
+
+        function closeSearch() {
+            document.getElementById('searchOverlay').classList.remove('active');
+        }
+
+        function performSearch() {
+            const searchTerm = document.querySelector('.search-input').value;
+            // Add your search logic here
+            console.log('Searching for:', searchTerm);
+        }
+
+        // Close overlay when clicking outside the search container
+        document.getElementById('searchOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSearch();
+            }
+        });
+
+        document.querySelector('.mobileView a').onclick = function(e) {
+            e.preventDefault();
+            openSidebar();
+        };
+        
+        function openSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarContent = sidebar.querySelector('.sidebar-content');
+    const mainSection = document.querySelector('.Section');
+    
+    // Clone the Section and its contents
+    const sectionClone = mainSection.cloneNode(true);
+    
+    // Clear previous content
+    sidebarContent.innerHTML = '';
+    sidebarContent.appendChild(sectionClone);
+    
+    // Remove existing hover events and add click handlers
+    sidebarContent.querySelectorAll('.dropdown').forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        
+        // Remove href to prevent navigation
+        dropbtn.removeAttribute('href');
+        
+        // Remove existing click listeners
+        dropbtn.replaceWith(dropbtn.cloneNode(true));
+        
+        // Add new click listener
+        dropdown.querySelector('.dropbtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Close other open dropdowns
+            sidebarContent.querySelectorAll('.dropdown').forEach(d => {
+                if (d !== dropdown && d.classList.contains('active')) {
+                    d.classList.remove('active');
+                }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('active');
+        });
+    });
+
+    sidebar.classList.add('active');
+    document.getElementById('sidebarOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('active');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+    </script>
+</html>

@@ -1,0 +1,159 @@
+//Hero Page Navigation
+let currentIndex = 0;
+
+document.querySelector('.left-btn').addEventListener('click', () => moveSlide(-1));
+document.querySelector('.right-btn').addEventListener('click', () => moveSlide(1));
+
+function moveSlide(direction) {
+		const images = document.querySelector('.carousel-images');
+		const totalImages = images.children.length;
+
+		// Calculate new index
+		currentIndex += direction;
+
+		// Wrap around if out of bounds
+		if (currentIndex < 0) {
+		  	currentIndex = totalImages - 1;
+		} else if (currentIndex >= totalImages) {
+				currentIndex = 0;
+		}
+
+		// Update transform to show the new image
+		const offset = -currentIndex * 100; // 100% width per image
+		images.style.transform = `translateX(${offset}%)`;
+}
+
+//update active menu choices
+// Select all menu links
+const menuLinks = document.querySelectorAll('.menu a');
+
+// Add a click event listener to each link
+menuLinks.forEach(link => {
+		link.addEventListener('click', function () {
+				// Remove the 'active' class from all links
+				menuLinks.forEach(link => link.classList.remove('active-menu'));
+				
+				// Add the 'active' class to the clicked link
+				this.classList.add('active-menu');
+		});
+});
+
+//Dynamic Content: New Arrived
+document.addEventListener("DOMContentLoaded", function(){
+	const items = {
+		men: [
+			{img: "../sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
+			{img: "../sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
+			{img: "../sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
+			{img: "../sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"},
+			{img: "../sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00"},
+			{img: "../sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00"},
+			{img: "../sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00"},
+			{img: "../sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00"}
+		],
+
+		women: [
+			{img: "../sources/na women 1.jpeg", name: "Women Shirt Dress (Red)", price: "RM 89.90"},
+			{img: "../sources/na women 2.jpeg", name: "Women Knit Short Sleeve Crop Top (Red)", price: "RM 39.90"},
+			{img: "../sources/na women 3.jpeg", name: "Women Knit Sleeveless Top (Red)", price: "RM 49.90"},
+			{img: "../sources/na women 4.jpeg", name: "Women Knit Short Sleeve Crop Top (Light Yellow)", price: "RM 49.90"}
+		],
+
+		shoes: [
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+		],
+
+		bags: [
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+		],
+
+		accessories: [
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "../sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+		]
+	};
+
+	const menuLinks = document.querySelectorAll('.menu a');
+	const itemContainer = document.querySelector('.item-container');
+
+	// Function to render items based on category
+	function renderItems(category) {
+		itemContainer.innerHTML = ''; // Clear existing items
+		items[category].forEach(item => {
+			const itemElement = document.createElement('div');
+			itemElement.classList.add('item');
+			itemElement.innerHTML = `
+				<img src="${item.img}" alt="${item.name}">
+				<div class="name-container">
+					<h4>${item.name}</h4>
+				</div>
+				<div class="price-container">
+					<h4>${item.price}</h4>
+				</div>
+				`;
+			itemContainer.appendChild(itemElement);
+		});
+	}
+	
+	// Add click event listener to menu links
+	menuLinks.forEach(link => {
+			link.addEventListener('click', function (event) {
+					event.preventDefault(); // Prevent default link behavior
+					
+					// Remove 'active' class from all links
+					menuLinks.forEach(link => link.classList.remove('active'));
+					this.classList.add('active'); // Add 'active' to the clicked link
+					
+					// Get category from data attribute and render items
+					const category = this.dataset.category;
+					renderItems(category);
+			});
+	});
+
+	// Initialize with the default category (Men)
+	renderItems('men');
+});
+
+// Fetch header
+fetch("Header-HomeBar.html")
+	.then(response => response.text())
+	.then(data => {
+  	document.getElementById("header").innerHTML = data;
+	})
+	.catch(error => console.error("Error loading header:", error));
+
+
+//Promotion Item Fetch
+const items = [
+	{img: "../sources/favicon.jpeg", name: "Promotion 1", price: "$12"},
+	{img: "../sources/favicon.jpeg", name: "Promotion 2", price: "$12"},
+	{img: "../sources/favicon.jpeg", name: "Promotion 3", price: "$12"},
+	{img: "../sources/favicon.jpeg", name: "Promotion 4", price: "$12"}
+];
+
+// Select the container element
+const container = document.getElementById("itemContainer");
+
+// Generate HTML using a loop
+items.forEach(item => {
+	const itemElement = document.createElement('div');
+	itemElement.classList.add('item');
+	itemElement.innerHTML = `
+			<img src="${item.img}" alt="${item.name}">
+			<div class="name-container">
+					<h4>${item.name}</h4>
+			</div>
+			<div class="price-container">
+					<h4>${item.price}</h4>
+			</div>
+	`;
+	itemContainer.appendChild(itemElement);
+});
