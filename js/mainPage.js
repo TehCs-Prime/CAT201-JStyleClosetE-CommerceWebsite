@@ -42,42 +42,42 @@ menuLinks.forEach(link => {
 document.addEventListener("DOMContentLoaded", function(){
 	const items = {
 		men: [
-			{img: "../sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
-			{img: "../sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
-			{img: "../sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
-			{img: "../sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"},
-			{img: "../sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00"},
-			{img: "../sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00"},
-			{img: "../sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00"},
-			{img: "../sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00"}
+			{img: "../Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
+			{img: "../Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
+			{img: "../Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
+			{img: "../Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"},
+			{img: "../Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00"},
+			{img: "../Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00"},
+			{img: "../Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00"},
+			{img: "../Sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00"}
 		],
 
 		women: [
-			{img: "../sources/na women 1.jpeg", name: "Women Shirt Dress (Red)", price: "RM 89.90"},
-			{img: "../sources/na women 2.jpeg", name: "Women Knit Short Sleeve Crop Top (Red)", price: "RM 39.90"},
-			{img: "../sources/na women 3.jpeg", name: "Women Knit Sleeveless Top (Red)", price: "RM 49.90"},
-			{img: "../sources/na women 4.jpeg", name: "Women Knit Short Sleeve Crop Top (Light Yellow)", price: "RM 49.90"}
+			{img: "../Sources/na women 1.jpeg", name: "Women Shirt Dress (Red)", price: "RM 89.90"},
+			{img: "../Sources/na women 2.jpeg", name: "Women Knit Short Sleeve Crop Top (Red)", price: "RM 39.90"},
+			{img: "../Sources/na women 3.jpeg", name: "Women Knit Sleeveless Top (Red)", price: "RM 49.90"},
+			{img: "../Sources/na women 4.jpeg", name: "Women Knit Short Sleeve Crop Top (Light Yellow)", price: "RM 49.90"}
 		],
 
 		shoes: [
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
 		],
 
 		bags: [
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+			{img: "../Sources/favicon.jpeg", name: "Bags Item 1", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
 		],
 
 		accessories: [
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "../sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+			{img: "../Sources/favicon.jpeg", name: "Acs Item 1", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "../Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
 		]
 	};
 
@@ -122,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	renderItems('men');
 });
 
+
 // Fetch header
 fetch("Header-HomeBar.html")
 	.then(response => response.text())
@@ -130,13 +131,21 @@ fetch("Header-HomeBar.html")
 	})
 	.catch(error => console.error("Error loading header:", error));
 
+// Fetch footer
+fetch("Footer-BottomBar.html")
+.then(response => response.text())
+.then(data => {
+	document.getElementById("footer").innerHTML = data;
+})
+.catch(error => console.error("Error loading footer:", error));
+
 
 //Promotion Item Fetch
 const items = [
-	{img: "../sources/favicon.jpeg", name: "Promotion 1", price: "$12"},
-	{img: "../sources/favicon.jpeg", name: "Promotion 2", price: "$12"},
-	{img: "../sources/favicon.jpeg", name: "Promotion 3", price: "$12"},
-	{img: "../sources/favicon.jpeg", name: "Promotion 4", price: "$12"}
+	{img: "../Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
+			{img: "../Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
+			{img: "../Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
+			{img: "../Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"}
 ];
 
 // Select the container element
