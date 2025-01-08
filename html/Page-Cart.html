@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/CSS/Page-Cart.css">
+        <title>Cart</title>
+    </head>
+
+    <body>
+        <div id="Header"></div>
+        <script>
+            fetch('Header-HomeBar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('Header').innerHTML = data;
+                });
+        </script>
+
+        <div class="Cart-Container">
+            <h1>Cart</h1>
+            <table class="cart-table">
+                
+                <thead>
+                  <tr>
+                    <th>PRODUCT</th>
+                    <th>QUANTITY</th>
+                    <th>TOTAL</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td class="product">
+                      <img src="/Sources/Product thumnail pic.png" alt="Little Cupid Long Dress">
+                      <div>
+                        <h3>Little Cupid Long Dress</h3>
+                        <p>Free Size</p>
+                      </div>
+                    </td>
+                    <td class="quantity">
+                      <button class="decrement">-</button>
+                      <input type="number" value="1" min="1">
+                      <button class="increment">+</button>
+                    </td>
+                    <td class="price">RM 79.00</td>
+                  </tr>
+
+                  <tr>
+                    <td class="product">
+                      <img src="/Sources/Profile-thumbnail pic2.png" alt="X'mas Gift Set">
+                      <div>
+                        <h3>[X'mas Gift Set 2] T-shirt + Cap + Socks</h3>
+                        <p>Creamy Red (XL), Black, Red Stripe</p>
+                      </div>
+                    </td>
+                    <td class="quantity">
+                      <button class="decrement">-</button>
+                      <input type="number" value="1" min="1">
+                      <button class="increment">+</button>
+                    </td>
+                    <td class="price">RM 85.00</td>
+                  </tr>
+                </tbody>
+              </table>
+              <hr>
+              <div class="cart-summary">
+                <div class="voucher-section">
+                  <h4>Vouchers</h4>
+                  <p>Don't forget to apply before checkout!</p>
+                </div>
+                <div class="order-summary">
+                  <div class="order-summary-title">
+                    <p class="orderValueTitle">Order value: </p>
+                    <p class="discountTitle">Discount:</p>
+                    <p class="subtotalTitle">Subtotal: </p>
+                  </div>
+                  <div class="order-summary-value">
+                    <span class="orderValue">RM 164.00</span>
+                    <p class="discount">- RM 4.00</p>
+                    <p class="subtotal">RM 160.00</p>
+                  </div>
+                </div>
+              </div>
+
+              <div id="voucherModal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2>Vouchers</h2>
+                    <span class="close">&times;</span>
+                  </div>
+                  <div class="voucher-input">
+                    <input type="text" placeholder="Discount code" id="discountCode">
+                    <button class="apply-btn">Apply</button>
+                  </div>
+                  <div class="available-vouchers">
+                    <p class="no-vouchers">No available vouchers</p>
+                    <!-- Vouchers will be dynamically added here -->
+                  </div>
+                </div>
+              </div>
+          
+              <button class="checkout-btn">Checkout</button>
+      </div>
+      <script src="/js/Page-Cart.js"></script>
+    </body>
+
+    <footer>
+        <div id="Footer"></div>
+
+        <script>
+            fetch('Footer-BottomBar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('Footer').innerHTML = data;
+            })
+        </script>
+    </footer>
+
+</html>
