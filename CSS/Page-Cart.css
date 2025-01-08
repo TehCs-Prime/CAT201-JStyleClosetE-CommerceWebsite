@@ -341,7 +341,14 @@ body {
   
   .payment-option:hover {
     border-color: #66afe9;
-    background-color: #f8f9fa;
+    border:10px #000;
+    background-color: #72e89d73;
+  }
+
+  .payment-option:checked {
+    border-color: #66afe9;
+    border:10px #000;
+    background-color: #72e89d;
   }
   
   .payment-option input[type="radio"] {
@@ -362,12 +369,23 @@ body {
   }
   
   .payment-option input[type="radio"]:checked + label {
-    font-weight: bold;
+    font-size: larger;
+    font-weight: bolder;
   }
   
   .payment-option input[type="radio"]:checked + label .payment-option {
     border-color: #66afe9;
-    background-color: #f8f9fa;
+    background-color: #72e89d;
+  }
+
+  .payment-option input[type="radio"]:checked {
+    background-color: #72e89d;
+  }
+
+  /* Add this new rule to style the parent div when radio is checked */
+  .payment-option:has(input[type="radio"]:checked) {
+    background-color: #72e89d;
+    border-color: #66afe9;
   }
   
   .place-order-btn {
