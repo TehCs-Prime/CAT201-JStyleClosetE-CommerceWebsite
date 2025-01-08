@@ -40,6 +40,23 @@ document.querySelectorAll('.decrement').forEach((btn) => {
     });
   });
   
+  document.querySelectorAll('.quantity input').forEach((input) => {
+    input.addEventListener('input', (e) => {
+      // Ensure the value is at least 1
+      let value = parseInt(e.target.value) || 1;
+      if (value < 1) value = 1;
+      e.target.value = value;
+      updateTotals();
+    });
+  
+    // Prevent invalid input
+    input.addEventListener('keypress', (e) => {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+  });
+
   function updateTotals() {
     const rows = document.querySelectorAll('tbody tr');
     let orderValue = 0;
@@ -93,5 +110,66 @@ applyBtn.addEventListener('click', () => {
     updateTotals();
   } else {
     alert('Please enter a discount code');
+  }
+});
+
+const checkoutBtn = document.querySelector('.checkout-btn');
+const checkoutDetails = document.querySelector('.checkout-details');
+const placeOrderBtn = document.querySelector('.place-order-btn');
+
+checkoutBtn.addEventListener('click', () => {
+  // Scroll to checkout details smoothly
+  checkoutDetails.style.display = 'block';
+  checkoutDetails.scrollIntoView({ behavior: 'smooth' });
+  
+  checkoutBtn.style.visibility = 'hidden';
+});
+
+// Handle payment option selection
+const paymentOptions = document.querySelectorAll('.payment-option');
+paymentOptions.forEach(option => {
+  option.addEventListener('click', () => {
+    // Find the radio input within the clicked option and check it
+    const radio = option.querySelector('input[type="radio"]');
+    radio.checked = true;
+    
+    // Add selected styling
+    paymentOptions.forEach(opt => opt.style.borderColor = '#ddd');
+    option.style.borderColor = '#66afe9';
+  });
+});
+
+// Form validation before placing order
+placeOrderBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  
+  // Get all required inputs
+  const requiredInputs = document.querySelectorAll('.form-group input[required], .form-group select[required], .form-group textarea[required]');
+  let isValid = true;
+  
+  // Check if all required fields are filled
+  requiredInputs.forEach(input => {
+    if (!input.value.trim()) {
+      isValid = false;
+      input.style.borderColor = '#ff0000';
+    } else {
+      input.style.borderColor = '#ddd';
+    }
+  });
+  
+  // Check if payment method is selected
+  const paymentMethod = document.querySelector('input[name="payment"]:checked');
+  if (!paymentMethod) {
+    isValid = false;
+    alert('Please select a payment method');
+    return;
+  }
+  
+  if (isValid) {
+    // Here you would typically submit the order to your backend
+    alert('Order placed successfully!');
+    // Return to home page ? or to order history
+  } else {
+    alert('Please fill in all required fields');
   }
 });
