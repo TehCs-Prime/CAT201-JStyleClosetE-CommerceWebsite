@@ -30,14 +30,6 @@
                     <i class="users"></i>
                     <span>Customers</span>
                 </li>
-                <li data-tab="vouchers">
-                    <i class="voucher"></i>
-                    <span>Vouchers</span>
-                </li>
-                <li data-tab="settings">
-                    <i class="Settings"></i>
-                    <span>Settings</span>
-                </li>
             </ul>
         </nav>
 
@@ -102,10 +94,13 @@
 
                 <div class="recent-orders">
                     <div class="section-header">
-                        <h2>Recent Orders</h2>
+                        <h2>Recent Orders Only</h2>
                         <div class="header-actions">
                             <button class="filter-btn">
                                 <i class="filter"></i> Filter
+                            </button>
+                            <button class="reset-btn">
+                                <i class="reset"></i> Reset
                             </button>
                         </div>
                     </div>
@@ -131,31 +126,41 @@
             <!-- Orders Section -->
             <div class="content-section" id="orders">
                 <!-- Orders content here -->
-                <div class="recent-orders">
+                <div class="total-orders">
                     <div class="section-header">
-                        <h2>Recent Orders</h2>
+                        <h2>Total Orders</h2>
                         <div class="header-actions">
-                            <button class="filter-btn">
+                            <button class="filter-btn-orders">
                                 <i class="filter"></i> Filter
+                            </button>
+                            <button class="reset-btn-orders">
+                                <i class="reset"></i> Reset
                             </button>
                         </div>
                     </div>
-                    <table class="orders-table">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Products</th>
-                                <th>Total</th>
-                                <th>Status</th>
-                                <th>Issued Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ordersTableBody">
-                            <!-- Orders will be populated by JavaScript -->
-                        </tbody>
-                    </table>
+                    <div class="orders-table-wrapper">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Products</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Issued Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="totalOrdersTableBody">
+                                <!-- Orders will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevPage">Previous</button>
+                            <span id="pageInfo">Page 1 of 1</span>
+                            <button class="pagination-btn" id="nextPage">Next</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -165,14 +170,6 @@
             </div>
 
             <div class="content-section" id="customers">
-                <!-- Products content here -->
-            </div>
-
-            <div class="content-section" id="vouchers">
-                <!-- Products content here -->
-            </div>
-
-            <div class="content-section" id="vouchers">
                 <!-- Products content here -->
             </div>
         </main>
