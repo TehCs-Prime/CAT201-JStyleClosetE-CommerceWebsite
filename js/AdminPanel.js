@@ -1,6 +1,9 @@
 // Sample data - Replace with your actual data source
 let currentPage = 1;
 const ordersPerPage = 10;
+let currentCustomerPage = 1;
+const customersPerPage = 10;
+
 const orders = [
     { id: '#12345', customer: 'John Doe', products: ['Little Cupid Long Dress', "X'mas Gift Set"], total: 'RM 164.00', status: 'pending', date: '2025-01-08' },
     { id: '#12346', customer: 'Jane Smith', products: ['Elegant Silk Scarf'], total: 'RM 45.00', status: 'completed', date: '2025-01-07' },
@@ -66,6 +69,40 @@ const products = [
     { id: 'P029', name: 'CNY Floral Tank Top', category: 'CNYSales', price: 'RM 59.00', stock: 60, status: 'In Stock' },
     { id: 'P030', name: 'Last Call Denim Jacket', category: 'LastChances', price: 'RM 99.00', stock: 4, status: 'Low Stock' }
 ];
+
+const customers = [
+    { id: 'C001', name: 'John Doe', email: 'john.doe@email.com', totalOrders: 5, totalSpent: 'RM 824.00', lastOrder: '2025-01-08', status: 'active' },
+    { id: 'C002', name: 'Jane Smith', email: 'jane.smith@email.com', totalOrders: 3, totalSpent: 'RM 245.00', lastOrder: '2025-01-07', status: 'active' },
+    { id: 'C003', name: 'Alice Brown', email: 'alice.b@email.com', totalOrders: 8, totalSpent: 'RM 1230.00', lastOrder: '2025-01-06', status: 'active' },
+    { id: 'C004', name: 'Michael Green', email: 'm.green@email.com', totalOrders: 2, totalSpent: 'RM 320.00', lastOrder: '2025-01-05', status: 'inactive' },
+    { id: 'C005', name: 'Emily White', email: 'e.white@email.com', totalOrders: 6, totalSpent: 'RM 900.00', lastOrder: '2025-01-04', status: 'active' },
+    { id: 'C006', name: 'David Black', email: 'david.b@email.com', totalOrders: 1, totalSpent: 'RM 80.00', lastOrder: '2025-01-03', status: 'inactive' },
+    { id: 'C007', name: 'Sophia Gray', email: 's.gray@email.com', totalOrders: 4, totalSpent: 'RM 610.00', lastOrder: '2025-01-02', status: 'active' },
+    { id: 'C008', name: 'Daniel Wilson', email: 'd.wilson@email.com', totalOrders: 7, totalSpent: 'RM 1150.00', lastOrder: '2025-01-01', status: 'active' },
+    { id: 'C009', name: 'Laura Evans', email: 'l.evans@email.com', totalOrders: 3, totalSpent: 'RM 385.00', lastOrder: '2024-12-31', status: 'active' },
+    { id: 'C010', name: 'Chris Taylor', email: 'c.taylor@email.com', totalOrders: 2, totalSpent: 'RM 195.00', lastOrder: '2024-12-30', status: 'inactive' },
+    { id: 'C011', name: 'Oliver Harris', email: 'o.harris@email.com', totalOrders: 9, totalSpent: 'RM 1600.00', lastOrder: '2025-01-09', status: 'active' },
+    { id: 'C012', name: 'Megan Johnson', email: 'm.johnson@email.com', totalOrders: 3, totalSpent: 'RM 250.00', lastOrder: '2025-01-07', status: 'inactive' },
+    { id: 'C013', name: 'James Miller', email: 'james.m@email.com', totalOrders: 5, totalSpent: 'RM 785.00', lastOrder: '2025-01-06', status: 'active' },
+    { id: 'C014', name: 'Rachel Moore', email: 'r.moore@email.com', totalOrders: 2, totalSpent: 'RM 150.00', lastOrder: '2025-01-05', status: 'inactive' },
+    { id: 'C015', name: 'Henry Lee', email: 'h.lee@email.com', totalOrders: 8, totalSpent: 'RM 1300.00', lastOrder: '2025-01-04', status: 'active' },
+    { id: 'C016', name: 'Zoe Harris', email: 'z.harris@email.com', totalOrders: 4, totalSpent: 'RM 500.00', lastOrder: '2025-01-03', status: 'active' },
+    { id: 'C017', name: 'George King', email: 'g.king@email.com', totalOrders: 7, totalSpent: 'RM 1100.00', lastOrder: '2025-01-02', status: 'active' },
+    { id: 'C018', name: 'Lily Clark', email: 'l.clark@email.com', totalOrders: 3, totalSpent: 'RM 315.00', lastOrder: '2025-01-01', status: 'inactive' },
+    { id: 'C019', name: 'Jack Adams', email: 'j.adams@email.com', totalOrders: 6, totalSpent: 'RM 950.00', lastOrder: '2024-12-31', status: 'active' },
+    { id: 'C020', name: 'Charlotte White', email: 'charlotte.w@email.com', totalOrders: 4, totalSpent: 'RM 620.00', lastOrder: '2024-12-30', status: 'active' },
+    { id: 'C021', name: 'Oscar Scott', email: 'o.scott@email.com', totalOrders: 5, totalSpent: 'RM 825.00', lastOrder: '2024-12-29', status: 'inactive' },
+    { id: 'C022', name: 'Emma Walker', email: 'e.walker@email.com', totalOrders: 2, totalSpent: 'RM 210.00', lastOrder: '2024-12-28', status: 'active' },
+    { id: 'C023', name: 'Lucas Turner', email: 'l.turner@email.com', totalOrders: 3, totalSpent: 'RM 375.00', lastOrder: '2024-12-27', status: 'active' },
+    { id: 'C024', name: 'Sophie Robinson', email: 's.robinson@email.com', totalOrders: 7, totalSpent: 'RM 1050.00', lastOrder: '2024-12-26', status: 'inactive' },
+    { id: 'C025', name: 'William Martinez', email: 'w.martinez@email.com', totalOrders: 1, totalSpent: 'RM 50.00', lastOrder: '2024-12-25', status: 'inactive' },
+    { id: 'C026', name: 'Chloe Evans', email: 'c.evans@email.com', totalOrders: 6, totalSpent: 'RM 870.00', lastOrder: '2024-12-24', status: 'active' },
+    { id: 'C027', name: 'Benjamin Rodriguez', email: 'b.rodriguez@email.com', totalOrders: 2, totalSpent: 'RM 230.00', lastOrder: '2024-12-23', status: 'inactive' },
+    { id: 'C028', name: 'Madison Martinez', email: 'm.martinez@email.com', totalOrders: 8, totalSpent: 'RM 1155.00', lastOrder: '2024-12-22', status: 'active' },
+    { id: 'C029', name: 'Joshua Lopez', email: 'j.lopez@email.com', totalOrders: 4, totalSpent: 'RM 520.00', lastOrder: '2024-12-21', status: 'active' },
+    { id: 'C030', name: 'Amelia Perez', email: 'a.perez@email.com', totalOrders: 3, totalSpent: 'RM 400.00', lastOrder: '2024-12-20', status: 'inactive' }
+];
+
 
 
 // Navigation functionality
@@ -396,6 +433,8 @@ document.addEventListener('DOMContentLoaded', function () {
     populateOrdersTable();
     displayOrdersPage(1);
     populateProductsTable();
+    displayCustomersPage(1);
+    setupCustomerEventListeners();
 });
 
 
@@ -845,4 +884,277 @@ function applyProductsFilters() {
 
     // Close the filter modal
     modal.style.display = 'none';
+}
+
+
+// Display customers for current page
+function displayCustomersPage(page) {
+    const startIndex = (page - 1) * customersPerPage;
+    const endIndex = startIndex + customersPerPage;
+    const paginatedCustomers = customers.slice(startIndex, endIndex);
+    
+    const tableBody = document.getElementById('customersTableBody');
+    tableBody.innerHTML = '';
+    
+    if (paginatedCustomers.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td colspan="8" class="empty-table-indicator">No customers available</td>
+        `;
+        tableBody.appendChild(row);
+    } else {
+        paginatedCustomers.forEach(customer => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${customer.id}</td>
+                <td>${customer.name}</td>
+                <td>${customer.email}</td>
+                <td>${customer.totalOrders}</td>
+                <td>${customer.totalSpent}</td>
+                <td>${customer.lastOrder}</td>
+                <td>
+                    <span class="status-tag status-${customer.status.toLowerCase()}">
+                        ${customer.status}
+                    </span>
+                </td>
+                <td>
+                    <button class="action-btn view-customer-btn" data-id="${customer.id}">
+                        <img src="/Sources/EyeIcon.png" class="eye"></img>
+                    </button>
+                    <button class="action-btn edit-customer-btn" data-id="${customer.id}">
+                        <img src="/Sources/EditPenIcon.png" class="edit"></img>
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+    
+    updateCustomerPaginationControls();
+}
+
+// Update pagination controls for customers
+function updateCustomerPaginationControls() {
+    const totalPages = Math.ceil(customers.length / customersPerPage);
+    const pageInfo = document.getElementById('pageInfoCustomers');
+    const prevBtn = document.getElementById('prevPageCustomers');
+    const nextBtn = document.getElementById('nextPageCustomers');
+    
+    pageInfo.textContent = `Page ${currentCustomerPage} of ${totalPages}`;
+    prevBtn.disabled = currentCustomerPage === 1;
+    nextBtn.disabled = currentCustomerPage === totalPages;
+}
+
+// Setup event listeners for customers section
+function setupCustomerEventListeners() {
+    // Pagination
+    document.getElementById('prevPageCustomers').addEventListener('click', () => {
+        if (currentCustomerPage > 1) {
+            currentCustomerPage--;
+            displayCustomersPage(currentCustomerPage);
+        }
+    });
+
+    document.getElementById('nextPageCustomers').addEventListener('click', () => {
+        const totalPages = Math.ceil(customers.length / customersPerPage);
+        if (currentCustomerPage < totalPages) {
+            currentCustomerPage++;
+            displayCustomersPage(currentCustomerPage);
+        }
+    });
+
+    // Filter button
+    document.querySelector('.filter-btn-customers').addEventListener('click', showCustomerFilters);
+    
+    // Reset button
+    document.querySelector('.reset-btn-customers').addEventListener('click', () => {
+        currentCustomerPage = 1;
+        displayCustomersPage(currentCustomerPage);
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.view-customer-btn')) {
+            const customerId = e.target.closest('.view-customer-btn').getAttribute('data-id');
+            showCustomerDetails(customerId);
+        }
+        if (e.target.closest('.edit-customer-btn')) {
+            const customerId = e.target.closest('.edit-customer-btn').getAttribute('data-id');
+            editCustomerDetails(customerId);
+        }
+    });
+}
+
+// Show customer filters modal
+function showCustomerFilters() {
+    const filterModal = document.createElement('div');
+    filterModal.innerHTML = `
+        <div class="filter-options">
+            <h3>Filter Customers</h3>
+            <div class="filter-group">
+                <label>Status:</label>
+                <label>
+                    <input type="checkbox" value="active"> Active
+                </label>
+                <label>
+                    <input type="checkbox" value="inactive"> Inactive
+                </label>
+            </div>
+            <button onclick="applyCustomerFilters()">Apply Filters</button>
+        </div>
+    `;
+    
+    document.querySelector('.order-details').innerHTML = '';
+    document.querySelector('.order-details').appendChild(filterModal);
+    modal.style.display = 'block';
+}
+
+// Apply customer filters
+function applyCustomerFilters() {
+    const statusFilters = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
+        .map(input => input.value);
+
+    const filteredCustomers = customers.filter(customer => {
+        const statusMatch = statusFilters.length === 0 || statusFilters.includes(customer.status);
+
+        return statusMatch ;
+    });
+
+    displayFilteredCustomers(filteredCustomers);
+    modal.style.display = 'none';
+}
+
+// Display filtered customers
+function displayFilteredCustomers(filteredCustomers) {
+    currentCustomerPage = 1;
+    const startIndex = 0;
+    const endIndex = customersPerPage;
+    const paginatedCustomers = filteredCustomers.slice(startIndex, endIndex);
+
+    const tableBody = document.getElementById('customersTableBody');
+    tableBody.innerHTML = '';
+
+    if (paginatedCustomers.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td colspan="8" class="empty-table-indicator">No customers found</td>
+        `;
+        tableBody.appendChild(row);
+    } else {
+        paginatedCustomers.forEach(customer => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${customer.id}</td>
+                <td>${customer.name}</td>
+                <td>${customer.email}</td>
+                <td>${customer.totalOrders}</td>
+                <td>${customer.totalSpent}</td>
+                <td>${customer.lastOrder}</td>
+                <td>
+                    <span class="status-tag status-${customer.status.toLowerCase()}">
+                        ${customer.status}
+                    </span>
+                </td>
+                <td>
+                    <button class="action-btn view-customer-btn" data-id="${customer.id}">
+                        <img src="/Sources/EyeIcon.png" class="eye"></img>
+                    </button>
+                    <button class="action-btn edit-customer-btn" data-id="${customer.id}">
+                        <img src="/Sources/EditPenIcon.png" class="edit"></img>
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    const totalPages = Math.ceil(filteredCustomers.length / customersPerPage);
+    const pageInfo = document.getElementById('pageInfoCustomers');
+    const prevBtn = document.getElementById('prevPageCustomers');
+    const nextBtn = document.getElementById('nextPageCustomers');
+    
+    pageInfo.textContent = `Page ${currentCustomerPage} of ${totalPages}`;
+    prevBtn.disabled = currentCustomerPage === 1;
+    nextBtn.disabled = currentCustomerPage === totalPages || filteredCustomers.length <= customersPerPage;
+}
+
+function showCustomerDetails(customerId) {
+    const customer = customers.find(c => c.id === customerId);
+    if (customer) {
+        const modalContent = `
+            <div class="detail-row">
+                <span class="label">Customer ID:</span>
+                <span class="value">${customer.id}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Name:</span>
+                <span class="value">${customer.name}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Email:</span>
+                <span class="value">${customer.email}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Total Orders:</span>
+                <span class="value">${customer.totalOrders}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Total Spent:</span>
+                <span class="value">${customer.totalSpent}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Last Order:</span>
+                <span class="value">${customer.lastOrder}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Status:</span>
+                <span class="value">${customer.status}</span>
+            </div>
+        `;
+        document.querySelector('.order-details').innerHTML = modalContent;
+        modal.style.display = 'block';
+    }
+}
+
+// Function to edit customer details
+function editCustomerDetails(customerId) {
+    const customer = customers.find(c => c.id === customerId);
+    if (customer) {
+        const editForm = `
+            <div class="customer-form">
+                <h3>Edit Customer ${customer.id}</h3>
+                <form id="editCustomerForm">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" name="name" value="${customer.name}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" name="email" value="${customer.email}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Status:</label>
+                        <select name="status">
+                            <option value="active" ${customer.status === 'active' ? 'selected' : ''}>Active</option>
+                            <option value="inactive" ${customer.status === 'inactive' ? 'selected' : ''}>Inactive</option>
+                        </select>
+                    </div>
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
+        `;
+        document.querySelector('.order-details').innerHTML = editForm;
+        modal.style.display = 'block';
+
+        document.getElementById('editCustomerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            customer.name = this.name.value;
+            customer.email = this.email.value;
+            customer.status = this.status.value;
+
+
+
+            displayCustomersPage(currentCustomerPage); // Refresh the customers table
+            modal.style.display = 'none'; // Close modal
+        });
+    }
 }

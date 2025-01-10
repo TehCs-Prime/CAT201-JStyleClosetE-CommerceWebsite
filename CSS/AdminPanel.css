@@ -514,6 +514,8 @@ button.action-btn.delete-btn{
 .form-group label {
     display: block;
     margin-bottom: 5px;
+    justify-items: center;
+    justify-self: center;
 }
 
 .form-group input,
@@ -527,3 +529,125 @@ button.action-btn.delete-btn{
 .status-in-stock { background-color: #4CAF50; }
 .status-low-stock { background-color: #FFA500; }
 .status-out-of-stock { background-color: #FF0000; }
+
+.customers-section {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section header styles */
+.customers-section .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.customers-section .section-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.customers-section .header-actions button {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-color: #1a1a1a;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+
+.customers-section .header-actions button:hover {
+    background: #0056b3;
+}
+
+/* Table styles */
+.customers-table-wrapper {
+    overflow-x: auto;
+}
+
+.customers-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.customers-table th,
+.customers-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.customers-table th {
+    background: #f1f1f1;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.customers-table tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.customers-table .status-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.customers-table .status-active {
+    background: #28a745;
+    color: white;
+}
+
+.customers-table .status-inactive {
+    background: #dc3545;
+    color: white;
+}
+
+/* Pagination styles */
+.customers-table-wrapper .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.customers-table-wrapper .pagination-btn {
+    padding: 8px 12px;
+    margin: 0 4px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+
+.customers-table-wrapper .pagination-btn:disabled {
+    background: #ddd;
+    cursor: not-allowed;
+}
+
+.customers-table-wrapper .pagination-btn:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+.customers-table-wrapper #pageInfoCustomers {
+    margin: 0 12px;
+    font-size: 16px;
+    color: #555;
+}
+
+.action-btn.view-customer-btn, .action-btn.edit-customer-btn{
+    background: transparent;
+    border: 0;
+}
