@@ -745,9 +745,14 @@ function handleEditProduct(productId) {
                     <div class="form-group">
                         <label>Category:</label>
                         <select name="category" required>
-                            <option value="Clothing" ${product.category === 'Clothing' ? 'selected' : ''}>Clothing</option>
-                            <option value="Accessories" ${product.category === 'Accessories' ? 'selected' : ''}>Accessories</option>
-                            <option value="Gifts" ${product.category === 'Gifts' ? 'selected' : ''}>Gifts</option>
+                            <option value="T-shirts" ${product.category === 'T-shirts' ? 'selected' : ''}>T-shirts</option>
+                            <option value="Top" ${product.category === 'Top' ? 'selected' : ''}>Top</option>
+                            <option value="Dress" ${product.category === 'Dress' ? 'selected' : ''}>Dress</option>
+                            <option value="Outwear" ${product.category === 'Outwear' ? 'selected' : ''}>Outwear</option>
+                            <option value="Bottom" ${product.category === 'Bottom' ? 'selected' : ''}>Bottom</option>
+                            <option value="Basic" ${product.category === 'Basic' ? 'selected' : ''}>Basic</option>
+                            <option value="CNYSales" ${product.category === 'CNYSales' ? 'selected' : ''}>Chinese New Year Sales</option>
+                            <option value="LastChances" ${product.category === 'LastChances' ? 'selected' : ''}>Last Chances</option>
                         </select>
                     </div>
                     <div class="form-group">

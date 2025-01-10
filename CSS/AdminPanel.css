@@ -149,9 +149,9 @@
 .stat-icon.Revenue p {color: chartreuse;}
 
 .stat-icon.orders { background-image: url(/Sources/OrderIcon.png);}
-.stat-icon.revenue { background-image: url(/Sources/icons8-revenue-68.png);}
-.stat-icon.carts { background-image: url(/Sources/CartIcons.png);}
-.stat-icon.customers { background-image: url(/Sources/CustomerIcon.png);}
+.stat-icon.revenue { background-image: url(/Sources/RevenuesIcon.png);}
+.stat-icon.pending { background-image: url(/Sources/PendingOrdersIcon.png);}
+.stat-icon.customers { background-image: url(/Sources/CustomersIcon.png);}
 
 /* Recent Orders Table */
 .recent-orders {
