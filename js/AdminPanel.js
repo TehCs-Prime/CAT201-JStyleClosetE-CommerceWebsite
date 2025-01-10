@@ -34,6 +34,38 @@ const orders = [
     { id: '#12374', customer: 'Isabella Murphy', products: ['Gold Bracelet'], total: 'RM 450.00', status: 'cancelled', date: '2024-12-11' }
 ];
 
+const products = [
+    { id: 'P001', name: 'Comfort Fit T-shirt', category: 'T-shirts', price: 'RM 39.00', stock: 70, status: 'In Stock' },
+    { id: 'P002', name: 'V-Neck Top', category: 'Top', price: 'RM 49.00', stock: 20, status: 'In Stock' },
+    { id: 'P003', name: 'High-Waist Skinny Jeans', category: 'Bottom', price: 'RM 89.00', stock: 5, status: 'Low Stock' },
+    { id: 'P004', name: 'Floral Summer Dress', category: 'Dress', price: 'RM 109.00', stock: 0, status: 'Out of Stock' },
+    { id: 'P005', name: 'Classic Black Blazer', category: 'Outwear', price: 'RM 199.00', stock: 15, status: 'In Stock' },
+    { id: 'P006', name: 'Basic Crew Neck Tee', category: 'Basic', price: 'RM 29.00', stock: 100, status: 'In Stock' },
+    { id: 'P007', name: 'CNY Red Blouse', category: 'CNYSales', price: 'RM 79.00', stock: 30, status: 'In Stock' },
+    { id: 'P008', name: 'Final Markdown Midi Skirt', category: 'LastChances', price: 'RM 59.00', stock: 3, status: 'Low Stock' },
+    { id: 'P009', name: 'Loose Fit T-shirt', category: 'T-shirts', price: 'RM 35.00', stock: 50, status: 'In Stock' },
+    { id: 'P010', name: 'Sleeveless Basic Top', category: 'Basic', price: 'RM 39.00', stock: 25, status: 'In Stock' },
+    { id: 'P011', name: 'Elegant Evening Gown', category: 'Dress', price: 'RM 259.00', stock: 8, status: 'Low Stock' },
+    { id: 'P012', name: 'Light Denim Shorts', category: 'Bottom', price: 'RM 79.00', stock: 0, status: 'Out of Stock' },
+    { id: 'P013', name: 'Fitted Blouse', category: 'Top', price: 'RM 69.00', stock: 60, status: 'In Stock' },
+    { id: 'P014', name: 'CNY Printed Qipao', category: 'CNYSales', price: 'RM 149.00', stock: 10, status: 'In Stock' },
+    { id: 'P015', name: 'Oversized Cardigan', category: 'Outwear', price: 'RM 149.00', stock: 12, status: 'In Stock' },
+    { id: 'P016', name: 'Final Clearance Joggers', category: 'LastChances', price: 'RM 79.00', stock: 2, status: 'Low Stock' },
+    { id: 'P017', name: 'Ribbed Tank Top', category: 'Top', price: 'RM 45.00', stock: 40, status: 'In Stock' },
+    { id: 'P018', name: 'Slim Fit Chinos', category: 'Bottom', price: 'RM 109.00', stock: 15, status: 'In Stock' },
+    { id: 'P019', name: 'Graphic Print T-shirt', category: 'T-shirts', price: 'RM 49.00', stock: 0, status: 'Out of Stock' },
+    { id: 'P020', name: 'Wrap Maxi Dress', category: 'Dress', price: 'RM 169.00', stock: 20, status: 'In Stock' },
+    { id: 'P021', name: 'Hooded Sweatshirt', category: 'Outwear', price: 'RM 119.00', stock: 25, status: 'In Stock' },
+    { id: 'P022', name: 'Final Sale Leggings', category: 'LastChances', price: 'RM 49.00', stock: 1, status: 'Low Stock' },
+    { id: 'P023', name: 'CNY Satin Skirt', category: 'CNYSales', price: 'RM 99.00', stock: 35, status: 'In Stock' },
+    { id: 'P024', name: 'Basic Sweatpants', category: 'Basic', price: 'RM 69.00', stock: 50, status: 'In Stock' },
+    { id: 'P025', name: 'Wide Leg Trousers', category: 'Bottom', price: 'RM 139.00', stock: 5, status: 'Low Stock' },
+    { id: 'P026', name: 'Casual Striped T-shirt', category: 'T-shirts', price: 'RM 39.00', stock: 45, status: 'In Stock' },
+    { id: 'P027', name: 'Lace Party Dress', category: 'Dress', price: 'RM 199.00', stock: 0, status: 'Out of Stock' },
+    { id: 'P028', name: 'Cropped Jacket', category: 'Outwear', price: 'RM 179.00', stock: 18, status: 'In Stock' },
+    { id: 'P029', name: 'CNY Floral Tank Top', category: 'CNYSales', price: 'RM 59.00', stock: 60, status: 'In Stock' },
+    { id: 'P030', name: 'Last Call Denim Jacket', category: 'LastChances', price: 'RM 99.00', stock: 4, status: 'Low Stock' }
+];
 
 
 // Navigation functionality
@@ -363,6 +395,7 @@ filterBtn.addEventListener('click', function() {
 document.addEventListener('DOMContentLoaded', function () {
     populateOrdersTable();
     displayOrdersPage(1);
+    populateProductsTable();
 });
 
 
@@ -555,4 +588,261 @@ function populateTotalOrdersTableWithData(data) {
     pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages || data.length <= ordersPerPage;
+}
+
+function populateProductsTable() {
+    const PtableBody = document.getElementById('productsTableBody');
+    if (!PtableBody) {
+        const productsSection = document.getElementById('products');
+        productsSection.innerHTML = ``;
+    }
+
+    PtableBody.innerHTML = '';
+    
+    products.forEach(product => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.category}</td>
+            <td>${product.price}</td>
+            <td>${product.stock}</td>
+            <td><span class="status-tag status-${product.status.toLowerCase().replace(' ', '-')}">${product.status}</span></td>
+            <td>
+                <button class="action-btn edit-btn" data-id="${product.id}">
+                    <img src="/Sources/EditPenIcon.png" class="edit"></img>
+                </button>
+                <button class="action-btn Pdelete-btn" data-id="${product.id}">
+                    <img src="/Sources/TrashIcon.png" class="trash"></img>
+                </button>
+            </td>
+        `;
+        PtableBody.appendChild(row);
+    });
+}
+
+function handleAddProduct() {
+    const productForm = document.createElement('div');
+    productForm.innerHTML = `
+        <div class="product-form">
+            <h3>Add New Product</h3>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select name="category" required>
+                        <option value="T-shirts">T-shirts</option>
+                        <option value="Top">Top</option>
+                        <option value="Dress">Dress</option>
+                        <option value="Outwear">Outwear</option>
+                        <option value="Bottom">Bottom</option>
+                        <option value="Basic">Basic</option>
+                        <option value="CNYSales">Chinese New Year Sales</option>
+                        <option value="LastChances">Last Chances</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price (RM):</label>
+                    <input type="number" name="price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Stock:</label>
+                    <input type="number" name="stock" required>
+                </div>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    `;
+
+    document.querySelector('.order-details').innerHTML = '';
+    document.querySelector('.order-details').appendChild(productForm);
+    modal.style.display = 'block';
+
+    document.getElementById('addProductForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const newProduct = {
+            id: 'P' + (products.length + 1).toString().padStart(3, '0'),
+            name: this.name.value,
+            category: this.category.value,
+            price: 'RM ' + parseFloat(this.price.value).toFixed(2),
+            stock: parseInt(this.stock.value),
+            status: parseInt(this.stock.value) === 0 ? 'Out of Stock' : 
+                   parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock'
+        };
+        products.push(newProduct);
+        populateProductsTable();
+        modal.style.display = 'none';
+    });
+}
+
+// Add event listeners
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.add-product-btn')) {
+        handleAddProduct();
+    } else if (e.target.closest('.edit-btn')) {
+        const productId = e.target.closest('.edit-btn').getAttribute('data-id');
+        handleEditProduct(productId);
+    } else if (e.target.closest('.Pdelete-btn')) {
+        const productId = e.target.closest('.Pdelete-btn').getAttribute('data-id');
+        handleDeleteProduct(productId);
+    }
+});
+
+function handleEditProduct(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+        const editForm = document.createElement('div');
+        editForm.innerHTML = `
+            <div class="product-form">
+                <h3>Edit Product ${product.id}</h3>
+                <form id="editProductForm">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" name="name" value="${product.name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category:</label>
+                        <select name="category" required>
+                            <option value="Clothing" ${product.category === 'Clothing' ? 'selected' : ''}>Clothing</option>
+                            <option value="Accessories" ${product.category === 'Accessories' ? 'selected' : ''}>Accessories</option>
+                            <option value="Gifts" ${product.category === 'Gifts' ? 'selected' : ''}>Gifts</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (RM):</label>
+                        <input type="number" name="price" step="0.01" value="${product.price.replace('RM ', '')}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Stock:</label>
+                        <input type="number" name="stock" value="${product.stock}" required>
+                    </div>
+                    <button type="submit">Update Product</button>
+                </form>
+            </div>
+        `;
+
+        document.querySelector('.order-details').innerHTML = '';
+        document.querySelector('.order-details').appendChild(editForm);
+        modal.style.display = 'block';
+
+        document.getElementById('editProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            product.name = this.name.value;
+            product.category = this.category.value;
+            product.price = 'RM ' + parseFloat(this.price.value).toFixed(2);
+            product.stock = parseInt(this.stock.value);
+            product.status = parseInt(this.stock.value) === 0 ? 'Out of Stock' : 
+                           parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock';
+            
+            populateProductsTable();
+            modal.style.display = 'none';
+        });
+    }
+}
+
+function handleDeleteProduct(productId) {
+    if (confirm('Are you sure you want to delete this product?')) {
+        const index = products.findIndex(p => p.id === productId);
+        if (index !== -1) {
+            products.splice(index, 1);
+            populateProductsTable();
+        }
+    }
+}
+
+document.querySelector('.filter-btn-products').addEventListener('click', function() {
+    // Get unique categories from products
+    const categories = [...new Set(products.map(product => product.category))];
+    
+    const filterModal = document.createElement('div');
+    filterModal.innerHTML = `
+        <div class="filter-options">
+            <h3>Filter Products</h3>
+            <div class="filter-group">
+                <p>Category:</p>
+                ${categories.map(category => `
+                    <label>
+                        <input type="checkbox" value="${category}"> ${category}
+                    </label>
+                `).join('')}
+            </div>
+            <div class="filter-group">
+                <label>Stock Status:</label>
+                <label>
+                    <input type="checkbox" value="In Stock"> In Stock
+                </label>
+                <label>
+                    <input type="checkbox" value="Low Stock"> Low Stock
+                </label>
+                <label>
+                    <input type="checkbox" value="Out of Stock"> Out of Stock
+                </label>
+            </div>
+            <button onclick="applyProductsFilters()">Apply Filters</button>
+        </div>
+    `;
+    
+    document.querySelector('.order-details').innerHTML = '';
+    document.querySelector('.order-details').appendChild(filterModal);
+    modal.style.display = 'block';
+});
+
+// Reset functionality for products section
+document.querySelector('.reset-btn-products').addEventListener('click', function() {
+    populateProductsTable();
+});
+
+function applyProductsFilters() {
+    const filterOptions = {
+        categories: Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
+            .map(input => input.value)
+    };
+
+    const filteredProducts = products.filter(product => {
+        // If no categories are selected, show all products
+        if (filterOptions.categories.length === 0) return true;
+        
+        // Check if product category or status matches any selected filter
+        return filterOptions.categories.includes(product.category) || 
+               filterOptions.categories.includes(product.status);
+    });
+
+    // Update products table with filtered data
+    const PtableBody = document.getElementById('productsTableBody');
+    PtableBody.innerHTML = '';
+    
+    if (filteredProducts.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td colspan="7" class="empty-table-indicator">No products found</td>
+        `;
+        PtableBody.appendChild(row);
+    } else {
+        filteredProducts.forEach(product => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.category}</td>
+                <td>${product.price}</td>
+                <td>${product.stock}</td>
+                <td><span class="status-tag status-${product.status.toLowerCase().replace(' ', '-')}">${product.status}</span></td>
+                <td>
+                    <button class="action-btn edit-btn" data-id="${product.id}">
+                        <img src="/Sources/EditPenIcon.png" class="edit"></img>
+                    </button>
+                    <button class="action-btn Pdelete-btn" data-id="${product.id}">
+                        <img src="/Sources/TrashIcon.png" class="trash"></img>
+                    </button>
+                </td>
+            `;
+            PtableBody.appendChild(row);
+        });
+    }
+
+    // Close the filter modal
+    modal.style.display = 'none';
 }

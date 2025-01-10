@@ -245,9 +245,10 @@
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
+    margin: 0% auto;
     padding: 32px;
     width: 90%;
+    align-content: center;
     height: auto;
     max-width: 600px;
     border-radius: 16px;
@@ -282,7 +283,10 @@
 
 .filter-group {
     margin-bottom: 2vh;
-    justify-self: center;
+    justify-items: center;
+    gap: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
 
 .filter-group label {
@@ -462,3 +466,64 @@ button.action-btn.delete-btn{
         overflow-x: auto;
     }
 }
+
+
+.products-section {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.products-table th,
+.products-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.add-product-btn {
+    background-color: #4CAF50;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.action-btn.Pdelete-btn {
+    border: 0;
+    background-color: transparent;
+}
+
+.product-form {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.status-in-stock { background-color: #4CAF50; }
+.status-low-stock { background-color: #FFA500; }
+.status-out-of-stock { background-color: #FF0000; }
