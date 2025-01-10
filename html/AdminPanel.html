@@ -72,11 +72,11 @@
 
                     <div class="stat-card">
                         <div class="stat-value">
-                            <h3>Active Carts</h3>
-                            <p>38</p>
+                            <h3>Pending Orders</h3>
+                            <p>99</p>
                         </div>
-                        <div class="stat-icon carts">
-                            <i class="shopping-cart"></i>
+                        <div class="stat-icon pending">
+                            <i class="pending-orders"></i>
                         </div>
                     </div>
 
@@ -166,11 +166,72 @@
 
             <!-- Products Section -->
             <div class="content-section" id="products">
-                <!-- Products content here -->
+                <div class="products-section">
+                    <div class="section-header">
+                        <h2>Products</h2>
+                        <div class="header-actions">
+                            <button class="add-product-btn">Add Product</button>
+                            <button class="filter-btn-products">Filter</button>
+                            <button class="reset-btn-products">Reset</button>
+                        </div>
+                    </div>
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody"></tbody>
+                        <!-- Products content here -->
+                    </table>
+                </div>
             </div>
 
+            <!-- Customers Section -->
             <div class="content-section" id="customers">
-                <!-- Products content here -->
+                <div class="customers-section">
+                    <div class="section-header">
+                        <h2>Customers</h2>
+                        <div class="header-actions">
+                            <button class="filter-btn-customers">
+                                <i class="filter"></i> Filter
+                            </button>
+                            <button class="reset-btn-customers">
+                                <i class="reset"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                    <div class="customers-table-wrapper">
+                        <table class="customers-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Total Orders</th>
+                                    <th>Total Spent</th>
+                                    <th>Last Order</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTableBody">
+                                <!-- Customers will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevPageCustomers">Previous</button>
+                            <span id="pageInfoCustomers">Page 1 of 1</span>
+                            <button class="pagination-btn" id="nextPageCustomers">Next</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
