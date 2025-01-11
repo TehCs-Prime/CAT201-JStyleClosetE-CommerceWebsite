@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+</head>
+<body>
+<h2>Add New Product</h2>
+<form action="ProductServlet" method="POST">
+    <label for="name">Product Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="category">Category:</label><br>
+    <input type="text" id="category" name="category" required><br><br>
+
+    <label for="price">Price:</label><br>
+    <input type="text" id="price" name="price" required><br><br>
+
+    <label for="quantity">Quantity:</label><br>
+    <input type="text" id="quantity" name="quantity" required><br><br>
+
+    <button type="submit">Add Product</button>
+</form>
+</body>
+</html>
