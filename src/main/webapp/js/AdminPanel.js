@@ -37,7 +37,8 @@ const orders = [
     { id: '#12374', customer: 'Isabella Murphy', products: ['Gold Bracelet'], total: 'RM 450.00', status: 'cancelled', date: '2024-12-11' }
 ];
 
-let customers = [
+
+const customers = [
     { id: 'C001', name: 'John Doe', email: 'john.doe@email.com', totalOrders: 5, totalSpent: 'RM 824.00', lastOrder: '2025-01-08', status: 'active' },
     { id: 'C002', name: 'Jane Smith', email: 'jane.smith@email.com', totalOrders: 3, totalSpent: 'RM 245.00', lastOrder: '2025-01-07', status: 'active' },
     { id: 'C003', name: 'Alice Brown', email: 'alice.b@email.com', totalOrders: 8, totalSpent: 'RM 1230.00', lastOrder: '2025-01-06', status: 'active' },
@@ -71,6 +72,7 @@ let customers = [
 ];
 
 
+
 // Navigation functionality
 document.querySelectorAll('.nav-links li').forEach(link => {
     link.addEventListener('click', function() {
@@ -78,7 +80,7 @@ document.querySelectorAll('.nav-links li').forEach(link => {
         document.querySelectorAll('.nav-links li').forEach(l => l.classList.remove('active'));
         // Add active class to clicked link
         this.classList.add('active');
-        
+
         // Show corresponding content section
         const tabId = this.getAttribute('data-tab');
         document.querySelectorAll('.content-section').forEach(section => {
@@ -87,7 +89,6 @@ document.querySelectorAll('.nav-links li').forEach(link => {
         document.getElementById(tabId).classList.add('active');
     });
 });
-
 
 // Populate orders table
 function populateOrdersTable() {
@@ -107,8 +108,8 @@ function populateOrdersTable() {
     }
     else {
         recentOrders.forEach(order => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+            const row = document.createElement('tr');
+            row.innerHTML = `
             <td>${order.id}</td>
             <td>${order.customer}</td>
             <td>${order.products.join(', ')}</td>
@@ -131,8 +132,8 @@ function populateOrdersTable() {
                 </button>
             </td>
         `;
-        tableBody.appendChild(row);
-    });
+            tableBody.appendChild(row);
+        });
     }
 
 }
@@ -272,8 +273,8 @@ function populateOrdersTableWithData(data) {
     }
     else {
         data.forEach(order => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+            const row = document.createElement('tr');
+            row.innerHTML = `
             <td>${order.id}</td>
             <td>${order.customer}</td>
             <td>${order.products.join(', ')}</td>
@@ -296,8 +297,8 @@ function populateOrdersTableWithData(data) {
                 </button>
             </td>
         `;
-        tableBody.appendChild(row);
-    });
+            tableBody.appendChild(row);
+        });
     }
 }
 
@@ -436,13 +437,13 @@ function displayOrdersPage(page) {
                 <td>${order.date}</td>
                 <td>
                     <button class="action-btn view-btn" data-id="${order.id}">
-                        <img src="./Sources/EyeIcon.png" class="eye" alt=""></img>
+                        <img src="./Sources/EyeIcon.png" class="eye"></img>
                     </button>
                     <button class="action-btn edit-btn" data-id="${order.id}">
-                        <img src="./Sources/EditPenIcon.png" class="edit" alt=""></img>
+                        <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
                     <button class="action-btn delete-btn" data-id="${order.id}">
-                        <img src="./Sources/TrashIcon.png" class="trash" alt=""></img>
+                        <img src="./Sources/TrashIcon.png" class="trash"></img>
                     </button>
                 </td>
             `;
@@ -559,8 +560,8 @@ function populateTotalOrdersTableWithData(data) {
     }
     else {
         paginatedData.forEach(order => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+            const row = document.createElement('tr');
+            row.innerHTML = `
             <td>${order.id}</td>
             <td>${order.customer}</td>
             <td>${order.products.join(', ')}</td>
@@ -583,8 +584,8 @@ function populateTotalOrdersTableWithData(data) {
                 </button>
             </td>
         `;
-        tableBody.appendChild(row);
-    });
+            tableBody.appendChild(row);
+        });
     }
     const totalPages = Math.ceil(data.length / ordersPerPage);
     const pageInfo = document.getElementById('pageInfo');
@@ -596,67 +597,62 @@ function populateTotalOrdersTableWithData(data) {
     nextBtn.disabled = currentPage === totalPages || data.length <= ordersPerPage;
 }
 
-
-
-// Function to fetch products from the ProductServlet
-let products = []; // Global products array
-
-function loadProducts() {
-    fetch('/CATPROJECTFINAL/products')  // Adjust the URL if needed
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(fetchedProducts => {
-            if (!Array.isArray(fetchedProducts)) {
-                throw new Error('Invalid data format: Expected an array of products');
-            }
-            products = fetchedProducts; // Assign to global variable
-            populateProductsTable();
-        })
-        .catch(error => {
-            console.error('Error fetching products:', error);
-        });
-}
-
-
-// Call the loadProducts function when the page loads
-window.onload = loadProducts;
-
-function populateProductsTable() {
+async function populateProductsTable() {
     const PtableBody = document.getElementById('productsTableBody');
     if (!PtableBody) {
         const productsSection = document.getElementById('products');
-        productsSection.innerHTML = ``;
+        productsSection.innerHTML = `No Products Available`;
+        return;
     }
 
+    // Clear any existing rows in the table body
     PtableBody.innerHTML = '';
 
-    products.forEach(product => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${product.id}</td>
-            <td>${product.name}</td>
-            <td>${product.category}</td>
-            <td>${product.price}</td>
-            <td>${product.stock}</td>
-            <td><span class="status-tag status-${product.status.toLowerCase().replace(' ', '-')}">${product.status}</span></td>
-            <td>
-                <button class="action-btn edit-btn" data-id="${product.id}">
-                    <img src="./Sources/EditPenIcon.png" class="edit" alt=""></img>
-                </button>
-                <button class="action-btn Pdelete-btn" data-id="${product.id}">
-                    <img src="./Sources/TrashIcon.png" class="trash" alt=""></img>
-                </button>
-            </td>
-        `;
-        PtableBody.appendChild(row);
-    });
+    try {
+        // Fetch product data from your API
+        const response = await fetch('/CATPROJECTFINAL/products');  // Adjust the URL as per your backend
+        if (!response.ok) {
+            throw new Error('Failed to fetch products');
+        }
+
+        const products = await response.json();  // Assuming the backend returns a JSON array
+
+        if (products.length === 0) {
+            PtableBody.innerHTML = '<tr><td colspan="7">No products available</td></tr>';
+            return;
+        }
+
+        // Iterate through the products and create table rows
+        products.forEach(product => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.category}</td>
+                <td>${product.price}</td>
+                <td>${product.stock}</td>
+                <td><span class="status-tag status-${product.status.toLowerCase().replace(' ', '-')}">${product.status}</span></td>
+                <td>
+                    <button class="action-btn edit-btn" data-id="${product.id}">
+                        <img src="./Sources/EditPenIcon.png" class="edit"></img>
+                    </button>
+                    <button class="action-btn Pdelete-btn" data-id="${product.id}">
+                        <img src="./Sources/TrashIcon.png" class="trash"></img>
+                    </button>
+                </td>
+            `;
+            PtableBody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        const productsSection = document.getElementById('products');
+        productsSection.innerHTML = `Error loading products. Please try again later.`;
+    }
 }
 
-function handleAddProduct() {
+
+async function handleAddProduct() {
     const productForm = document.createElement('div');
     productForm.innerHTML = `
         <div class="product-form">
@@ -696,21 +692,45 @@ function handleAddProduct() {
     document.querySelector('.order-details').appendChild(productForm);
     modal.style.display = 'block';
 
-    document.getElementById('addProductForm').addEventListener('submit', function(e) {
+    // Handle form submission
+    document.getElementById('addProductForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+
+        // Prepare the new product data (WITHOUT the ID)
         const newProduct = {
-            id: 'P' + (products.length + 1).toString().padStart(3, '0'),
             name: this.name.value,
             category: this.category.value,
-            price: 'RM ' + parseFloat(this.price.value).toFixed(2),
+            price: parseFloat(this.price.value).toFixed(2),
             stock: parseInt(this.stock.value),
             status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
-                   parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock'
+                parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock'
         };
-        products.push(newProduct);
-        populateProductsTable();
-        modal.style.display = 'none';
+
+        // Send the new product data to the backend via POST request
+        try {
+            const response = await fetch('/CATPROJECTFINAL/products', {  // Adjust URL to match your backend endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newProduct)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add product');
+            }
+
+            // Update the products table after successfully adding the product
+            await populateProductsTable();
+
+            // Close the modal
+            modal.style.display = 'none';
+        } catch (error) {
+            console.error('Error adding product:', error);
+            alert('There was an error adding the product. Please try again.');
+        }
     });
+
 }
 
 
@@ -727,78 +747,127 @@ document.addEventListener('click', function(e) {
     }
 });
 
-function handleEditProduct(productId) {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-        const editForm = document.createElement('div');
-        editForm.innerHTML = `
-            <div class="product-form">
-                <h3>Edit Product ${product.id}</h3>
-                <form id="editProductForm">
-                    <div class="form-group">
-                        <label>Name:</label>
-                        <input type="text" name="name" value="${product.name}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Category:</label>
-                        <select name="category" required>
-                            <option value="T-shirts" ${product.category === 'T-shirts' ? 'selected' : ''}>T-shirts</option>
-                            <option value="Top" ${product.category === 'Top' ? 'selected' : ''}>Top</option>
-                            <option value="Dress" ${product.category === 'Dress' ? 'selected' : ''}>Dress</option>
-                            <option value="Outwear" ${product.category === 'Outwear' ? 'selected' : ''}>Outwear</option>
-                            <option value="Bottom" ${product.category === 'Bottom' ? 'selected' : ''}>Bottom</option>
-                            <option value="Basic" ${product.category === 'Basic' ? 'selected' : ''}>Basic</option>
-                            <option value="CNYSales" ${product.category === 'CNYSales' ? 'selected' : ''}>Chinese New Year Sales</option>
-                            <option value="LastChances" ${product.category === 'LastChances' ? 'selected' : ''}>Last Chances</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Price (RM):</label>
-                        <input type="number" name="price" step="0.01" value="${product.price}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Stock:</label>
-                        <input type="number" name="stock" value="${product.stock}" required>
-                    </div>
-                    <button type="submit">Update Product</button>
-                </form>
-            </div>
-        `;
+async function handleEditProduct(productId) {
+    // Fetch the product data from the backend (your servlet)
+    try {
+        const response = await fetch(`http://localhost:8080/CATPROJECTFINAL/products/${productId}`);
+        const product = await response.json();
 
-        document.querySelector('.order-details').innerHTML = '';
-        document.querySelector('.order-details').appendChild(editForm);
-        modal.style.display = 'block';
+        if (product && product.length > 0) {
+            const selectedProduct = product[0]; // Since the response is wrapped in an array
 
-        document.getElementById('editProductForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            product.name = this.name.value;
-            product.category = this.category.value;
-            product.price = 'RM ' + parseFloat(this.price.value).toFixed(2);
-            product.stock = parseInt(this.stock.value);
-            product.status = parseInt(this.stock.value) === 0 ? 'Out of Stock' :
-                parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock';
+            // Create the edit form HTML
+            const editForm = document.createElement('div');
+            editForm.innerHTML = `
+                <div class="product-form">
+                    <h3>Edit Product ${selectedProduct.id}</h3>
+                    <form id="editProductForm">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" name="name" value="${selectedProduct.name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category:</label>
+                            <select name="category" required>
+                                <option value="T-shirts" ${selectedProduct.category === 'T-shirts' ? 'selected' : ''}>T-shirts</option>
+                                <option value="Top" ${selectedProduct.category === 'Top' ? 'selected' : ''}>Top</option>
+                                <option value="Dress" ${selectedProduct.category === 'Dress' ? 'selected' : ''}>Dress</option>
+                                <option value="Outwear" ${selectedProduct.category === 'Outwear' ? 'selected' : ''}>Outwear</option>
+                                <option value="Bottom" ${selectedProduct.category === 'Bottom' ? 'selected' : ''}>Bottom</option>
+                                <option value="Basic" ${selectedProduct.category === 'Basic' ? 'selected' : ''}>Basic</option>
+                                <option value="CNYSales" ${selectedProduct.category === 'CNYSales' ? 'selected' : ''}>Chinese New Year Sales</option>
+                                <option value="LastChances" ${selectedProduct.category === 'LastChances' ? 'selected' : ''}>Last Chances</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (RM):</label>
+                            <input type="number" name="price" step="0.01" value="${selectedProduct.price.replace('RM ', '')}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock:</label>
+                            <input type="number" name="stock" value="${selectedProduct.stock}" required>
+                        </div>
+                        <button type="submit">Update Product</button>
+                    </form>
+                </div>
+            `;
 
-            populateProductsTable();
-            modal.style.display = 'none';
-        });
+            // Clear the previous content and append the edit form
+            document.querySelector('.order-details').innerHTML = '';
+            document.querySelector('.order-details').appendChild(editForm);
+            modal.style.display = 'block';
+
+            // Handle the form submission
+            document.getElementById('editProductForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                // Prepare the updated product data
+                const updatedProduct = {
+                    id: selectedProduct.id,
+                    name: this.name.value,
+                    category: this.category.value,
+                    price: 'RM ' + parseFloat(this.price.value).toFixed(2),
+                    stock: parseInt(this.stock.value),
+                    status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
+                        parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock',
+                };
+
+                // Send the updated product data to the server using a PUT request
+                const updateResponse = await fetch(`http://localhost:8080/CATPROJECTFINAL/products/${selectedProduct.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedProduct),
+                });
+
+                if (updateResponse.ok) {
+                    // If successful, update the products table and close the modal
+                    populateProductsTable();
+                    modal.style.display = 'none';
+                } else {
+                    alert('Failed to update the product');
+                }
+            });
+        } else {
+            alert('Product not found');
+        }
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        alert('Error fetching product details');
     }
 }
 
 
 
-function handleDeleteProduct(productId) {
+
+async function handleDeleteProduct(productId) {
     if (confirm('Are you sure you want to delete this product?')) {
-        const index = products.findIndex(p => p.id === productId);
-        if (index !== -1) {
-            products.splice(index, 1);
-            populateProductsTable();
+        try {
+            const response = await fetch(`/CATPROJECTFINAL/products/${productId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                alert('Product deleted successfully');
+                // After deleting, refresh the product table
+                await populateProductsTable();
+            } else {
+                alert('Failed to delete the product');
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            alert('There was an error deleting the product. Please try again.');
         }
     }
 }
 
-document.querySelector('.filter-btn-products').addEventListener('click', function() {
-    // Get unique categories from products
-    const categories = [...new Set(products.map(product => product.category))];
+
+document.querySelector('.filter-btn-products').addEventListener('click', async function () {
+    // Fetch unique categories from the database
+    const response = await fetch('/CATPROJECTFINAL/products');
+    const allProducts = await response.json();
+    const categories = [...new Set(allProducts.map(product => product.category))];
 
     const filterModal = document.createElement('div');
     filterModal.innerHTML = `
@@ -834,23 +903,28 @@ document.querySelector('.filter-btn-products').addEventListener('click', functio
 });
 
 // Reset functionality for products section
-document.querySelector('.reset-btn-products').addEventListener('click', function() {
+document.querySelector('.reset-btn-products').addEventListener('click', function () {
     populateProductsTable();
 });
 
-function applyProductsFilters() {
+async function applyProductsFilters() {
     const filterOptions = {
         categories: Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
             .map(input => input.value)
     };
 
-    const filteredProducts = products.filter(product => {
+    // Fetch all products from the JSON database
+    const response = await fetch('/CATPROJECTFINAL/products');
+    const allProducts = await response.json();
+
+    // Filter products based on the selected filters
+    const filteredProducts = allProducts.filter(product => {
         // If no categories are selected, show all products
         if (filterOptions.categories.length === 0) return true;
 
         // Check if product category or status matches any selected filter
         return filterOptions.categories.includes(product.category) ||
-               filterOptions.categories.includes(product.status);
+            filterOptions.categories.includes(product.status);
     });
 
     // Update products table with filtered data
@@ -890,6 +964,8 @@ function applyProductsFilters() {
     modal.style.display = 'none';
 }
 
+
+
 // Display customers for current page
 function displayCustomersPage(page) {
     const startIndex = (page - 1) * customersPerPage;
@@ -922,10 +998,10 @@ function displayCustomersPage(page) {
                 </td>
                 <td>
                     <button class="action-btn view-customer-btn" data-id="${customer.id}">
-                        <img src="/Sources/EyeIcon.png" class="eye"></img>
+                        <img src="./Sources/EyeIcon.png" class="eye"></img>
                     </button>
                     <button class="action-btn edit-customer-btn" data-id="${customer.id}">
-                        <img src="/Sources/EditPenIcon.png" class="edit"></img>
+                        <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
                 </td>
             `;
@@ -1059,10 +1135,10 @@ function displayFilteredCustomers(filteredCustomers) {
                 </td>
                 <td>
                     <button class="action-btn view-customer-btn" data-id="${customer.id}">
-                        <img src="/Sources/EyeIcon.png" class="eye"></img>
+                        <img src="./Sources/EyeIcon.png" class="eye"></img>
                     </button>
                     <button class="action-btn edit-customer-btn" data-id="${customer.id}">
-                        <img src="/Sources/EditPenIcon.png" class="edit"></img>
+                        <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
                 </td>
             `;

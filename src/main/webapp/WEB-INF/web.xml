@@ -4,35 +4,17 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-
-    <!-- Define the ProductServlet -->
     <servlet>
-    <servlet-name>com.ecommerce.servlets.ProductServlet</servlet-name>
-    <servlet-class>com.ecommerce.servlets.ProductServlet</servlet-class>
-</servlet>
+        <servlet-name>com.ecommerce.servlets.ProductServlet</servlet-name>
+        <servlet-class>com.ecommerce.servlets.ProductServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>com.ecommerce.servlets.ProductServlet</servlet-name>
-        <url-pattern>/products</url-pattern>
+        <url-pattern>/products/*</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>com.ecommerce.servlets.CustomerServlet</servlet-name>
-        <servlet-class>com.ecommerce.servlets.CustomerServlet</servlet-class>
-    </servlet>
 
-    <servlet-mapping>
-        <servlet-name>com.ecommerce.servlets.CustomerServlet</servlet-name>
-        <url-pattern>/customers</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>OrderServlet</servlet-name>
-        <servlet-class>com.ecommerce.servlets.OrderServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>OrderServlet</servlet-name>
-        <url-pattern>/OrderServlet</url-pattern>
-    </servlet-mapping>
 
 
 </web-app>
