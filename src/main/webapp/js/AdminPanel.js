@@ -610,7 +610,7 @@ async function populateProductsTable() {
 
     try {
         // Fetch product data from your API
-        const response = await fetch('/CAT-Project_WebApp/products');  // Adjust the URL as per your backend
+        const response = await fetch('/CAT-Project-WebApp/products');  // Adjust the URL as per your backend
         if (!response.ok) {
             throw new Error('Failed to fetch products');
         }
@@ -708,7 +708,7 @@ async function handleAddProduct() {
 
         // Send the new product data to the backend via POST request
         try {
-            const response = await fetch('/CAT-Project_WebApp/products', {  // Adjust URL to match your backend endpoint
+            const response = await fetch('/CAT-Project-WebApp/products', {  // Adjust URL to match your backend endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -750,7 +750,7 @@ document.addEventListener('click', function(e) {
 async function handleEditProduct(productId) {
     // Fetch the product data from the backend (your servlet)
     try {
-        const response = await fetch(`http://localhost:8080//CAT-Project_WebApp/products/${productId}`);
+        const response = await fetch(`http://localhost:8080//CAT-Project-WebApp/products/${productId}`);
         const product = await response.json();
 
         if (product && product.length > 0) {
@@ -813,7 +813,7 @@ async function handleEditProduct(productId) {
                 };
 
                 // Send the updated product data to the server using a PUT request
-                const updateResponse = await fetch(`http://localhost:8080/CAT-Project_WebApp/products/${selectedProduct.id}`, {
+                const updateResponse = await fetch(`http://localhost:8080/CAT-Project-WebApp/products/${selectedProduct.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -844,7 +844,7 @@ async function handleEditProduct(productId) {
 async function handleDeleteProduct(productId) {
     if (confirm('Are you sure you want to delete this product?')) {
         try {
-            const response = await fetch(`/CAT-Project_WebApp/products/${productId}`, {
+            const response = await fetch(`/CAT-Project-WebApp/products/${productId}`, {
                 method: 'DELETE',
             });
 
@@ -865,7 +865,7 @@ async function handleDeleteProduct(productId) {
 
 document.querySelector('.filter-btn-products').addEventListener('click', async function () {
     // Fetch unique categories from the database
-    const response = await fetch('/CAT-Project_WebApp/products');
+    const response = await fetch('/CAT-Project-WebApp/products');
     const allProducts = await response.json();
     const categories = [...new Set(allProducts.map(product => product.category))];
 
@@ -914,7 +914,7 @@ async function applyProductsFilters() {
     };
 
     // Fetch all products from the JSON database
-    const response = await fetch('/CAT-Project_WebApp/products');
+    const response = await fetch('/CAT-Project-WebApp/products');
     const allProducts = await response.json();
 
     // Filter products based on the selected filters
