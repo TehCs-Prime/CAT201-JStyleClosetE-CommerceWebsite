@@ -700,7 +700,7 @@ async function handleAddProduct() {
         const newProduct = {
             name: this.name.value,
             category: this.category.value,
-            price: parseFloat(this.price.value).toFixed(2),
+            price: 'RM ' + parseFloat(this.price.value).toFixed(2),
             stock: parseInt(this.stock.value),
             status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
                 parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock'

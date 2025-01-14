@@ -99,8 +99,9 @@ public class ProductServlet extends HttpServlet {
         }
 
         // Generate a new ID for the product (e.g., P001, P002, etc.)
-        String newProductId = "P" + (products.size() + 1);  // Assumes products are ordered by their ID
+        String newProductId = String.format("P%03d", products.size() + 1); // Format ID with leading zeros
         newProduct.setId(newProductId);  // Set the generated ID to the new product
+
 
         // Add the new product to the list
         products.add(newProduct);
