@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../CSS/Login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="../Sources/Jstyle LOGO.jpg" type ="image/x-icon">
+  </head>
+
+  <body>
+
+    <header class="header" id="header">
+      <!--import from Header-HomeBar.html-->
+    </header>
+
+    <section class="form-section">
+      <div class="form-section-container" id="form-section-container">
+        
+        <div class="form-container sign-up-container">
+          <form action="#">
+            <h1 class="input-title">Create Account</h1>
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <input type="confirmed-password" placeholder="Confirmed Password" />
+            <button class="input-btn">Sign Up</button>
+          </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+          <form action="#">
+            <h1 class="input-title">Sign in</h1>
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <a href="#" class="fgt-pw">Forgot your password?</a>
+            <button class="input-btn">Sign In</button>
+          </form>
+        </div>
+
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1>Welcome Back!</h1>
+              <p>To keep connected with us, please login with your personal info</p>
+              <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+              <h1>Hello There!</h1>
+              <p>Nice to see you here. Haven't registered yet?</p>
+              <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer id="footer">
+      <div></div>
+      <!--import from Footer-BottomBar.html-->
+    </footer>
+      
+    <script src="../js/Login.js"></script>
+
+  </body>
+
+</html>

@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 // Fetch header
-fetch("Header-HomeBar.html")
+fetch("../html/Header-HomeBar.html")
 	.then(response => response.text())
 	.then(data => {
   	document.getElementById("header").innerHTML = data;
@@ -132,13 +132,12 @@ fetch("Header-HomeBar.html")
 	.catch(error => console.error("Error loading header:", error));
 
 // Fetch footer
-fetch("Footer-BottomBar.html")
+fetch("../html/Footer-BottomBar.html")
 .then(response => response.text())
 .then(data => {
 	document.getElementById("footer").innerHTML = data;
 })
 .catch(error => console.error("Error loading footer:", error));
-
 
 //Promotion Item Fetch
 const items = [

@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
 body {
     margin: 0;
-    font-family: 'Baskervville', serif;
+	font-family: 'Montserrat', serif;;
 }
 
 a {
@@ -9,7 +11,7 @@ a {
 }
 
 a:hover {
-    transform: scale(1.1);
+    transform: scale(1);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -38,14 +40,17 @@ a:active {
     white-space: nowrap;
     overflow: hidden;
     position: relative;
+    display: flex;
+    align-items: center;
+    height: 2rem;
 }
 
 .rolling-text {
     display: inline-block;
     animation: scroll 15s linear infinite;
-    height: 2rem;
-    font-size: x-large;
+    font-size: 1rem;
 }
+
 @keyframes scroll {
     0% {
         transform: translateX(100%);
@@ -70,10 +75,12 @@ a:active {
 .NavigationBar {
     display: flex;
     align-items: center;
+    align-content: center;
     justify-content: space-between;
     padding: 1vw 1.25vw;
     border-bottom: 0.2vw solid #ddd;
     flex-wrap: wrap;
+    height: 12vh;
 }
 
 .Logo {
@@ -85,21 +92,20 @@ a:active {
     text-decoration: none;
     display: flex;
     color: black;
-    width: fit-content;
     font-weight: bold;
 }
 
 .logoPicture {
-    width: 3.3vw;
-    height: 3.5vw;
+    width: 2.0rem;
+    height: auto;
     background-color: black;
     border-radius: 20%;
-    margin-right: 0.9vw;
-    margin-left: 4vw;
+    margin-left: 3vw;
+    margin-right: 15px;
 }
 
 .logoName {
-    font-size: 2.5vw;
+    font-size: 2.0rem;
     font-weight: bold;
 }
 
@@ -112,8 +118,8 @@ a:active {
 .Section a {
     text-decoration: none;
     color: black;
-    font-weight: bold;
-    font-size: 1.35vw;
+    font-weight: 500;
+    font-size: 1.2rem;
     position: relative;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -121,7 +127,7 @@ a:active {
 
 .Section a:hover {
     color: #8B0000;
-    transform: scale(1.15) translateY(-2px);
+    transform: scale(1.05) translateY(-2px);
     text-shadow: 3px 3px 6px rgba(139, 0, 0, 0.2);
 }
 
@@ -157,7 +163,7 @@ a:active {
     background-color: white;
     min-width: 400px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
+    z-index: 1000;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
