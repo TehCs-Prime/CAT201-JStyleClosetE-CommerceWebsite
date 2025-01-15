@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONdatabase {
-    private static final String FILE_PATH = "D:\\Y2S1\\CAT201\\CAT-Project-WebApp\\src\\main\\webapp\\products.json";
+    private static final String FILE_PATH = "S:\\USM\\Year2.Sem I\\CAT201 SoftwareDevelopment\\Java\\CAT-Project-WebApp\\src\\main\\webapp\\products.json";
 
     // Method to read the products from the JSON file
     public List<Product> readProducts() throws IOException {
