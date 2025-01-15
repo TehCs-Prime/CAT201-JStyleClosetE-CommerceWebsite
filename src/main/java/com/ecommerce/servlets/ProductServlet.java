@@ -3,7 +3,7 @@ package com.ecommerce.servlets;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.ecommerce.database.JSONdatabase;
+import com.ecommerce.database.ProductDatabase;
 import com.ecommerce.models.Product;
 
 import jakarta.servlet.ServletException;
@@ -34,7 +34,7 @@ public class ProductServlet extends HttpServlet {
             String productId = pathInfo.substring(1); // Remove the leading slash
 
             // Get the product by ID from the database
-            JSONdatabase db = new JSONdatabase();
+            ProductDatabase db = new ProductDatabase();
             products = db.readProducts();  // Get the list of all products
 
             // Filter the product with the matching ID
@@ -52,7 +52,7 @@ public class ProductServlet extends HttpServlet {
             }
         } else {
             // No product ID provided, return all products
-            JSONdatabase db = new JSONdatabase();
+            ProductDatabase db = new ProductDatabase();
             products = db.readProducts();
 
             // Convert the products to JSON format

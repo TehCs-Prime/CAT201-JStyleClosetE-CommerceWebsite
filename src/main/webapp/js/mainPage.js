@@ -32,7 +32,7 @@ menuLinks.forEach(link => {
 		link.addEventListener('click', function () {
 				// Remove the 'active' class from all links
 				menuLinks.forEach(link => link.classList.remove('active-menu'));
-				
+
 				// Add the 'active' class to the clicked link
 				this.classList.add('active-menu');
 		});
@@ -42,42 +42,42 @@ menuLinks.forEach(link => {
 document.addEventListener("DOMContentLoaded", function(){
 	const items = {
 		men: [
-			{img: "../Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
-			{img: "../Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
-			{img: "../Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
-			{img: "../Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"},
-			{img: "../Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00"},
-			{img: "../Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00"},
-			{img: "../Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00"},
-			{img: "../Sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00"}
+			{img: "./Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
+			{img: "./Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
+			{img: "./Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
+			{img: "./Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"},
+			{img: "./Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00"},
+			{img: "./Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00"},
+			{img: "./Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00"},
+			{img: "./Sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00"}
 		],
 
 		women: [
-			{img: "../Sources/na women 1.jpeg", name: "Women Shirt Dress (Red)", price: "RM 89.90"},
-			{img: "../Sources/na women 2.jpeg", name: "Women Knit Short Sleeve Crop Top (Red)", price: "RM 39.90"},
-			{img: "../Sources/na women 3.jpeg", name: "Women Knit Sleeveless Top (Red)", price: "RM 49.90"},
-			{img: "../Sources/na women 4.jpeg", name: "Women Knit Short Sleeve Crop Top (Light Yellow)", price: "RM 49.90"}
+			{img: "./Sources/na women 1.jpeg", name: "Women Shirt Dress (Red)", price: "RM 89.90"},
+			{img: "./Sources/na women 2.jpeg", name: "Women Knit Short Sleeve Crop Top (Red)", price: "RM 39.90"},
+			{img: "./Sources/na women 3.jpeg", name: "Women Knit Sleeveless Top (Red)", price: "RM 49.90"},
+			{img: "./Sources/na women 4.jpeg", name: "Women Knit Short Sleeve Crop Top (Light Yellow)", price: "RM 49.90"}
 		],
 
 		shoes: [
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
 		],
 
 		bags: [
-			{img: "../Sources/favicon.jpeg", name: "Bags Item 1", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+			{img: "./Sources/favicon.jpeg", name: "Bags Item 1", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
 		],
 
 		accessories: [
-			{img: "../Sources/favicon.jpeg", name: "Acs Item 1", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "../Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
+			{img: "./Sources/favicon.jpeg", name: "Acs Item 1", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
+			{img: "./Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
 		]
 	};
 
@@ -102,16 +102,16 @@ document.addEventListener("DOMContentLoaded", function(){
 			itemContainer.appendChild(itemElement);
 		});
 	}
-	
+
 	// Add click event listener to menu links
 	menuLinks.forEach(link => {
 			link.addEventListener('click', function (event) {
 					event.preventDefault(); // Prevent default link behavior
-					
+
 					// Remove 'active' class from all links
 					menuLinks.forEach(link => link.classList.remove('active'));
 					this.classList.add('active'); // Add 'active' to the clicked link
-					
+
 					// Get category from data attribute and render items
 					const category = this.dataset.category;
 					renderItems(category);
@@ -133,19 +133,19 @@ fetch("Header-HomeBar.html")
 
 // Fetch footer
 fetch("Footer-BottomBar.html")
-.then(response => response.text())
-.then(data => {
-	document.getElementById("footer").innerHTML = data;
-})
-.catch(error => console.error("Error loading footer:", error));
+	.then(response => response.text())
+	.then(data => {
+		document.getElementById("footer").innerHTML = data;
+	})
+	.catch(error => console.error("Error loading footer:", error));
 
 
 //Promotion Item Fetch
 const items = [
-	{img: "../Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
-			{img: "../Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
-			{img: "../Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
-			{img: "../Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"}
+	{img: "./Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
+			{img: "./Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
+			{img: "./Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
+			{img: "./Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"}
 ];
 
 // Select the container element

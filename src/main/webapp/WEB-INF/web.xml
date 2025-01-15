@@ -14,6 +14,17 @@
         <url-pattern>/products/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>com.ecommerce.servlets.OrderServlet</servlet-name>
+        <servlet-class>com.ecommerce.servlets.OrderServlet</servlet-class>
+    </servlet>
+
+    <!-- Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>com.ecommerce.servlets.OrderServlet</servlet-name>
+        <url-pattern>/orders/*</url-pattern>
+    </servlet-mapping>
+
 
 
 
