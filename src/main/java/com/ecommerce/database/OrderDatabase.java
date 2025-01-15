@@ -8,7 +8,7 @@ import java.util.List;
 
 public class OrderDatabase {
 
-    private static final String FILE_PATH = "orders.json";
+    private static final String FILE_PATH = "D:\\Y2S1\\CAT201\\CAT-Project-WebApp\\src\\main\\webapp\\orders.json";
 
     // Read orders from the JSON file
     public List<Order> readOrders() {
@@ -46,7 +46,7 @@ public class OrderDatabase {
     }
 
     // Save orders back to the JSON file
-    private void saveOrders(List<Order> orders) {
+    public void saveOrders(List<Order> orders) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             objectMapper.writeValue(new File(FILE_PATH), orders);

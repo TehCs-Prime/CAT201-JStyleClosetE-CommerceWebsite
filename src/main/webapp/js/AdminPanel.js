@@ -213,7 +213,7 @@ async function handleEditOrder(orderId) {
                     status: this.status.value,
                 };
 
-                const updateResponse = await fetch(`http://localhost:8080/CAT-Project-WebApp/orders/${order.id}`, {
+                const updateResponse = await fetch(`/CAT-Project-WebApp/orders/${order.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -222,7 +222,13 @@ async function handleEditOrder(orderId) {
                 });
 
                 if (updateResponse.ok) {
-                    populateOrdersTable(); // Refresh orders table
+                    // Show success alert
+                    alert('Order updated successfully!');
+
+                    // Repopulate the orders table with the updated data
+                    await populateOrdersTable();
+
+                    // Close the modal after the update
                     modal.style.display = 'none';
                 } else {
                     alert('Failed to update the order');
@@ -237,21 +243,41 @@ async function handleEditOrder(orderId) {
     }
 }
 
-
-
 // Handle delete order
 function handleDeleteOrder(orderId) {
     if (confirm('Are you sure you want to delete this order?')) {
-        // Remove order from array
-        const index = orders.findIndex(o => o.id === orderId);
-        if (index !== -1) {
-            orders.splice(index, 1);
-            // Refresh table
-            populateOrdersTable();
-            displayOrdersPage(currentPage);
-        }
+        // Send DELETE request to the server
+        fetch(`/CAT-Project-WebApp/orders/${orderId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Order deleted successfully!');
+
+                    // Fetch the updated list of orders after deletion
+                    fetch('/CAT-Project-WebApp/orders')
+                        .then(response => response.json())
+                        .then(orders => {
+                            // Repopulate the orders table with the updated data
+                            populateOrdersTable(orders);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching updated orders:', error);
+                            alert('An error occurred while fetching the updated orders');
+                        });
+                } else {
+                    alert('Failed to delete the order');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting order:', error);
+                alert('An error occurred while deleting the order');
+            });
     }
 }
+
+
+
 
 // Populate table with filtered data
 function populateOrdersTableWithData(orders) {  // Accept 'orders' as an argument
@@ -406,7 +432,6 @@ document.addEventListener('DOMContentLoaded', function () {
     populateProductsTable();
     populateOrdersTable();
     displayOrdersPage(1);
-    populateProductsTable();
     displayCustomersPage(1);
     setupCustomerEventListeners();
 });
@@ -893,8 +918,6 @@ async function handleEditProduct(productId) {
         alert('Error fetching product details');
     }
 }
-
-
 
 
 async function handleDeleteProduct(productId) {
