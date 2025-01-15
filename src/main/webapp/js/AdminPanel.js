@@ -685,7 +685,7 @@ async function populateProductsTable() {
                 <td>${product.stock}</td>
                 <td><span class="status-tag status-${product.status.toLowerCase().replace(' ', '-')}">${product.status}</span></td>
                 <td>
-                    <button class="action-btn edit-btn" data-id="${product.id}">
+                    <button class="action-btn Pedit-btn" data-id="${product.id}">
                         <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
                     <button class="action-btn Pdelete-btn" data-id="${product.id}">
@@ -734,6 +734,10 @@ async function handleAddProduct() {
                 <div class="form-group">
                     <label>Stock:</label>
                     <input type="number" name="stock" required>
+                </div>
+                <div class="form-group">
+                    <label>Upload 5 Images:</label>
+                    <input type="file" name="images" multiple accept="image/*" required>
                 </div>
                 <button type="submit">Add Product</button>
             </form>
@@ -790,8 +794,8 @@ async function handleAddProduct() {
 document.addEventListener('click', function(e) {
     if (e.target.closest('.add-product-btn')) {
         handleAddProduct();
-    } else if (e.target.closest('.edit-btn')) {
-        const productId = e.target.closest('.edit-btn').getAttribute('data-id');
+    } else if (e.target.closest('.Pedit-btn')) {
+        const productId = e.target.closest('.Pedit-btn').getAttribute('data-id');
         handleEditProduct(productId);
     } else if (e.target.closest('.Pdelete-btn')) {
         const productId = e.target.closest('.Pdelete-btn').getAttribute('data-id');
@@ -1000,7 +1004,7 @@ async function applyProductsFilters() {
                 <td>${product.stock}</td>
                 <td><span class="status-tag status-${product.status.toLowerCase().replace(' ', '-')}">${product.status}</span></td>
                 <td>
-                    <button class="action-btn edit-btn" data-id="${product.id}">
+                    <button class="action-btn Pedit-btn" data-id="${product.id}">
                         <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
                     <button class="action-btn Pdelete-btn" data-id="${product.id}">

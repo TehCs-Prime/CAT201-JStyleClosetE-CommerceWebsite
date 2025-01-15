@@ -361,7 +361,7 @@ button.action-btn.view-btn{
     background: transparent;
 }
 
-button.action-btn.edit-btn{
+button.action-btn.edit-btn, button.action-btn.Pedit-btn{
     border: none;
     background: transparent;
 }
@@ -482,11 +482,15 @@ button.action-btn.delete-btn{
     margin-top: 20px;
 }
 
+.products-table th {
+    background-color: #f1f1f1;
+}
+
 .products-table th,
 .products-table td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
 }
 
 .add-product-btn {
