@@ -19,10 +19,19 @@
         <servlet-class>com.ecommerce.servlets.OrderServlet</servlet-class>
     </servlet>
 
-    <!-- Servlet Mapping -->
     <servlet-mapping>
         <servlet-name>com.ecommerce.servlets.OrderServlet</servlet-name>
         <url-pattern>/orders/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>com.ecommerce.servlets.CustomerServlet</servlet-name>
+        <servlet-class>com.ecommerce.servlets.CustomerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>com.ecommerce.servlets.CustomerServlet</servlet-name>
+        <url-pattern>/customers/*</url-pattern>
     </servlet-mapping>
 
 

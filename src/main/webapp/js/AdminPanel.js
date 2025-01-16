@@ -5,41 +5,6 @@ let currentCustomerPage = 1;
 const customersPerPage = 10;
 
 
-const customers = [
-    { id: 'C001', name: 'John Doe', email: 'john.doe@email.com', totalOrders: 5, totalSpent: 'RM 824.00', lastOrder: '2025-01-08', status: 'active' },
-    { id: 'C002', name: 'Jane Smith', email: 'jane.smith@email.com', totalOrders: 3, totalSpent: 'RM 245.00', lastOrder: '2025-01-07', status: 'active' },
-    { id: 'C003', name: 'Alice Brown', email: 'alice.b@email.com', totalOrders: 8, totalSpent: 'RM 1230.00', lastOrder: '2025-01-06', status: 'active' },
-    { id: 'C004', name: 'Michael Green', email: 'm.green@email.com', totalOrders: 2, totalSpent: 'RM 320.00', lastOrder: '2025-01-05', status: 'inactive' },
-    { id: 'C005', name: 'Emily White', email: 'e.white@email.com', totalOrders: 6, totalSpent: 'RM 900.00', lastOrder: '2025-01-04', status: 'active' },
-    { id: 'C006', name: 'David Black', email: 'david.b@email.com', totalOrders: 1, totalSpent: 'RM 80.00', lastOrder: '2025-01-03', status: 'inactive' },
-    { id: 'C007', name: 'Sophia Gray', email: 's.gray@email.com', totalOrders: 4, totalSpent: 'RM 610.00', lastOrder: '2025-01-02', status: 'active' },
-    { id: 'C008', name: 'Daniel Wilson', email: 'd.wilson@email.com', totalOrders: 7, totalSpent: 'RM 1150.00', lastOrder: '2025-01-01', status: 'active' },
-    { id: 'C009', name: 'Laura Evans', email: 'l.evans@email.com', totalOrders: 3, totalSpent: 'RM 385.00', lastOrder: '2024-12-31', status: 'active' },
-    { id: 'C010', name: 'Chris Taylor', email: 'c.taylor@email.com', totalOrders: 2, totalSpent: 'RM 195.00', lastOrder: '2024-12-30', status: 'inactive' },
-    { id: 'C011', name: 'Oliver Harris', email: 'o.harris@email.com', totalOrders: 9, totalSpent: 'RM 1600.00', lastOrder: '2025-01-09', status: 'active' },
-    { id: 'C012', name: 'Megan Johnson', email: 'm.johnson@email.com', totalOrders: 3, totalSpent: 'RM 250.00', lastOrder: '2025-01-07', status: 'inactive' },
-    { id: 'C013', name: 'James Miller', email: 'james.m@email.com', totalOrders: 5, totalSpent: 'RM 785.00', lastOrder: '2025-01-06', status: 'active' },
-    { id: 'C014', name: 'Rachel Moore', email: 'r.moore@email.com', totalOrders: 2, totalSpent: 'RM 150.00', lastOrder: '2025-01-05', status: 'inactive' },
-    { id: 'C015', name: 'Henry Lee', email: 'h.lee@email.com', totalOrders: 8, totalSpent: 'RM 1300.00', lastOrder: '2025-01-04', status: 'active' },
-    { id: 'C016', name: 'Zoe Harris', email: 'z.harris@email.com', totalOrders: 4, totalSpent: 'RM 500.00', lastOrder: '2025-01-03', status: 'active' },
-    { id: 'C017', name: 'George King', email: 'g.king@email.com', totalOrders: 7, totalSpent: 'RM 1100.00', lastOrder: '2025-01-02', status: 'active' },
-    { id: 'C018', name: 'Lily Clark', email: 'l.clark@email.com', totalOrders: 3, totalSpent: 'RM 315.00', lastOrder: '2025-01-01', status: 'inactive' },
-    { id: 'C019', name: 'Jack Adams', email: 'j.adams@email.com', totalOrders: 6, totalSpent: 'RM 950.00', lastOrder: '2024-12-31', status: 'active' },
-    { id: 'C020', name: 'Charlotte White', email: 'charlotte.w@email.com', totalOrders: 4, totalSpent: 'RM 620.00', lastOrder: '2024-12-30', status: 'active' },
-    { id: 'C021', name: 'Oscar Scott', email: 'o.scott@email.com', totalOrders: 5, totalSpent: 'RM 825.00', lastOrder: '2024-12-29', status: 'inactive' },
-    { id: 'C022', name: 'Emma Walker', email: 'e.walker@email.com', totalOrders: 2, totalSpent: 'RM 210.00', lastOrder: '2024-12-28', status: 'active' },
-    { id: 'C023', name: 'Lucas Turner', email: 'l.turner@email.com', totalOrders: 3, totalSpent: 'RM 375.00', lastOrder: '2024-12-27', status: 'active' },
-    { id: 'C024', name: 'Sophie Robinson', email: 's.robinson@email.com', totalOrders: 7, totalSpent: 'RM 1050.00', lastOrder: '2024-12-26', status: 'inactive' },
-    { id: 'C025', name: 'William Martinez', email: 'w.martinez@email.com', totalOrders: 1, totalSpent: 'RM 50.00', lastOrder: '2024-12-25', status: 'inactive' },
-    { id: 'C026', name: 'Chloe Evans', email: 'c.evans@email.com', totalOrders: 6, totalSpent: 'RM 870.00', lastOrder: '2024-12-24', status: 'active' },
-    { id: 'C027', name: 'Benjamin Rodriguez', email: 'b.rodriguez@email.com', totalOrders: 2, totalSpent: 'RM 230.00', lastOrder: '2024-12-23', status: 'inactive' },
-    { id: 'C028', name: 'Madison Martinez', email: 'm.martinez@email.com', totalOrders: 8, totalSpent: 'RM 1155.00', lastOrder: '2024-12-22', status: 'active' },
-    { id: 'C029', name: 'Joshua Lopez', email: 'j.lopez@email.com', totalOrders: 4, totalSpent: 'RM 520.00', lastOrder: '2024-12-21', status: 'active' },
-    { id: 'C030', name: 'Amelia Perez', email: 'a.perez@email.com', totalOrders: 3, totalSpent: 'RM 400.00', lastOrder: '2024-12-20', status: 'inactive' }
-];
-
-
-
 // Navigation functionality
 document.querySelectorAll('.nav-links li').forEach(link => {
     link.addEventListener('click', function() {
@@ -62,7 +27,7 @@ function populateOrdersTable() {
     tableBody.innerHTML = ''; // Clear existing table content
 
     // Fetch orders data from orders.json file
-    fetch('/CAT-Project-WebApp/orders.json')  // Adjust path as needed
+    fetch('/CAT-Project-WebApp/orders')  // Adjust path as needed
         .then(response => response.json())
         .then(orders => {
             const sortedOrders = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort orders by date
@@ -226,7 +191,7 @@ async function handleEditOrder(orderId) {
                     alert('Order updated successfully!');
 
                     // Repopulate the orders table with the updated data
-                    await populateOrdersTable();
+                    populateOrdersTable();
 
                     // Close the modal after the update
                     modal.style.display = 'none';
@@ -330,7 +295,7 @@ function applyFilters() {
     };
 
     // Fetch orders data from orders.json for filtering
-    fetch('/CAT-Project-WebApp/orders.json')  // Adjust the path to match where orders.json is located in your project
+    fetch('/CAT-Project-WebApp/orders')  // Adjust the path to match where orders.json is located in your project
         .then(response => response.json())
         .then(orders => {
             const sortedOrders = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date
@@ -429,9 +394,9 @@ filterBtn.addEventListener('click', function() {
 
 // Initialize the dashboard
 document.addEventListener('DOMContentLoaded', function () {
-    populateProductsTable();
     populateOrdersTable();
     displayOrdersPage(1);
+    populateProductsTable();
     displayCustomersPage(1);
     setupCustomerEventListeners();
 });
@@ -440,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function displayOrdersPage(page) {
     // Fetch orders data from orders.json
-    fetch('/CAT-Project-WebApp/orders.json')  // Adjust the path as needed
+    fetch('/CAT-Project-WebApp/orders')  // Adjust the path as needed
         .then(response => response.json())
         .then(orders => {
             const ordersPerPage = 10; // Set how many orders you want per page (can adjust as needed)
@@ -572,7 +537,7 @@ function applyOrdersFilters() {
     };
 
     // Fetch orders data from orders.json file
-    fetch('/CAT-Project-WebApp/orders.json')  // Adjust the path to where your orders.json is located
+    fetch('/CAT-Project-WebApp/orders')  // Adjust the path to where your orders.json is located
         .then(response => response.json())
         .then(orders => {
             // Filter the orders based on selected filter options
@@ -904,7 +869,8 @@ async function handleEditProduct(productId) {
 
                 if (updateResponse.ok) {
                     // If successful, update the products table and close the modal
-                    populateProductsTable();
+                    await populateProductsTable();
+                    applyOrdersFilters();
                     modal.style.display = 'none';
                 } else {
                     alert('Failed to update the product');
@@ -1046,6 +1012,20 @@ async function applyProductsFilters() {
 
 
 // Display customers for current page
+let customers = []; // To hold the loaded customer data
+
+async function fetchCustomerData() {
+    try {
+        const response = await fetch('/CAT-Project-WebApp/customers');
+        if (!response.ok) throw new Error('Failed to fetch customer data');
+        customers = await response.json();
+        displayCustomersPage(currentCustomerPage); // Display the first page
+        setupCustomerEventListeners(); // Setup event listeners after fetching the data
+    } catch (error) {
+        console.error('Error fetching customer data:', error);
+    }
+}
+
 function displayCustomersPage(page) {
     const startIndex = (page - 1) * customersPerPage;
     const endIndex = startIndex + customersPerPage;
@@ -1067,9 +1047,9 @@ function displayCustomersPage(page) {
                 <td>${customer.id}</td>
                 <td>${customer.name}</td>
                 <td>${customer.email}</td>
-                <td>${customer.totalOrders}</td>
-                <td>${customer.totalSpent}</td>
-                <td>${customer.lastOrder}</td>
+                <td>${customer.totalOrders || 0}</td>
+                <td>${customer.totalSpent || 'RM 0.00'}</td>
+                <td>${customer.lastOrder || 'N/A'}</td>
                 <td>
                     <span class="status-tag status-${customer.status.toLowerCase()}">
                         ${customer.status}
@@ -1091,7 +1071,6 @@ function displayCustomersPage(page) {
     updateCustomerPaginationControls();
 }
 
-// Update pagination controls for customers
 function updateCustomerPaginationControls() {
     const totalPages = Math.ceil(customers.length / customersPerPage);
     const pageInfo = document.getElementById('pageInfoCustomers');
@@ -1103,7 +1082,6 @@ function updateCustomerPaginationControls() {
     nextBtn.disabled = currentCustomerPage === totalPages;
 }
 
-// Setup event listeners for customers section
 function setupCustomerEventListeners() {
     // Pagination
     document.getElementById('prevPageCustomers').addEventListener('click', () => {
@@ -1142,7 +1120,14 @@ function setupCustomerEventListeners() {
     });
 }
 
-// Show customer filters modal
+// Initialize the page with customer data and setup listeners
+function initializeCustomerManagement() {
+    fetchCustomerData();  // Fetch customer data
+}
+
+// Call the initialization function on page load
+window.onload = initializeCustomerManagement;
+
 function showCustomerFilters() {
     const filterModal = document.createElement('div');
     filterModal.innerHTML = `
@@ -1275,44 +1260,83 @@ function showCustomerDetails(customerId) {
 
 // Function to edit customer details
 function editCustomerDetails(customerId) {
-    const customer = customers.find(c => c.id === customerId);
-    if (customer) {
-        const editForm = `
-            <div class="customer-form">
-                <h3>Edit Customer ${customer.id}</h3>
-                <form id="editCustomerForm">
-                    <div class="form-group">
-                        <label>Name:</label>
-                        <input type="text" name="name" value="${customer.name}" readonly>
+    // Fetch the customer data from the backend (customers.json)
+    fetch(`/CAT-Project-WebApp/customers/${customerId}`)
+        .then(response => response.json())
+        .then(customer => {
+            if (customer) {
+                // Create the form with only editable fields that need to be shown (e.g., name, email, status)
+                const editForm = `
+                    <div class="customer-form">
+                        <h3>Edit Customer ${customer.id}</h3>
+                        <form id="editCustomerForm">
+                            <div class="form-group">
+                                <label>Name:</label>
+                                <input type="text" name="name" value="${customer.name}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email:</label>
+                                <input type="email" name="email" value="${customer.email}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Status:</label>
+                                <select name="status">
+                                    <option value="active" ${customer.status === 'active' ? 'selected' : ''}>Active</option>
+                                    <option value="inactive" ${customer.status === 'inactive' ? 'selected' : ''}>Inactive</option>
+                                </select>
+                            </div>
+                            <button type="submit">Save Changes</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label>Email:</label>
-                        <input type="email" name="email" value="${customer.email}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Status:</label>
-                        <select name="status">
-                            <option value="active" ${customer.status === 'active' ? 'selected' : ''}>Active</option>
-                            <option value="inactive" ${customer.status === 'inactive' ? 'selected' : ''}>Inactive</option>
-                        </select>
-                    </div>
-                    <button type="submit">Save Changes</button>
-                </form>
-            </div>
-        `;
-        document.querySelector('.order-details').innerHTML = editForm;
-        modal.style.display = 'block';
+                `;
+                document.querySelector('.order-details').innerHTML = editForm;
+                modal.style.display = 'block';
 
-        document.getElementById('editCustomerForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            customer.name = this.name.value;
-            customer.email = this.email.value;
-            customer.status = this.status.value;
+                // Listen for form submission
+                document.getElementById('editCustomerForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
 
+                    // Create an updated customer object with the form values
+                    const updatedCustomer = {
+                        id: customer.id,
+                        name: this.name.value,
+                        email: this.email.value,
+                        status: this.status.value,
+                        password: customer.password,  // Retain the original password
+                        totalSpent: customer.totalSpent,  // Retain the original totalSpent
+                        lastOrder: customer.lastOrder  // Retain the original lastOrder
+                    };
 
-
-            displayCustomersPage(currentCustomerPage); // Refresh the customers table
-            modal.style.display = 'none'; // Close modal
+                    // Send the updated customer data to the backend
+                    fetch(`/CAT-Project-WebApp/customers/${customer.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updatedCustomer)
+                    })
+                        .then(response => {
+                            return response.json();  // This will now properly parse the JSON response
+                        })
+                        .then(data => {
+                            // On success, close the modal and refresh the customer list
+                            alert("Customer updated successfully!");
+                            modal.style.display = 'none';
+                            fetchCustomerData();
+                            displayCustomersPage(currentCustomerPage); // Refresh the customers table
+                        })
+                        .catch(error => {
+                            console.error("Error updating customer:", error);
+                            alert("Failed to update customer.");
+                        });
+                });
+            } else {
+                alert("Customer not found!");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching customer:", error);
+            alert("Failed to load customer details.");
         });
-    }
 }
+
