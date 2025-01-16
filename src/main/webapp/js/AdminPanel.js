@@ -1163,11 +1163,11 @@ function displayOrdersPage() {
                         <form id="editCustomerForm">
                             <div class="form-group">
                                 <label>Name:</label>
-                                <input type="text" name="name" value="${customer.name}" required>
+                                <input type="text" name="name" value="${customer.name}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Email:</label>
-                                <input type="email" name="email" value="${customer.email}" required>
+                                <input type="email" name="email" value="${customer.email}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Status:</label>
