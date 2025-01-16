@@ -1,9 +1,3 @@
-// Sample data - Replace with your actual data source
-let currentPage = 1;
-const ordersPerPage = 10;
-let currentCustomerPage = 1;
-const customersPerPage = 10;
-
 
 // Navigation functionality
 document.querySelectorAll('.nav-links li').forEach(link => {
@@ -396,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function () {
     populateOrdersTable();
     displayOrdersPage();
     populateProductsTable();
-    displayCustomersPage(1);
+    displayCustomersPage();
     setupCustomerEventListeners();
 });
 
@@ -410,16 +404,16 @@ function displayOrdersPage() {
             const tableBody = document.getElementById('totalOrdersTableBody');
             tableBody.innerHTML = '';
 
-    if (orders.length === 0) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+            if (orders.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
             <td colspan="7" class="empty-table-indicator">No orders available</td>
         `;
-        tableBody.appendChild(row);
-    } else {
-        orders.forEach(order => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                tableBody.appendChild(row);
+            } else {
+                orders.forEach(order => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
                 <td>${order.id}</td>
                 <td>${order.customer}</td>
                 <td>${order.products.join(', ')}</td>
@@ -442,20 +436,22 @@ function displayOrdersPage() {
                     </button>
                 </td>
             `;
-            tableBody.appendChild(row);
-        });
-    }
+                    tableBody.appendChild(row);
+                });
+            }
+        })
+}
 
 
 // Filter functionality for orders section
-document.querySelector('.filter-btn-orders').addEventListener('click', function() {
-    const filterOptions = {
-        status: ['pending', 'processing', 'completed', 'cancelled'],
-        dateRange: ['-', 'today', 'week', 'month', 'year']
-    };
+            document.querySelector('.filter-btn-orders').addEventListener('click', function () {
+                const filterOptions = {
+                    status: ['pending', 'processing', 'completed', 'cancelled'],
+                    dateRange: ['-', 'today', 'week', 'month', 'year']
+                };
 
-    const filterModal = document.createElement('div');
-    filterModal.innerHTML = `
+                const filterModal = document.createElement('div');
+                filterModal.innerHTML = `
         <div class="filter-options">
             <h3>Filter Orders</h3>
             <div class="filter-group">
@@ -478,58 +474,57 @@ document.querySelector('.filter-btn-orders').addEventListener('click', function(
         </div>
     `;
 
-    document.querySelector('.order-details').innerHTML = '';
-    document.querySelector('.order-details').appendChild(filterModal);
-    modal.style.display = 'block';
-});
-
-// Reset functionality for orders section
-document.querySelector('.reset-btn-orders').addEventListener('click', function() {
-    displayOrdersPage();
-});
-
-function applyOrdersFilters() {
-    const filterOptions = {
-        status: Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked')).map(input => input.value),
-        dateRange: document.querySelector('.filter-options select').value
-    };
-
-    // Fetch orders data from orders.json file
-    fetch('/CAT-Project-WebApp/orders')  // Adjust the path to where your orders.json is located
-        .then(response => response.json())
-        .then(orders => {
-            // Filter the orders based on selected filter options
-            const filteredOrders = orders.filter(order => {
-                const statusMatch = filterOptions.status.length === 0 || filterOptions.status.includes(order.status);
-                const dateMatch = checkDateRange(order.date, filterOptions.dateRange);
-                return statusMatch && dateMatch;
+                document.querySelector('.order-details').innerHTML = '';
+                document.querySelector('.order-details').appendChild(filterModal);
+                modal.style.display = 'block';
             });
 
-            // Reset to first page when filtering
-            populateTotalOrdersTableWithData(filteredOrders);
-            modal.style.display = 'none';  // Close the modal after applying filters
-        })
-        .catch(error => {
-            console.error('Error fetching orders data:', error);
-        });
-}
+// Reset functionality for orders section
+            document.querySelector('.reset-btn-orders').addEventListener('click', function () {
+                displayOrdersPage();
+            });
 
-function populateTotalOrdersTableWithData(data) {
-    const tableBody = document.getElementById('totalOrdersTableBody');
-    tableBody.innerHTML = '';
+            function applyOrdersFilters() {
+                const filterOptions = {
+                    status: Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked')).map(input => input.value),
+                    dateRange: document.querySelector('.filter-options select').value
+                };
 
-    if (data.length === 0) {
-        // Show indicator if no data is present
-        const row = document.createElement('tr');
-        row.innerHTML = `
+                // Fetch orders data from orders.json file
+                fetch('/CAT-Project-WebApp/orders')  // Adjust the path to where your orders.json is located
+                    .then(response => response.json())
+                    .then(orders => {
+                        // Filter the orders based on selected filter options
+                        const filteredOrders = orders.filter(order => {
+                            const statusMatch = filterOptions.status.length === 0 || filterOptions.status.includes(order.status);
+                            const dateMatch = checkDateRange(order.date, filterOptions.dateRange);
+                            return statusMatch && dateMatch;
+                        });
+
+                        // Reset to first page when filtering
+                        populateTotalOrdersTableWithData(filteredOrders);
+                        modal.style.display = 'none';  // Close the modal after applying filters
+                    })
+                    .catch(error => {
+                        console.error('Error fetching orders data:', error);
+                    });
+            }
+
+            function populateTotalOrdersTableWithData(data) {
+                const tableBody = document.getElementById('totalOrdersTableBody');
+                tableBody.innerHTML = '';
+
+                if (data.length === 0) {
+                    // Show indicator if no data is present
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
             <td colspan="7" class="empty-table-indicator">No orders available</td>
         `;
-        tableBody.appendChild(row);
-    }
-    else {
-        data.forEach(order => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                    tableBody.appendChild(row);
+                } else {
+                    data.forEach(order => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
                 <td>${order.id}</td>
                 <td>${order.customer}</td>
                 <td>${order.products.join(', ')}</td>
@@ -552,66 +547,65 @@ function populateTotalOrdersTableWithData(data) {
                     </button>
                 </td>
             `;
-            tableBody.appendChild(row);
-        });
-    }
-}
+                        tableBody.appendChild(row);
+                    });
+                }
+            }
 
-function checkDateRange(orderDate, dateRange) {
-    const orderDateObj = new Date(orderDate);
-    const today = new Date();
-    const startDate = new Date(today);
+            function checkDateRange(orderDate, dateRange) {
+                const orderDateObj = new Date(orderDate);
+                const today = new Date();
+                const startDate = new Date(today);
 
-    switch (dateRange) {
-        case '-':
-            return true;
-        case 'today':
-            return orderDateObj.toDateString() === today.toDateString();
-        case 'week':
-            startDate.setDate(today.getDate() - 7);
-            return orderDateObj >= startDate;
-        case 'month':
-            startDate.setMonth(today.getMonth() - 1);
-            return orderDateObj >= startDate;
-        case 'year':
-            startDate.setFullYear(today.getFullYear() - 1);
-            return orderDateObj >= startDate;
-        default:
-            return true;
-    }
-}
+                switch (dateRange) {
+                    case '-':
+                        return true;
+                    case 'today':
+                        return orderDateObj.toDateString() === today.toDateString();
+                    case 'week':
+                        startDate.setDate(today.getDate() - 7);
+                        return orderDateObj >= startDate;
+                    case 'month':
+                        startDate.setMonth(today.getMonth() - 1);
+                        return orderDateObj >= startDate;
+                    case 'year':
+                        startDate.setFullYear(today.getFullYear() - 1);
+                        return orderDateObj >= startDate;
+                    default:
+                        return true;
+                }
+            }
 
 
+            async function populateProductsTable() {
+                const PtableBody = document.getElementById('productsTableBody');
+                if (!PtableBody) {
+                    const productsSection = document.getElementById('products');
+                    productsSection.innerHTML = `No Products Available`;
+                    return;
+                }
 
-async function populateProductsTable() {
-    const PtableBody = document.getElementById('productsTableBody');
-    if (!PtableBody) {
-        const productsSection = document.getElementById('products');
-        productsSection.innerHTML = `No Products Available`;
-        return;
-    }
+                // Clear any existing rows in the table body
+                PtableBody.innerHTML = '';
 
-    // Clear any existing rows in the table body
-    PtableBody.innerHTML = '';
+                try {
+                    // Fetch product data from your API
+                    const response = await fetch('/CAT-Project-WebApp/products');  // Adjust the URL as per your backend
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch products');
+                    }
 
-    try {
-        // Fetch product data from your API
-        const response = await fetch('/CAT-Project-WebApp/products');  // Adjust the URL as per your backend
-        if (!response.ok) {
-            throw new Error('Failed to fetch products');
-        }
+                    const products = await response.json();  // Assuming the backend returns a JSON array
 
-        const products = await response.json();  // Assuming the backend returns a JSON array
+                    if (products.length === 0) {
+                        PtableBody.innerHTML = '<tr><td colspan="7">No products available</td></tr>';
+                        return;
+                    }
 
-        if (products.length === 0) {
-            PtableBody.innerHTML = '<tr><td colspan="7">No products available</td></tr>';
-            return;
-        }
-
-        // Iterate through the products and create table rows
-        products.forEach(product => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                    // Iterate through the products and create table rows
+                    products.forEach(product => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
                 <td>${product.id}</td>
                 <td>${product.name}</td>
                 <td>${product.category}</td>
@@ -627,20 +621,20 @@ async function populateProductsTable() {
                     </button>
                 </td>
             `;
-            PtableBody.appendChild(row);
-        });
+                        PtableBody.appendChild(row);
+                    });
 
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        const productsSection = document.getElementById('products');
-        productsSection.innerHTML = `Error loading products. Please try again later.`;
-    }
-}
+                } catch (error) {
+                    console.error('Error fetching products:', error);
+                    const productsSection = document.getElementById('products');
+                    productsSection.innerHTML = `Error loading products. Please try again later.`;
+                }
+            }
 
 
-async function handleAddProduct() {
-    const productForm = document.createElement('div');
-    productForm.innerHTML = `
+            async function handleAddProduct() {
+                const productForm = document.createElement('div');
+                productForm.innerHTML = `
         <div class="product-form">
             <h3>Add New Product</h3>
             <form id="addProductForm">
@@ -678,77 +672,77 @@ async function handleAddProduct() {
         </div>
     `;
 
-    document.querySelector('.order-details').innerHTML = '';
-    document.querySelector('.order-details').appendChild(productForm);
-    modal.style.display = 'block';
+                document.querySelector('.order-details').innerHTML = '';
+                document.querySelector('.order-details').appendChild(productForm);
+                modal.style.display = 'block';
 
-    // Handle form submission
-    document.getElementById('addProductForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
+                // Handle form submission
+                document.getElementById('addProductForm').addEventListener('submit', async function (e) {
+                    e.preventDefault();
 
-        // Prepare the new product data (WITHOUT the ID)
-        const newProduct = {
-            name: this.name.value,
-            category: this.category.value,
-            price: 'RM ' + parseFloat(this.price.value).toFixed(2),
-            stock: parseInt(this.stock.value),
-            status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
-                parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock'
-        };
+                    // Prepare the new product data (WITHOUT the ID)
+                    const newProduct = {
+                        name: this.name.value,
+                        category: this.category.value,
+                        price: 'RM ' + parseFloat(this.price.value).toFixed(2),
+                        stock: parseInt(this.stock.value),
+                        status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
+                            parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock'
+                    };
 
-        // Send the new product data to the backend via POST request
-        try {
-            const response = await fetch('/CAT-Project-WebApp/products', {  // Adjust URL to match your backend endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newProduct)
-            });
+                    // Send the new product data to the backend via POST request
+                    try {
+                        const response = await fetch('/CAT-Project-WebApp/products', {  // Adjust URL to match your backend endpoint
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(newProduct)
+                        });
 
-            if (!response.ok) {
-                throw new Error('Failed to add product');
+                        if (!response.ok) {
+                            throw new Error('Failed to add product');
+                        }
+
+                        // Update the products table after successfully adding the product
+                        await populateProductsTable();
+
+                        // Close the modal
+                        modal.style.display = 'none';
+                    } catch (error) {
+                        console.error('Error adding product:', error);
+                        alert('There was an error adding the product. Please try again.');
+                    }
+                });
+
             }
-
-            // Update the products table after successfully adding the product
-            await populateProductsTable();
-
-            // Close the modal
-            modal.style.display = 'none';
-        } catch (error) {
-            console.error('Error adding product:', error);
-            alert('There was an error adding the product. Please try again.');
-        }
-    });
-
-}
 
 
 // Add event listeners
-document.addEventListener('click', function(e) {
-    if (e.target.closest('.add-product-btn')) {
-        handleAddProduct();
-    } else if (e.target.closest('.Pedit-btn')) {
-        const productId = e.target.closest('.Pedit-btn').getAttribute('data-id');
-        handleEditProduct(productId);
-    } else if (e.target.closest('.Pdelete-btn')) {
-        const productId = e.target.closest('.Pdelete-btn').getAttribute('data-id');
-        handleDeleteProduct(productId);
-    }
-});
+            document.addEventListener('click', function (e) {
+                if (e.target.closest('.add-product-btn')) {
+                    handleAddProduct();
+                } else if (e.target.closest('.Pedit-btn')) {
+                    const productId = e.target.closest('.Pedit-btn').getAttribute('data-id');
+                    handleEditProduct(productId);
+                } else if (e.target.closest('.Pdelete-btn')) {
+                    const productId = e.target.closest('.Pdelete-btn').getAttribute('data-id');
+                    handleDeleteProduct(productId);
+                }
+            });
 
-async function handleEditProduct(productId) {
-    // Fetch the product data from the backend (your servlet)
-    try {
-        const response = await fetch(`http://localhost:8080//CAT-Project-WebApp/products/${productId}`);
-        const product = await response.json();
+            async function handleEditProduct(productId) {
+                // Fetch the product data from the backend (your servlet)
+                try {
+                    const response = await fetch(`http://localhost:8080//CAT-Project-WebApp/products/${productId}`);
+                    const product = await response.json();
 
-        if (product && product.length > 0) {
-            const selectedProduct = product[0]; // Since the response is wrapped in an array
+                    if (product && product.length > 0) {
+                        const selectedProduct = product[0]; // Since the response is wrapped in an array
 
-            // Create the edit form HTML
-            const editForm = document.createElement('div');
-            editForm.innerHTML = `
+                        // Create the edit form HTML
+                        const editForm = document.createElement('div');
+                        editForm.innerHTML = `
                 <div class="product-form">
                     <h3>Edit Product ${selectedProduct.id}</h3>
                     <form id="editProductForm">
@@ -782,84 +776,84 @@ async function handleEditProduct(productId) {
                 </div>
             `;
 
-            // Clear the previous content and append the edit form
-            document.querySelector('.order-details').innerHTML = '';
-            document.querySelector('.order-details').appendChild(editForm);
-            modal.style.display = 'block';
+                        // Clear the previous content and append the edit form
+                        document.querySelector('.order-details').innerHTML = '';
+                        document.querySelector('.order-details').appendChild(editForm);
+                        modal.style.display = 'block';
 
-            // Handle the form submission
-            document.getElementById('editProductForm').addEventListener('submit', async function (e) {
-                e.preventDefault();
+                        // Handle the form submission
+                        document.getElementById('editProductForm').addEventListener('submit', async function (e) {
+                            e.preventDefault();
 
-                // Prepare the updated product data
-                const updatedProduct = {
-                    id: selectedProduct.id,
-                    name: this.name.value,
-                    category: this.category.value,
-                    price: 'RM ' + parseFloat(this.price.value).toFixed(2),
-                    stock: parseInt(this.stock.value),
-                    status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
-                        parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock',
-                };
+                            // Prepare the updated product data
+                            const updatedProduct = {
+                                id: selectedProduct.id,
+                                name: this.name.value,
+                                category: this.category.value,
+                                price: 'RM ' + parseFloat(this.price.value).toFixed(2),
+                                stock: parseInt(this.stock.value),
+                                status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
+                                    parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock',
+                            };
 
-                // Send the updated product data to the server using a PUT request
-                const updateResponse = await fetch(`http://localhost:8080/CAT-Project-WebApp/products/${selectedProduct.id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(updatedProduct),
-                });
+                            // Send the updated product data to the server using a PUT request
+                            const updateResponse = await fetch(`http://localhost:8080/CAT-Project-WebApp/products/${selectedProduct.id}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(updatedProduct),
+                            });
 
-                if (updateResponse.ok) {
-                    // If successful, update the products table and close the modal
-                    await populateProductsTable();
-                    applyOrdersFilters();
-                    modal.style.display = 'none';
-                } else {
-                    alert('Failed to update the product');
+                            if (updateResponse.ok) {
+                                // If successful, update the products table and close the modal
+                                await populateProductsTable();
+                                applyOrdersFilters();
+                                modal.style.display = 'none';
+                            } else {
+                                alert('Failed to update the product');
+                            }
+                        });
+                    } else {
+                        alert('Product not found');
+                    }
+                } catch (error) {
+                    console.error('Error fetching product:', error);
+                    alert('Error fetching product details');
                 }
-            });
-        } else {
-            alert('Product not found');
-        }
-    } catch (error) {
-        console.error('Error fetching product:', error);
-        alert('Error fetching product details');
-    }
-}
-
-
-async function handleDeleteProduct(productId) {
-    if (confirm('Are you sure you want to delete this product?')) {
-        try {
-            const response = await fetch(`/CAT-Project-WebApp/products/${productId}`, {
-                method: 'DELETE',
-            });
-
-            if (response.ok) {
-                alert('Product deleted successfully');
-                // After deleting, refresh the product table
-                await populateProductsTable();
-            } else {
-                alert('Failed to delete the product');
             }
-        } catch (error) {
-            console.error('Error deleting product:', error);
-            alert('There was an error deleting the product. Please try again.');
-        }
-    }
-}
 
 
-document.querySelector('.filter-btn-products').addEventListener('click', async function () {
-    // Fetch unique categories from the database
-    const response = await fetch('/CAT-Project-WebApp/products');
-    const allProducts = await response.json();
-    const categories = [...new Set(allProducts.map(product => product.category))];
+            async function handleDeleteProduct(productId) {
+                if (confirm('Are you sure you want to delete this product?')) {
+                    try {
+                        const response = await fetch(`/CAT-Project-WebApp/products/${productId}`, {
+                            method: 'DELETE',
+                        });
 
-    const filterModal = document.createElement('div');
-    filterModal.innerHTML = `
+                        if (response.ok) {
+                            alert('Product deleted successfully');
+                            // After deleting, refresh the product table
+                            await populateProductsTable();
+                        } else {
+                            alert('Failed to delete the product');
+                        }
+                    } catch (error) {
+                        console.error('Error deleting product:', error);
+                        alert('There was an error deleting the product. Please try again.');
+                    }
+                }
+            }
+
+
+            document.querySelector('.filter-btn-products').addEventListener('click', async function () {
+                // Fetch unique categories from the database
+                const response = await fetch('/CAT-Project-WebApp/products');
+                const allProducts = await response.json();
+                const categories = [...new Set(allProducts.map(product => product.category))];
+
+                const filterModal = document.createElement('div');
+                filterModal.innerHTML = `
         <div class="filter-options">
             <h3>Filter Products</h3>
             <div class="filter-group">
@@ -886,50 +880,50 @@ document.querySelector('.filter-btn-products').addEventListener('click', async f
         </div>
     `;
 
-    document.querySelector('.order-details').innerHTML = '';
-    document.querySelector('.order-details').appendChild(filterModal);
-    modal.style.display = 'block';
-});
+                document.querySelector('.order-details').innerHTML = '';
+                document.querySelector('.order-details').appendChild(filterModal);
+                modal.style.display = 'block';
+            });
 
 // Reset functionality for products section
-document.querySelector('.reset-btn-products').addEventListener('click', function () {
-    populateProductsTable();
-});
+            document.querySelector('.reset-btn-products').addEventListener('click', function () {
+                populateProductsTable();
+            });
 
-async function applyProductsFilters() {
-    const filterOptions = {
-        categories: Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
-            .map(input => input.value)
-    };
+            async function applyProductsFilters() {
+                const filterOptions = {
+                    categories: Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
+                        .map(input => input.value)
+                };
 
-    // Fetch all products from the JSON database
-    const response = await fetch('/CAT-Project-WebApp/products');
-    const allProducts = await response.json();
+                // Fetch all products from the JSON database
+                const response = await fetch('/CAT-Project-WebApp/products');
+                const allProducts = await response.json();
 
-    // Filter products based on the selected filters
-    const filteredProducts = allProducts.filter(product => {
-        // If no categories are selected, show all products
-        if (filterOptions.categories.length === 0) return true;
+                // Filter products based on the selected filters
+                const filteredProducts = allProducts.filter(product => {
+                    // If no categories are selected, show all products
+                    if (filterOptions.categories.length === 0) return true;
 
-        // Check if product category or status matches any selected filter
-        return filterOptions.categories.includes(product.category) ||
-            filterOptions.categories.includes(product.status);
-    });
+                    // Check if product category or status matches any selected filter
+                    return filterOptions.categories.includes(product.category) ||
+                        filterOptions.categories.includes(product.status);
+                });
 
-    // Update products table with filtered data
-    const PtableBody = document.getElementById('productsTableBody');
-    PtableBody.innerHTML = '';
+                // Update products table with filtered data
+                const PtableBody = document.getElementById('productsTableBody');
+                PtableBody.innerHTML = '';
 
-    if (filteredProducts.length === 0) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+                if (filteredProducts.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
             <td colspan="7" class="empty-table-indicator">No products found</td>
         `;
-        PtableBody.appendChild(row);
-    } else {
-        filteredProducts.forEach(product => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                    PtableBody.appendChild(row);
+                } else {
+                    filteredProducts.forEach(product => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
                 <td>${product.id}</td>
                 <td>${product.name}</td>
                 <td>${product.category}</td>
@@ -945,45 +939,44 @@ async function applyProductsFilters() {
                     </button>
                 </td>
             `;
-            PtableBody.appendChild(row);
-        });
-    }
+                        PtableBody.appendChild(row);
+                    });
+                }
 
-    // Close the filter modal
-    modal.style.display = 'none';
-}
-
+                // Close the filter modal
+                modal.style.display = 'none';
+            }
 
 
 // Display customers for current page
-let customers = []; // To hold the loaded customer data
+            let customers = []; // To hold the loaded customer data
 
-async function fetchCustomerData() {
-    try {
-        const response = await fetch('/CAT-Project-WebApp/customers');
-        if (!response.ok) throw new Error('Failed to fetch customer data');
-        customers = await response.json();
-        displayCustomersPage(currentCustomerPage); // Display the first page
-        setupCustomerEventListeners(); // Setup event listeners after fetching the data
-    } catch (error) {
-        console.error('Error fetching customer data:', error);
-    }
-}
+            async function fetchCustomerData() {
+                try {
+                    const response = await fetch('/CAT-Project-WebApp/customers');
+                    if (!response.ok) throw new Error('Failed to fetch customer data');
+                    customers = await response.json();
+                    displayCustomersPage(); // Display the first page
+                    setupCustomerEventListeners(); // Setup event listeners after fetching the data
+                } catch (error) {
+                    console.error('Error fetching customer data:', error);
+                }
+            }
 
-function displayCustomersPage(page) {
-    const tableBody = document.getElementById('customersTableBody');
-    tableBody.innerHTML = '';
+            function displayCustomersPage(page) {
+                const tableBody = document.getElementById('customersTableBody');
+                tableBody.innerHTML = '';
 
-    if (customers.length === 0) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+                if (customers.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
             <td colspan="8" class="empty-table-indicator">No customers available</td>
         `;
-        tableBody.appendChild(row);
-    } else {
-        customers.forEach(customer => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                    tableBody.appendChild(row);
+                } else {
+                    customers.forEach(customer => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
                 <td>${customer.id}</td>
                 <td>${customer.name}</td>
                 <td>${customer.email}</td>
@@ -1004,45 +997,45 @@ function displayCustomersPage(page) {
                     </button>
                 </td>
             `;
-            tableBody.appendChild(row);
-        });
-    }
-}
+                        tableBody.appendChild(row);
+                    });
+                }
+            }
 
 // Setup event listeners for customers section
-function setupCustomerEventListeners() {
-    // Filter button
-    document.querySelector('.filter-btn-customers').addEventListener('click', showCustomerFilters);
+            function setupCustomerEventListeners() {
+                // Filter button
+                document.querySelector('.filter-btn-customers').addEventListener('click', showCustomerFilters);
 
-    // Reset button
-    document.querySelector('.reset-btn-customers').addEventListener('click', () => {
-        currentCustomerPage = 1;
-        displayCustomersPage(currentCustomerPage);
-    });
+                // Reset button
+                document.querySelector('.reset-btn-customers').addEventListener('click', () => {
+                    currentCustomerPage = 1;
+                    displayCustomersPage(currentCustomerPage);
+                });
 
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.view-customer-btn')) {
-            const customerId = e.target.closest('.view-customer-btn').getAttribute('data-id');
-            showCustomerDetails(customerId);
-        }
-        if (e.target.closest('.edit-customer-btn')) {
-            const customerId = e.target.closest('.edit-customer-btn').getAttribute('data-id');
-            editCustomerDetails(customerId);
-        }
-    });
-}
+                document.addEventListener('click', function (e) {
+                    if (e.target.closest('.view-customer-btn')) {
+                        const customerId = e.target.closest('.view-customer-btn').getAttribute('data-id');
+                        showCustomerDetails(customerId);
+                    }
+                    if (e.target.closest('.edit-customer-btn')) {
+                        const customerId = e.target.closest('.edit-customer-btn').getAttribute('data-id');
+                        editCustomerDetails(customerId);
+                    }
+                });
+            }
 
 // Initialize the page with customer data and setup listeners
-function initializeCustomerManagement() {
-    fetchCustomerData();  // Fetch customer data
-}
+            function initializeCustomerManagement() {
+                fetchCustomerData();  // Fetch customer data
+            }
 
 // Call the initialization function on page load
-window.onload = initializeCustomerManagement;
+            window.onload = initializeCustomerManagement;
 
-function showCustomerFilters() {
-    const filterModal = document.createElement('div');
-    filterModal.innerHTML = `
+            function showCustomerFilters() {
+                const filterModal = document.createElement('div');
+                filterModal.innerHTML = `
         <div class="filter-options">
             <h3>Filter Customers</h3>
             <div class="filter-group">
@@ -1058,41 +1051,41 @@ function showCustomerFilters() {
         </div>
     `;
 
-    document.querySelector('.order-details').innerHTML = '';
-    document.querySelector('.order-details').appendChild(filterModal);
-    modal.style.display = 'block';
-}
+                document.querySelector('.order-details').innerHTML = '';
+                document.querySelector('.order-details').appendChild(filterModal);
+                modal.style.display = 'block';
+            }
 
 // Apply customer filters
-function applyCustomerFilters() {
-    const statusFilters = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
-        .map(input => input.value);
+            function applyCustomerFilters() {
+                const statusFilters = Array.from(document.querySelectorAll('.filter-options input[type="checkbox"]:checked'))
+                    .map(input => input.value);
 
-    const filteredCustomers = customers.filter(customer => {
-        const statusMatch = statusFilters.length === 0 || statusFilters.includes(customer.status);
+                const filteredCustomers = customers.filter(customer => {
+                    const statusMatch = statusFilters.length === 0 || statusFilters.includes(customer.status);
 
-        return statusMatch ;
-    });
+                    return statusMatch;
+                });
 
-    displayFilteredCustomers(filteredCustomers);
-    modal.style.display = 'none';
-}
+                displayFilteredCustomers(filteredCustomers);
+                modal.style.display = 'none';
+            }
 
 // Display filtered customers
-function displayFilteredCustomers(filteredCustomers) {
-    const tableBody = document.getElementById('customersTableBody');
-    tableBody.innerHTML = '';
+            function displayFilteredCustomers(filteredCustomers) {
+                const tableBody = document.getElementById('customersTableBody');
+                tableBody.innerHTML = '';
 
-    if (filteredCustomers.length === 0) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
+                if (filteredCustomers.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
             <td colspan="8" class="empty-table-indicator">No customers found</td>
         `;
-        tableBody.appendChild(row);
-    } else {
-        filteredCustomers.forEach(customer => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                    tableBody.appendChild(row);
+                } else {
+                    filteredCustomers.forEach(customer => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
                 <td>${customer.id}</td>
                 <td>${customer.name}</td>
                 <td>${customer.email}</td>
@@ -1113,15 +1106,15 @@ function displayFilteredCustomers(filteredCustomers) {
                     </button>
                 </td>
             `;
-            tableBody.appendChild(row);
-        });
-    }
-}
+                        tableBody.appendChild(row);
+                    });
+                }
+            }
 
-function showCustomerDetails(customerId) {
-    const customer = customers.find(c => c.id === customerId);
-    if (customer) {
-        const modalContent = `
+            function showCustomerDetails(customerId) {
+                const customer = customers.find(c => c.id === customerId);
+                if (customer) {
+                    const modalContent = `
             <div class="detail-row">
                 <span class="label">Customer ID:</span>
                 <span class="value">${customer.id}</span>
@@ -1151,20 +1144,20 @@ function showCustomerDetails(customerId) {
                 <span class="value">${customer.status}</span>
             </div>
         `;
-        document.querySelector('.order-details').innerHTML = modalContent;
-        modal.style.display = 'block';
-    }
-}
+                    document.querySelector('.order-details').innerHTML = modalContent;
+                    modal.style.display = 'block';
+                }
+            }
 
 // Function to edit customer details
-function editCustomerDetails(customerId) {
-    // Fetch the customer data from the backend (customers.json)
-    fetch(`/CAT-Project-WebApp/customers/${customerId}`)
-        .then(response => response.json())
-        .then(customer => {
-            if (customer) {
-                // Create the form with only editable fields that need to be shown (e.g., name, email, status)
-                const editForm = `
+            function editCustomerDetails(customerId) {
+                // Fetch the customer data from the backend (customers.json)
+                fetch(`/CAT-Project-WebApp/customers/${customerId}`)
+                    .then(response => response.json())
+                    .then(customer => {
+                        if (customer) {
+                            // Create the form with only editable fields that need to be shown (e.g., name, email, status)
+                            const editForm = `
                     <div class="customer-form">
                         <h3>Edit Customer ${customer.id}</h3>
                         <form id="editCustomerForm">
@@ -1187,54 +1180,49 @@ function editCustomerDetails(customerId) {
                         </form>
                     </div>
                 `;
-                document.querySelector('.order-details').innerHTML = editForm;
-                modal.style.display = 'block';
+                            document.querySelector('.order-details').innerHTML = editForm;
+                            modal.style.display = 'block';
 
-                // Listen for form submission
-                document.getElementById('editCustomerForm').addEventListener('submit', function (e) {
-                    e.preventDefault();
+                            // Listen for form submission
+                            document.getElementById('editCustomerForm').addEventListener('submit', function (e) {
+                                e.preventDefault();
 
-                    // Create an updated customer object with the form values
-                    const updatedCustomer = {
-                        id: customer.id,
-                        name: this.name.value,
-                        email: this.email.value,
-                        status: this.status.value,
-                        password: customer.password,  // Retain the original password
-                        totalSpent: customer.totalSpent,  // Retain the original totalSpent
-                        lastOrder: customer.lastOrder  // Retain the original lastOrder
-                    };
+                                // Create an updated customer object with the form values
+                                const updatedCustomer = {
+                                    id: customer.id,
+                                    name: this.name.value,
+                                    email: this.email.value,
+                                    status: this.status.value,
+                                    password: customer.password,  // Retain the original password
+                                    totalSpent: customer.totalSpent,  // Retain the original totalSpent
+                                    lastOrder: customer.lastOrder  // Retain the original lastOrder
+                                };
 
-                    // Send the updated customer data to the backend
-                    fetch(`/CAT-Project-WebApp/customers/${customer.id}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(updatedCustomer)
+                                // Send the updated customer data to the backend
+                                fetch(`/CAT-Project-WebApp/customers/${customer.id}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify(updatedCustomer)
+                                })
+                                    .then(response => {
+                                        return response.json();  // This will now properly parse the JSON response
+                                    })
+                                    .then(data => {
+                                        // On success, close the modal and refresh the customer list
+                                        alert("Customer updated successfully!");
+                                        modal.style.display = 'none';
+                                        fetchCustomerData();
+                                        displayCustomersPage(currentCustomerPage); // Refresh the customers table
+                                    })
+                            });
+                        } else {
+                            alert("Customer not found!");
+                        }
                     })
-                        .then(response => {
-                            return response.json();  // This will now properly parse the JSON response
-                        })
-                        .then(data => {
-                            // On success, close the modal and refresh the customer list
-                            alert("Customer updated successfully!");
-                            modal.style.display = 'none';
-                            fetchCustomerData();
-                            displayCustomersPage(currentCustomerPage); // Refresh the customers table
-                        })
-                        .catch(error => {
-                            console.error("Error updating customer:", error);
-                            alert("Failed to update customer.");
-                        });
-                });
-            } else {
-                alert("Customer not found!");
+                    .catch(error => {
+                        console.error("Error fetching customer:", error);
+                        alert("Failed to load customer details.");
+                    });
             }
-        })
-        .catch(error => {
-            console.error("Error fetching customer:", error);
-            alert("Failed to load customer details.");
-        });
-}
-
