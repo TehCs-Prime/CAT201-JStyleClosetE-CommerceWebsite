@@ -76,7 +76,6 @@ function populateOrdersTable() {
         });
 }
 
-
 // Modal functionality
 const modal = document.getElementById('orderModal');
 const closeModal = document.querySelector('.close-modal');
@@ -224,7 +223,8 @@ function handleDeleteOrder(orderId) {
                         .then(response => response.json())
                         .then(orders => {
                             // Repopulate the orders table with the updated data
-                            populateOrdersTable(orders);
+                            populateOrdersTable();
+                            displayOrdersPage();
                         })
                         .catch(error => {
                             console.error('Error fetching updated orders:', error);
@@ -391,11 +391,10 @@ filterBtn.addEventListener('click', function() {
     modal.style.display = 'block';
 });
 
-
 // Initialize the dashboard
 document.addEventListener('DOMContentLoaded', function () {
     populateOrdersTable();
-    displayOrdersPage(1);
+    displayOrdersPage();
     populateProductsTable();
     displayCustomersPage(1);
     setupCustomerEventListeners();
@@ -403,90 +402,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-function displayOrdersPage(page) {
+function displayOrdersPage() {
     // Fetch orders data from orders.json
     fetch('/CAT-Project-WebApp/orders')  // Adjust the path as needed
         .then(response => response.json())
         .then(orders => {
-            const ordersPerPage = 10; // Set how many orders you want per page (can adjust as needed)
-
-            const startIndex = (page - 1) * ordersPerPage;
-            const endIndex = startIndex + ordersPerPage;
-            const paginatedOrders = orders.slice(startIndex, endIndex);
-
             const tableBody = document.getElementById('totalOrdersTableBody');
             tableBody.innerHTML = '';
 
-            if (paginatedOrders.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td colspan="7" class="empty-table-indicator">No orders available</td>
-                `;
-                tableBody.appendChild(row);
-            } else {
-                paginatedOrders.forEach(order => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${order.id}</td>
-                        <td>${order.customer}</td>
-                        <td>${order.products.join(', ')}</td>
-                        <td>${order.total}</td>
-                        <td>
-                            <span class="status-tag status-${order.status.toLowerCase()}">
-                                ${order.status}
-                            </span>
-                        </td>
-                        <td>${order.date}</td>
-                        <td>
-                            <button class="action-btn view-btn" data-id="${order.id}">
-                                <img src="./Sources/EyeIcon.png" class="eye"></img>
-                            </button>
-                            <button class="action-btn edit-btn" data-id="${order.id}">
-                                <img src="./Sources/EditPenIcon.png" class="edit"></img>
-                            </button>
-                            <button class="action-btn delete-btn" data-id="${order.id}">
-                                <img src="./Sources/TrashIcon.png" class="trash"></img>
-                            </button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching orders data:', error);
+    if (orders.length === 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td colspan="7" class="empty-table-indicator">No orders available</td>
+        `;
+        tableBody.appendChild(row);
+    } else {
+        orders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.id}</td>
+                <td>${order.customer}</td>
+                <td>${order.products.join(', ')}</td>
+                <td>${order.total}</td>
+                <td>
+                    <span class="status-tag status-${order.status.toLowerCase()}">
+                        ${order.status}
+                    </span>
+                </td>
+                <td>${order.date}</td>
+                <td>
+                    <button class="action-btn view-btn" data-id="${order.id}">
+                        <img src="./Sources/EyeIcon.png" class="eye"></img>
+                    </button>
+                    <button class="action-btn edit-btn" data-id="${order.id}">
+                        <img src="./Sources/EditPenIcon.png" class="edit"></img>
+                    </button>
+                    <button class="action-btn delete-btn" data-id="${order.id}">
+                        <img src="./Sources/TrashIcon.png" class="trash"></img>
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(row);
         });
-
-    // Update pagination controls
-    updatePaginationControls();
-}
-
-function updatePaginationControls() {
-    const totalPages = Math.ceil(orders.length / ordersPerPage);
-    const pageInfo = document.getElementById('pageInfo');
-    const prevBtn = document.getElementById('prevPage');
-    const nextBtn = document.getElementById('nextPage');
-
-    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
-}
-
-// Event listeners for pagination
-document.getElementById('prevPage').addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--;
-        displayOrdersPage(currentPage);
     }
-});
 
-document.getElementById('nextPage').addEventListener('click', () => {
-    const totalPages = Math.ceil(orders.length / ordersPerPage);
-    if (currentPage < totalPages) {
-        currentPage++;
-        displayOrdersPage(currentPage);
-    }
-});
 
 // Filter functionality for orders section
 document.querySelector('.filter-btn-orders').addEventListener('click', function() {
@@ -526,8 +485,7 @@ document.querySelector('.filter-btn-orders').addEventListener('click', function(
 
 // Reset functionality for orders section
 document.querySelector('.reset-btn-orders').addEventListener('click', function() {
-    currentPage = 1;
-    displayOrdersPage(currentPage);
+    displayOrdersPage();
 });
 
 function applyOrdersFilters() {
@@ -557,24 +515,19 @@ function applyOrdersFilters() {
 }
 
 function populateTotalOrdersTableWithData(data) {
-    const ordersPerPage = 10; // Set how many orders you want to show per page
-    let currentPage = 1;
-
-    const startIndex = (currentPage - 1) * ordersPerPage;
-    const endIndex = startIndex + ordersPerPage;
-    const paginatedData = data.slice(startIndex, endIndex);
-
     const tableBody = document.getElementById('totalOrdersTableBody');
     tableBody.innerHTML = '';
 
-    if (paginatedData.length === 0) {
+    if (data.length === 0) {
+        // Show indicator if no data is present
         const row = document.createElement('tr');
         row.innerHTML = `
             <td colspan="7" class="empty-table-indicator">No orders available</td>
         `;
         tableBody.appendChild(row);
-    } else {
-        paginatedData.forEach(order => {
+    }
+    else {
+        data.forEach(order => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${order.id}</td>
@@ -602,15 +555,6 @@ function populateTotalOrdersTableWithData(data) {
             tableBody.appendChild(row);
         });
     }
-
-    const totalPages = Math.ceil(data.length / ordersPerPage);
-    const pageInfo = document.getElementById('pageInfo');
-    const prevBtn = document.getElementById('prevPage');
-    const nextBtn = document.getElementById('nextPage');
-
-    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages || data.length <= ordersPerPage;
 }
 
 function checkDateRange(orderDate, dateRange) {
@@ -1027,21 +971,17 @@ async function fetchCustomerData() {
 }
 
 function displayCustomersPage(page) {
-    const startIndex = (page - 1) * customersPerPage;
-    const endIndex = startIndex + customersPerPage;
-    const paginatedCustomers = customers.slice(startIndex, endIndex);
-
     const tableBody = document.getElementById('customersTableBody');
     tableBody.innerHTML = '';
 
-    if (paginatedCustomers.length === 0) {
+    if (customers.length === 0) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td colspan="8" class="empty-table-indicator">No customers available</td>
         `;
         tableBody.appendChild(row);
     } else {
-        paginatedCustomers.forEach(customer => {
+        customers.forEach(customer => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${customer.id}</td>
@@ -1067,38 +1007,10 @@ function displayCustomersPage(page) {
             tableBody.appendChild(row);
         });
     }
-
-    updateCustomerPaginationControls();
 }
 
-function updateCustomerPaginationControls() {
-    const totalPages = Math.ceil(customers.length / customersPerPage);
-    const pageInfo = document.getElementById('pageInfoCustomers');
-    const prevBtn = document.getElementById('prevPageCustomers');
-    const nextBtn = document.getElementById('nextPageCustomers');
-
-    pageInfo.textContent = `Page ${currentCustomerPage} of ${totalPages}`;
-    prevBtn.disabled = currentCustomerPage === 1;
-    nextBtn.disabled = currentCustomerPage === totalPages;
-}
-
+// Setup event listeners for customers section
 function setupCustomerEventListeners() {
-    // Pagination
-    document.getElementById('prevPageCustomers').addEventListener('click', () => {
-        if (currentCustomerPage > 1) {
-            currentCustomerPage--;
-            displayCustomersPage(currentCustomerPage);
-        }
-    });
-
-    document.getElementById('nextPageCustomers').addEventListener('click', () => {
-        const totalPages = Math.ceil(customers.length / customersPerPage);
-        if (currentCustomerPage < totalPages) {
-            currentCustomerPage++;
-            displayCustomersPage(currentCustomerPage);
-        }
-    });
-
     // Filter button
     document.querySelector('.filter-btn-customers').addEventListener('click', showCustomerFilters);
 
@@ -1168,22 +1080,17 @@ function applyCustomerFilters() {
 
 // Display filtered customers
 function displayFilteredCustomers(filteredCustomers) {
-    currentCustomerPage = 1;
-    const startIndex = 0;
-    const endIndex = customersPerPage;
-    const paginatedCustomers = filteredCustomers.slice(startIndex, endIndex);
-
     const tableBody = document.getElementById('customersTableBody');
     tableBody.innerHTML = '';
 
-    if (paginatedCustomers.length === 0) {
+    if (filteredCustomers.length === 0) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td colspan="8" class="empty-table-indicator">No customers found</td>
         `;
         tableBody.appendChild(row);
     } else {
-        paginatedCustomers.forEach(customer => {
+        filteredCustomers.forEach(customer => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${customer.id}</td>
@@ -1209,15 +1116,6 @@ function displayFilteredCustomers(filteredCustomers) {
             tableBody.appendChild(row);
         });
     }
-
-    const totalPages = Math.ceil(filteredCustomers.length / customersPerPage);
-    const pageInfo = document.getElementById('pageInfoCustomers');
-    const prevBtn = document.getElementById('prevPageCustomers');
-    const nextBtn = document.getElementById('nextPageCustomers');
-
-    pageInfo.textContent = `Page ${currentCustomerPage} of ${totalPages}`;
-    prevBtn.disabled = currentCustomerPage === 1;
-    nextBtn.disabled = currentCustomerPage === totalPages || filteredCustomers.length <= customersPerPage;
 }
 
 function showCustomerDetails(customerId) {
