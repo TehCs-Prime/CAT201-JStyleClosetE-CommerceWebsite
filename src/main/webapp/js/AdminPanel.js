@@ -185,6 +185,7 @@ async function handleEditOrder(orderId) {
 
                     // Repopulate the orders table with the updated data
                     populateOrdersTable();
+                    displayOrdersPage();
 
                     // Close the modal after the update
                     modal.style.display = 'none';
@@ -808,7 +809,6 @@ function displayOrdersPage() {
                             if (updateResponse.ok) {
                                 // If successful, update the products table and close the modal
                                 await populateProductsTable();
-                                applyOrdersFilters();
                                 modal.style.display = 'none';
                             } else {
                                 alert('Failed to update the product');
