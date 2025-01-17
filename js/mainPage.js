@@ -122,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	renderItems('men');
 });
 
-
 // Fetch header
 fetch("../html/Header-HomeBar.html")
 	.then(response => response.text())

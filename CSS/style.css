@@ -204,132 +204,119 @@ section{
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
 	cursor: pointer;
 }
-  
-footer{
-		width: 100%;
-		height: 120px;
-		background-color: #555;
-		text-align: center;
-}
-
-.footer-text{
-		padding: 20px;
-		color: white;
-		font-size: var(--body-font);
-}
 
 /*#region item display styling*/
 .menu{
 		margin: 20px;
 }
 
-	.menu ul{
-		display: flex;
-		justify-content: center;
-		list-style: none;
-		gap: 24px;
-	}
+.menu ul{
+	display: flex;
+	justify-content: center;
+	list-style: none;
+	gap: 24px;
+}
 
-	.menu ul li{
-		font-size: 1.4rem;
-	}
+.menu ul li{
+	font-size: 1.4rem;
+}
 
-	.menu ul li a {
-    text-decoration: none;
-    color: #afafaf;
-    transition: color 0.3s ease;
-	}
+.menu ul li a {
+	text-decoration: none;
+	color: #afafaf;
+	transition: color 0.3s ease;
+}
 
-	.menu li a:hover{
-		color: #2b2b2b;
-	}
+.menu li a:hover{
+	color: #2b2b2b;
+}
 
-	.menu a.active-menu{
-		color:#2b2b2b;
-		font-weight: 450;
-	}
+.menu a.active-menu{
+	color:#2b2b2b;
+	font-weight: 450;
+}
 
-	.more-container{
-		margin-top: 20px;
-		margin-bottom: 36px;
-		text-align: center;
-	}
-	
-	.more-button{
-		display: inline-block;
-		padding: 8px 16px;
-		font-size: 1.2rem;
-		background-color: white;
-		border: 0.75px solid black;
-		color: black;
-		text-decoration: none;
-		border-radius: 20px;
-		transition: background-color 0.3s ease, transform 0.3s ease;
-	}
+.more-container{
+	margin-top: 20px;
+	margin-bottom: 36px;
+	text-align: center;
+}
 
-	.more-button:hover{
-		background-color:#3d3d3d;
-		color: white;
-		border-color: #3d3d3d;
-		transform: scale(1.05);
-		cursor: pointer;
-	}
-	/*#endregion*/
+.more-button{
+	display: inline-block;
+	padding: 8px 16px;
+	font-size: 1.2rem;
+	background-color: white;
+	border: 0.75px solid black;
+	color: black;
+	text-decoration: none;
+	border-radius: 20px;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+}
 
-	/*#region advertisement showcase*/
-	.ads-container{
-		max-width: 1280px;
-		width: 100%;
-		height: auto;
-		background-color: white;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 20px;
-	}
+.more-button:hover{
+	background-color:#3d3d3d;
+	color: white;
+	border-color: #3d3d3d;
+	transform: scale(1.05);
+	cursor: pointer;
+}
+/*#endregion*/
 
-	.ads-image{
-		flex: 4;
-	}
+/*#region advertisement showcase*/
+.ads-container{
+	max-width: 1280px;
+	width: 100%;
+	height: auto;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+}
 
-	.ads-image img{
-		max-width: 100%;
-		width: 100%;
-		height: auto;
-	}
+.ads-image{
+	flex: 4;
+}
 
-	.ads-text{
-		flex: 1;
-		text-align: left;
-		padding-left: 80px;
-	}
+.ads-image img{
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+}
 
-	.ads-text h2{
-		font-size: var(--h2-font);
-		margin-bottom: 16px;
-	}
+.ads-text{
+	flex: 1;
+	text-align: left;
+	padding-left: 80px;
+}
 
-	.ads-text p{
-		font-size: var(--small-font);
-		margin-bottom: 36px;
-	}
+.ads-text h2{
+	font-size: var(--h2-font);
+	margin-bottom: 16px;
+}
 
-	/*Button Styling*/
-	.ads-button{
-		display: inline-block;
-    padding: 10px 24px;
-    font-size: var(--smaller-font);
-    background-color: black;
-    color: white;
-    text-decoration: none;
-    border-radius: 12px;
-    transition: background-color 0.3s ease, transform 0.5s ease;
-	}
+.ads-text p{
+	font-size: var(--small-font);
+	margin-bottom: 36px;
+}
 
-	.ads-button:hover{
-		background-color: #555;
-		transform: scale(1.05);
-	}
+/*Button Styling*/
+.ads-button{
+	display: inline-block;
+	padding: 10px 24px;
+	font-size: var(--smaller-font);
+	background-color: black;
+	color: white;
+	text-decoration: none;
+	border-radius: 12px;
+	transition: background-color 0.3s ease, transform 0.5s ease;
+}
+
+.ads-button:hover{
+	background-color: #555;
+	transform: scale(1.05);
+}
 
 /*#endregion*/
 

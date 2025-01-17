@@ -67,4 +67,3 @@ fetch("Footer-BottomBar.html")
 .then(data => {
 	document.getElementById("footer").innerHTML = data;
 });
-
