@@ -259,7 +259,11 @@ function populateOrdersTableWithData(orders) {  // Accept 'orders' as an argumen
             row.innerHTML = `
                 <td>${order.id}</td>
                 <td>${order.customer}</td>
-                <td>${order.products.join(', ')}</td>
+                <td>${order.products.map(product => `
+                                <h5>
+                                    ${product.productId} (${product.quantity})
+                                </h5>
+                            `).join('')}</td>
                 <td>${order.total}</td>
                 <td>
                     <span class="status-tag status-${order.status.toLowerCase()}">
@@ -527,7 +531,11 @@ function displayOrdersPage() {
                         row.innerHTML = `
                 <td>${order.id}</td>
                 <td>${order.customer}</td>
-                <td>${order.products.join(', ')}</td>
+                <td>${order.products.map(product => `
+                                <h5>
+                                    ${product.productId} (${product.quantity})
+                                </h5>
+                            `).join('')}</td>
                 <td>${order.total}</td>
                 <td>
                     <span class="status-tag status-${order.status.toLowerCase()}">
