@@ -389,6 +389,7 @@ document.addEventListener('DOMContentLoaded', function () {
     populateOrdersTable();
     displayOrdersPage();
     populateProductsTable();
+    populateDashboard();
     displayCustomersPage();
     setupCustomerEventListeners();
 });
@@ -1219,3 +1220,25 @@ function displayOrdersPage() {
                         alert("Failed to load customer details.");
                     });
             }
+
+            // Calculate total revenue and total orders dynamically
+            const calculateStats = (data) => {
+                const totalOrders = data.orders.length;
+                const revenue = data.orders.reduce((sum, order) => sum + order.amount, 0);
+                const pendingOrders = data.pendingOrders;
+                const customers = data.customers;
+
+                return { totalOrders, revenue, pendingOrders, customers };
+            };
+
+            // Populate the dashboard dynamically
+            const populateDashboard = () => {
+                const data = fetchData(); // Simulate fetching data
+                const stats = calculateStats(data); // Perform calculations
+
+                // Populate the DOM with calculated data
+                document.getElementById('total-orders').textContent = stats.totalOrders;
+                document.getElementById('revenue').textContent = `RM ${stats.revenue}`;
+                document.getElementById('pending-orders').textContent = stats.pendingOrders;
+                document.getElementById('customer').textContent = stats.customers;
+            };
