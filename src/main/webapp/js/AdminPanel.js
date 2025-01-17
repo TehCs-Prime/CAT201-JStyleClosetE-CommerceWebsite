@@ -1274,4 +1274,41 @@ async function handleDeleteProduct(productId) {
                         console.error("Error fetching customer:", error);
                         alert("Failed to load customer details.");
                     });
+
+
+
             }
+
+fetch('/CAT-Project-WebApp/orders')
+    .then(response => response.json())
+    .then(data => {
+        let totalOrders = 0;
+        let revenue = 0;
+        let pendingOrders = 0;
+
+        // Update stats based on orders data
+        data.forEach(order => {
+            totalOrders++;
+            revenue += parseFloat(order.total.replace('RM', '').trim());
+            if (order.status === "pending") {
+                pendingOrders++;
+            }
+        });
+
+        // Fetch customer data to count unique customers
+        fetch('/CAT-Project-WebApp/customers')
+            .then(response => response.json())
+            .then(customers => {
+                // Count the number of unique customers
+                let customerCount = customers.length;
+
+                // Update stats on the page
+                document.getElementById('totalOrders').textContent = totalOrders;
+                document.getElementById('revenue').textContent = 'RM ' + revenue.toFixed(2);
+                document.getElementById('pendingOrders').textContent = pendingOrders;
+                document.getElementById('customer').textContent = customerCount;
+            })
+            .catch(error => console.error('Error fetching customers:', error));
+    })
+    .catch(error => console.error('Error fetching orders:', error));
+
