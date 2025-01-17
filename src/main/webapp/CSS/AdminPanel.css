@@ -356,11 +356,6 @@
     background: transparent;
 }
 
-button.action-btn.view-btn{
-    border: none;
-    background: transparent;
-}
-
 button.action-btn.edit-btn, button.action-btn.Pedit-btn{
     border: none;
     background: transparent;
@@ -583,7 +578,7 @@ button.action-btn.delete-btn{
     color: white;
 }
 
-.action-btn.view-customer-btn, .action-btn.edit-customer-btn{
+.action-btn.edit-customer-btn{
     background: transparent;
     border: 0;
 }

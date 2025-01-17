@@ -50,9 +50,6 @@ function populateOrdersTable() {
                         </td>
                         <td>${order.date}</td>
                         <td>
-                            <button class="action-btn view-btn" data-id="${order.id}">
-                                <img src="./Sources/EyeIcon.png" class="eye"></img>
-                            </button>
                             <button class="action-btn edit-btn" data-id="${order.id}">
                                 <img src="./Sources/EditPenIcon.png" class="edit"></img>
                             </button>
@@ -267,9 +264,6 @@ function populateOrdersTableWithData(orders) {  // Accept 'orders' as an argumen
                 </td>
                 <td>${order.date}</td>
                 <td>
-                    <button class="action-btn view-btn" data-id="${order.id}">
-                        <img src="./Sources/EyeIcon.png" class="eye"></img>
-                    </button>
                     <button class="action-btn edit-btn" data-id="${order.id}">
                         <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
@@ -426,9 +420,6 @@ function displayOrdersPage() {
                 </td>
                 <td>${order.date}</td>
                 <td>
-                    <button class="action-btn view-btn" data-id="${order.id}">
-                        <img src="./Sources/EyeIcon.png" class="eye"></img>
-                    </button>
                     <button class="action-btn edit-btn" data-id="${order.id}">
                         <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
@@ -537,9 +528,6 @@ function displayOrdersPage() {
                 </td>
                 <td>${order.date}</td>
                 <td>
-                    <button class="action-btn view-btn" data-id="${order.id}">
-                        <img src="./Sources/EyeIcon.png" class="eye"></img>
-                    </button>
                     <button class="action-btn edit-btn" data-id="${order.id}">
                         <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
@@ -681,6 +669,8 @@ function displayOrdersPage() {
                 document.getElementById('addProductForm').addEventListener('submit', async function (e) {
                     e.preventDefault();
 
+                    const images = Array.from(this.images.files).map(file => URL.createObjectURL(file));
+
                     // Prepare the new product data (WITHOUT the ID)
                     const newProduct = {
                         name: this.name.value,
@@ -688,7 +678,8 @@ function displayOrdersPage() {
                         price: 'RM ' + parseFloat(this.price.value).toFixed(2),
                         stock: parseInt(this.stock.value),
                         status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
-                            parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock'
+                            parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock',
+                        images,
                     };
 
                     // Send the new product data to the backend via POST request
@@ -989,9 +980,6 @@ function displayOrdersPage() {
                     </span>
                 </td>
                 <td>
-                    <button class="action-btn view-customer-btn" data-id="${customer.id}">
-                        <img src="./Sources/EyeIcon.png" class="eye"></img>
-                    </button>
                     <button class="action-btn edit-customer-btn" data-id="${customer.id}">
                         <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
@@ -1098,9 +1086,6 @@ function displayOrdersPage() {
                     </span>
                 </td>
                 <td>
-                    <button class="action-btn view-customer-btn" data-id="${customer.id}">
-                        <img src="./Sources/EyeIcon.png" class="eye"></img>
-                    </button>
                     <button class="action-btn edit-customer-btn" data-id="${customer.id}">
                         <img src="./Sources/EditPenIcon.png" class="edit"></img>
                     </button>
