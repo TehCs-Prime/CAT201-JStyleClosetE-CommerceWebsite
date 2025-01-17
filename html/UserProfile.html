@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - JSTYLE</title>
+    <link rel="stylesheet" href="../CSS/UserProfile.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="../Sources/Jstyle LOGO.jpg" type ="image/x-icon">
+  </head>
+
+  <body>
+
+    <header id="header">
+      <!--import from Header-HomeBar.html-->
+    </header>
+
+    <section class="user-acc">
+      <h2>Account</h2>
+
+      <div class="user-acc-container">
+
+        <div class="order-history">
+          <h4>Order History</h4>
+          <p id="order-message">You haven't placed any orders yet.</p>
+
+          <div class="order-container-header" id="order-header" style="display: none;"> 
+              <p>Product</p>
+              <p>Quantity</p>
+              <p>Total</p>
+          </div>
+
+          <div id="order-list">
+            <!-- Orders will be updated here dynmically -->
+          </div>
+
+      </div>
+
+        <div class="acc-detail">
+
+          <h4>Account Details</h4>
+          <p id="user-name">Name</p>
+          <p id="user-email">Email Address</p>
+
+          <button class="logout-btn">Log Out</button>
+          <button>Change Password</button>
+
+        </div>
+
+      </div>
+    </section>
+
+    <footer id="footer">
+      <!--import from Footer-BottomBar.html-->
+    </footer>
+
+    <script src="../js/UserProfile.js"></script>
+
+  </body>
+
+</html>
