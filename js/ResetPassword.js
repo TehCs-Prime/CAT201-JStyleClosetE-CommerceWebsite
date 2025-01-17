@@ -26,10 +26,6 @@ document.getElementById('reset-btn').addEventListener('click', () => {
       return;
   }
 
-  // Simulate password update
-  errorMessage2.style.color = 'green';
-  errorMessage2.textContent = 'Password has been successfully reset.';
-
   resetContainer.style.display = 'none';
   successContainer.style.display = 'flex';
 });
