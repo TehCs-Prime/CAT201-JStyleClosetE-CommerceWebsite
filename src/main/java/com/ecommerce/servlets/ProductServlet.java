@@ -85,7 +85,7 @@ public class ProductServlet extends HttpServlet {
         }
         String jsonRequest = stringBuilder.toString();
 
-        // Parse the JSON request into a Product object (without ID)
+        // Parse the JSON request into a Product object (including description)
         ObjectMapper objectMapper = new ObjectMapper();
         Product newProduct = objectMapper.readValue(jsonRequest, Product.class);
 
@@ -94,14 +94,12 @@ public class ProductServlet extends HttpServlet {
         List<Product> products = new ArrayList<>();
 
         if (file.exists()) {
-            products = objectMapper.readValue(file, new TypeReference<List<Product>>() {
-            });
+            products = objectMapper.readValue(file, new TypeReference<List<Product>>() {});
         }
 
         // Generate a new ID for the product (e.g., P001, P002, etc.)
         String newProductId = String.format("P%03d", products.size() + 1); // Format ID with leading zeros
         newProduct.setId(newProductId);  // Set the generated ID to the new product
-
 
         // Add the new product to the list
         products.add(newProduct);
@@ -113,6 +111,7 @@ public class ProductServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Product added successfully with ID " + newProductId);
     }
+
 
 
     @Override
@@ -163,6 +162,7 @@ public class ProductServlet extends HttpServlet {
                 int updatedStock = updatedProduct.getStock() == -1 ? currentProduct.getStock() : updatedProduct.getStock();
                 currentProduct.setStock(updatedStock);
                 currentProduct.setStatus(updatedProduct.getStatus() != null ? updatedProduct.getStatus() : currentProduct.getStatus());
+                currentProduct.setDescription(updatedProduct.getDescription() != null ? updatedProduct.getDescription() : currentProduct.getDescription()); // Update description
 
                 products.set(i, currentProduct);
                 productUpdated = true;
@@ -189,6 +189,7 @@ public class ProductServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Product updated successfully");
     }
+
 
 
     @Override
