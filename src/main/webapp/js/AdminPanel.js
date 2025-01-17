@@ -592,26 +592,29 @@ function displayOrdersPage() {
                     }
 
                     // Iterate through the products and create table rows
+                    // Inside populateProductsTable function
                     products.forEach(product => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.category}</td>
-                <td>${product.price}</td>
-                <td>${product.stock}</td>
-                <td><span class="status-tag status-${product.status.toLowerCase().replace(' ', '-')}">${product.status}</span></td>
-                <td>
-                    <button class="action-btn Pedit-btn" data-id="${product.id}">
-                        <img src="./Sources/EditPenIcon.png" class="edit"></img>
-                    </button>
-                    <button class="action-btn Pdelete-btn" data-id="${product.id}">
-                        <img src="./Sources/TrashIcon.png" class="trash"></img>
-                    </button>
-                </td>
-            `;
+        <td>${product.id}</td>
+        <td>${product.name}</td>
+        <td>${product.category}</td>
+        <td>${product.price}</td>
+        <td>${product.stock}</td>
+        <td><span class="status-tag status-${product.status.toLowerCase().replace(' ', '-')}">${product.status}</span></td>
+        <td>${product.description || 'No description available'}</td> <!-- Add description -->
+        <td>
+            <button class="action-btn Pedit-btn" data-id="${product.id}">
+                <img src="./Sources/EditPenIcon.png" class="edit"></img>
+            </button>
+            <button class="action-btn Pdelete-btn" data-id="${product.id}">
+                <img src="./Sources/TrashIcon.png" class="trash"></img>
+            </button>
+        </td>
+    `;
                         PtableBody.appendChild(row);
                     });
+
 
                 } catch (error) {
                     console.error('Error fetching products:', error);
@@ -621,9 +624,9 @@ function displayOrdersPage() {
             }
 
 
-            async function handleAddProduct() {
-                const productForm = document.createElement('div');
-                productForm.innerHTML = `
+async function handleAddProduct() {
+    const productForm = document.createElement('div');
+    productForm.innerHTML = `
         <div class="product-form">
             <h3>Add New Product</h3>
             <form id="addProductForm">
@@ -653,61 +656,92 @@ function displayOrdersPage() {
                     <input type="number" name="stock" required>
                 </div>
                 <div class="form-group">
+                    <label>Description:</label>
+                    <textarea name="description" required></textarea>
+                </div>
+                <div class="form-group">
                     <label>Upload 5 Images:</label>
-                    <input type="file" name="images" multiple accept="image/*" required>
+                    <input type="file" name="images" id="imageUpload" multiple accept="image/*" required>
+                    <small>Exactly 5 images are required.</small>
                 </div>
                 <button type="submit">Add Product</button>
             </form>
         </div>
     `;
 
-                document.querySelector('.order-details').innerHTML = '';
-                document.querySelector('.order-details').appendChild(productForm);
-                modal.style.display = 'block';
+    // Clear and append the product form
+    document.querySelector('.order-details').innerHTML = '';
+    document.querySelector('.order-details').appendChild(productForm);
+    modal.style.display = 'block';
 
-                // Handle form submission
-                document.getElementById('addProductForm').addEventListener('submit', async function (e) {
-                    e.preventDefault();
+    // Handle form submission
+    document.getElementById('addProductForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-                    const images = Array.from(this.images.files).map(file => URL.createObjectURL(file));
+        const imageUpload = document.getElementById('imageUpload');
+        const files = Array.from(imageUpload.files);
 
-                    // Prepare the new product data (WITHOUT the ID)
-                    const newProduct = {
-                        name: this.name.value,
-                        category: this.category.value,
-                        price: 'RM ' + parseFloat(this.price.value).toFixed(2),
-                        stock: parseInt(this.stock.value),
-                        status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
-                            parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock',
-                        images,
-                    };
+        if (files.length !== 5) {
+            alert('You must upload exactly 5 images.');
+            return;
+        }
 
-                    // Send the new product data to the backend via POST request
-                    try {
-                        const response = await fetch('/CAT-Project-WebApp/products', {  // Adjust URL to match your backend endpoint
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(newProduct)
-                        });
+        // Convert images to Base64
+        const convertToBase64 = file => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result); // Base64 string
+                reader.onerror = error => reject(error);
+            });
+        };
 
-                        if (!response.ok) {
-                            throw new Error('Failed to add product');
-                        }
-
-                        // Update the products table after successfully adding the product
-                        await populateProductsTable();
-
-                        // Close the modal
-                        modal.style.display = 'none';
-                    } catch (error) {
-                        console.error('Error adding product:', error);
-                        alert('There was an error adding the product. Please try again.');
-                    }
-                });
-
+        const images = [];
+        for (const file of files) {
+            try {
+                const base64Image = await convertToBase64(file);
+                images.push(base64Image);
+            } catch (error) {
+                console.error('Error converting image to Base64:', error);
+                alert('Failed to process images. Please try again.');
+                return;
             }
+        }
+
+        const newProduct = {
+            name: this.name.value,
+            category: this.category.value,
+            price: 'RM ' + parseFloat(this.price.value).toFixed(2),
+            stock: parseInt(this.stock.value),
+            description: this.description.value,  // Add the description to the new product
+            status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
+                parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock',
+            images, // Store Base64 images here
+        };
+
+        try {
+            const response = await fetch('/CAT-Project-WebApp/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newProduct),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add product');
+            }
+
+            await populateProductsTable();
+            modal.style.display = 'none';
+        } catch (error) {
+            console.error('Error adding product:', error);
+            alert('There was an error adding the product. Please try again.');
+        }
+    });
+}
+
+
 
 
 // Add event listeners
@@ -723,18 +757,18 @@ function displayOrdersPage() {
                 }
             });
 
-            async function handleEditProduct(productId) {
-                // Fetch the product data from the backend (your servlet)
-                try {
-                    const response = await fetch(`http://localhost:8080//CAT-Project-WebApp/products/${productId}`);
-                    const product = await response.json();
+async function handleEditProduct(productId) {
+    try {
+        // Fetch the product data from the backend (your servlet)
+        const response = await fetch(`http://localhost:8080/CAT-Project-WebApp/products/${productId}`);
+        const product = await response.json();
 
-                    if (product && product.length > 0) {
-                        const selectedProduct = product[0]; // Since the response is wrapped in an array
+        if (product && product.length > 0) {
+            const selectedProduct = product[0]; // Assuming the response is an array and selecting the first item
 
-                        // Create the edit form HTML
-                        const editForm = document.createElement('div');
-                        editForm.innerHTML = `
+            // Create the edit form HTML
+            const editForm = document.createElement('div');
+            editForm.innerHTML = `
                 <div class="product-form">
                     <h3>Edit Product ${selectedProduct.id}</h3>
                     <form id="editProductForm">
@@ -763,59 +797,73 @@ function displayOrdersPage() {
                             <label>Stock:</label>
                             <input type="number" name="stock" value="${selectedProduct.stock}" required>
                         </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea name="description" required>${selectedProduct.description}</textarea>
+                        </div>
                         <button type="submit">Update Product</button>
                     </form>
                 </div>
             `;
 
-                        // Clear the previous content and append the edit form
-                        document.querySelector('.order-details').innerHTML = '';
-                        document.querySelector('.order-details').appendChild(editForm);
-                        modal.style.display = 'block';
+            // Clear previous content and append the edit form
+            document.querySelector('.order-details').innerHTML = '';
+            document.querySelector('.order-details').appendChild(editForm);
 
-                        // Handle the form submission
-                        document.getElementById('editProductForm').addEventListener('submit', async function (e) {
-                            e.preventDefault();
+            // Display modal
+            modal.style.display = 'block';
 
-                            // Prepare the updated product data
-                            const updatedProduct = {
-                                id: selectedProduct.id,
-                                name: this.name.value,
-                                category: this.category.value,
-                                price: 'RM ' + parseFloat(this.price.value).toFixed(2),
-                                stock: parseInt(this.stock.value),
-                                status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
-                                    parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock',
-                            };
+            // Handle the form submission
+            document.getElementById('editProductForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
 
-                            // Send the updated product data to the server using a PUT request
-                            const updateResponse = await fetch(`http://localhost:8080/CAT-Project-WebApp/products/${selectedProduct.id}`, {
-                                method: 'PUT',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(updatedProduct),
-                            });
+                // Prepare the updated product data
+                const updatedProduct = {
+                    id: selectedProduct.id,
+                    name: this.name.value,
+                    category: this.category.value,
+                    price: 'RM ' + parseFloat(this.price.value).toFixed(2),
+                    stock: parseInt(this.stock.value),
+                    status: parseInt(this.stock.value) === 0 ? 'Out of Stock' :
+                        parseInt(this.stock.value) <= 10 ? 'Low Stock' : 'In Stock',
+                    description: this.description.value, // Include the description
+                };
 
-                            if (updateResponse.ok) {
-                                // If successful, update the products table and close the modal
-                                await populateProductsTable();
-                                modal.style.display = 'none';
-                            } else {
-                                alert('Failed to update the product');
-                            }
-                        });
+                // Send the updated product data to the server using a PUT request
+                try {
+                    const updateResponse = await fetch(`http://localhost:8080/CAT-Project-WebApp/products/${selectedProduct.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(updatedProduct),
+                    });
+
+                    if (updateResponse.ok) {
+                        // If successful, update the products table and close the modal
+                        await populateProductsTable();
+                        modal.style.display = 'none';
                     } else {
-                        alert('Product not found');
+                        alert('Failed to update the product');
                     }
                 } catch (error) {
-                    console.error('Error fetching product:', error);
-                    alert('Error fetching product details');
+                    console.error('Error updating product:', error);
+                    alert('Error updating product');
                 }
-            }
+            });
+
+        } else {
+            alert('Product not found');
+        }
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        alert('Error fetching product details');
+    }
+}
 
 
-            async function handleDeleteProduct(productId) {
+
+async function handleDeleteProduct(productId) {
                 if (confirm('Are you sure you want to delete this product?')) {
                     try {
                         const response = await fetch(`/CAT-Project-WebApp/products/${productId}`, {
