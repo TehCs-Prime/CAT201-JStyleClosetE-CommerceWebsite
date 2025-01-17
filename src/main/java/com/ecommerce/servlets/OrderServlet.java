@@ -18,6 +18,10 @@ public class OrderServlet extends HttpServlet {
         String pathInfo = request.getPathInfo();
         List<Order> orders = new OrderDatabase().readOrders();
 
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        ObjectMapper mapper = new ObjectMapper();
+
         if (pathInfo != null && !pathInfo.equals("/")) {
             String orderId = pathInfo.substring(1); // No need for URL decoding or `#` handling
             Order order = orders.stream()
@@ -26,12 +30,12 @@ public class OrderServlet extends HttpServlet {
                     .orElse(null);
 
             if (order != null) {
-                response.getWriter().write(new ObjectMapper().writeValueAsString(order));
+                response.getWriter().write(mapper.writeValueAsString(order));
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Order not found");
             }
         } else {
-            response.getWriter().write(new ObjectMapper().writeValueAsString(orders));
+            response.getWriter().write(mapper.writeValueAsString(orders));
         }
     }
 
@@ -50,6 +54,10 @@ public class OrderServlet extends HttpServlet {
         String jsonRequest = stringBuilder.toString();
         ObjectMapper objectMapper = new ObjectMapper();
         Order newOrder = objectMapper.readValue(jsonRequest, Order.class);
+
+        newOrder.getProducts().forEach(product -> {
+            System.out.println("Product ID: " + product.getProductId() + ", Quantity: " + product.getQuantity());
+        });
 
         // Add the new order
         OrderDatabase db = new OrderDatabase();
