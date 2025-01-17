@@ -1,36 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-html{
-  font-size: 12px;
-}
-:root{
-  --body-font: 'Montserrat', serif;
-
-  --big-font: 4rem;
-  --h1-font: 3.2rem;
-  --h2-font: 2rem;
-  --h3-font: 1.8rem;
-  --h4-font: 1.6rem;
-  --normal-font: 1.5rem;
-  --small-font: 1.3rem;
-  --smaller-font: 1.3rem;
-
-  --font-regular: 400;
-  --font-medium: 500;
-  --font-semi-bold: 600;
-
-  --primary-color: #C87E4F;
-  --primary-color-hover: #C2703D;
-  --section-bg: #2C3034;
-
-  --z-overlay: 10;
-  --z-fixed: 100;
-  
-  --tran-0-2: 0.25;
-  --tran-0-3: 0.35;
-  --tran-0-5: 0.55;
-}
-
 @media screen and (max-width: 990px){
 	:root{
 		--big-font: 3.4rem;
@@ -54,7 +23,7 @@ body,
 button,
 input{
 	font-family: var(--body-font);
-	font-size: var(--normal-font);
+	font-size: var(--font-regular);
 	font-weight: var(--font-regular);
 	color: var(--text-color);
 }
@@ -67,13 +36,6 @@ input{
 	display: flex;
 	align-items: center;
 	column-gap: 12px;
-}
-
-.container{
-	max-width: 1030px;
-	width: 100%;
-	margin: 0 auto;
-	padding: 0 3ref;
 }
 
 section{
