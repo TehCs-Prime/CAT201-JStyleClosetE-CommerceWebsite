@@ -52,7 +52,9 @@ if (user.orders.length > 0) {
 		});
 }
 
-
+document.getElementById('change-btn').addEventListener('click', () => {
+  window.location.href = '../html/ResetPassword.html';  
+});
 
 // Fetch header
 fetch('Header-HomeBar.html')
