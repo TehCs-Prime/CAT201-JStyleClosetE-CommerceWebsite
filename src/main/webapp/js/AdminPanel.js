@@ -259,7 +259,11 @@ function populateOrdersTableWithData(orders) {  // Accept 'orders' as an argumen
             row.innerHTML = `
                 <td>${order.id}</td>
                 <td>${order.customer}</td>
-                <td>${order.products.join(', ')}</td>
+                <td>${order.products.map(product => `
+                                <h5>
+                                    ${product.productId} (${product.quantity})
+                                </h5>
+                            `).join('')}</td>
                 <td>${order.total}</td>
                 <td>
                     <span class="status-tag status-${order.status.toLowerCase()}">
@@ -389,7 +393,6 @@ document.addEventListener('DOMContentLoaded', function () {
     populateOrdersTable();
     displayOrdersPage();
     populateProductsTable();
-    populateDashboard();
     displayCustomersPage();
     setupCustomerEventListeners();
 });
@@ -528,7 +531,11 @@ function displayOrdersPage() {
                         row.innerHTML = `
                 <td>${order.id}</td>
                 <td>${order.customer}</td>
-                <td>${order.products.join(', ')}</td>
+                <td>${order.products.map(product => `
+                                <h5>
+                                    ${product.productId} (${product.quantity})
+                                </h5>
+                            `).join('')}</td>
                 <td>${order.total}</td>
                 <td>
                     <span class="status-tag status-${order.status.toLowerCase()}">
@@ -1220,25 +1227,3 @@ function displayOrdersPage() {
                         alert("Failed to load customer details.");
                     });
             }
-
-            // Calculate total revenue and total orders dynamically
-            const calculateStats = (data) => {
-                const totalOrders = data.orders.length;
-                const revenue = data.orders.reduce((sum, order) => sum + order.amount, 0);
-                const pendingOrders = data.pendingOrders;
-                const customers = data.customers;
-
-                return { totalOrders, revenue, pendingOrders, customers };
-            };
-
-            // Populate the dashboard dynamically
-            const populateDashboard = () => {
-                const data = fetchData(); // Simulate fetching data
-                const stats = calculateStats(data); // Perform calculations
-
-                // Populate the DOM with calculated data
-                document.getElementById('total-orders').textContent = stats.totalOrders;
-                document.getElementById('revenue').textContent = `RM ${stats.revenue}`;
-                document.getElementById('pending-orders').textContent = stats.pendingOrders;
-                document.getElementById('customer').textContent = stats.customers;
-            };
