@@ -1,8 +1,4 @@
-// const users = [
-//   { email: 'user1@example.com', password: 'password123' },
-//   { email: 'user2@example.com', password: 'welcome456' },
-//   { email: 'user3@example.com', password: 'secure789' },
-// ];
+
 
 document.getElementById('signup-btn').addEventListener('click', () => {
   const username = document.getElementById('username').value.trim();
@@ -62,16 +58,38 @@ document.getElementById('signup-btn').addEventListener('click', () => {
   }
 
   if (isValid) {
-    // const userData = {
-    //   username,
-    //   email,
-    //   password,
-    // };
+    // Prepare the customer data (excluding the ID)
+    const newCustomer = {
+      name: username,
+      email: email,
+      password: password,
+      totalOrders: 0,
+      totalSpent: "RM 0.00",
+      lastOrder: new Date().toISOString().split("T")[0], // Today's date in YYYY-MM-DD format
+      status: "active"
+    };
 
-    alert('Sign-up successful! Please log in again.');
-    window.location.href = '../html/Login.html'; 
+    // Send the customer data to the backend
+    fetch('/CAT-Project-WebApp/customers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newCustomer),
+    })
+        .then(response => response.json())
+        .then(data => {
+          alert('Sign-up successful! Please log in again.');
+          window.location.href = 'Login.html';
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Sign-up failed. Please try again.');
+        });
   }
 });
+
+
 
 // Fetch header
 fetch('Header-HomeBar.html')

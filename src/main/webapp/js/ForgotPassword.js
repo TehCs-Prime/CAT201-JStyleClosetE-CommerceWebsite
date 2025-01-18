@@ -1,5 +1,5 @@
-document.getElementById('reset-btn').addEventListener('click', () => {
-  const email = document.getElementById('email').value;
+document.addEventListener('DOMContentLoaded', () => {
+  const emailInput = document.getElementById('email');
   const statusMessage = document.querySelector('.status-message');
   const statusTitle = document.querySelector('.status-title');
   const errorMessage = document.getElementById('error-message-1');
@@ -9,23 +9,39 @@ document.getElementById('reset-btn').addEventListener('click', () => {
   const emailHolder = document.getElementById('email');
   const verificationCodeHolder = document.getElementById('verification-code');
 
-  errorMessage.textContent = '';
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    const email = emailInput.value.trim();
 
-  if (email) {
-    statusTitle.textContent = 'User Verification';
-    statusMessage.textContent = 'Enter your verification code';
+    // Clear previous error messages
+    errorMessage.textContent = '';
 
-    continueBtn.style.display = 'block';
-    resetBtn.style.display = 'none';
-    verificationCodeHolder.style.display = 'block';
-    emailHolder.style.display = 'none';
+    // Check if email exists in customers
+    fetch('/CAT-Project-WebApp/customers')
+        .then(response => response.json())
+        .then(customers => {
+          const user = customers.find(c => c.email === email);
 
-    // Show the confirm password field (if needed for verification)
-    confirmPasswordInput.style.display = 'block';
-  } else {
-    // If no email is entered, you can show an error message or just do nothing
-    errorMessage.textContent ='Please enter your recovery email.';
-  }
+          if (!user) {
+            // If email doesn't exist, show error message
+            errorMessage.textContent = 'Email does not exist.';
+            return;
+          }
+
+          // If email exists, proceed with verification
+          statusTitle.textContent = 'User Verification';
+          statusMessage.textContent = 'Enter your verification code';
+
+          if (continueBtn) continueBtn.style.display = 'block';
+          if (resetBtn) resetBtn.style.display = 'none';
+          if (verificationCodeHolder) verificationCodeHolder.style.display = 'block';
+          if (emailHolder) emailHolder.style.display = 'none';
+          if (confirmPasswordInput) confirmPasswordInput.style.display = 'block';
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          errorMessage.textContent = 'An error occurred. Please try again.';
+        });
+  });
 });
 
 document.getElementById('continue-btn').addEventListener('click', () => {
@@ -33,11 +49,15 @@ document.getElementById('continue-btn').addEventListener('click', () => {
   const errorMessage = document.getElementById('error-message-2');
 
   if (verificationCode === '999999') {
-    window.location.href = 'ResetPassword.html';
+    // Redirect to ResetPassword.html with email in the query string
+    const email = document.getElementById('email').value;
+    window.location.href = `ResetPassword.html?email=${encodeURIComponent(email)}`;
   } else {
     errorMessage.textContent = 'Incorrect verification code. Please try again.';
   }
 });
+
+
 
 // Fetch header
 fetch('Header-HomeBar.html')
