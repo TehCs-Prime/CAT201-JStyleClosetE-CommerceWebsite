@@ -168,14 +168,14 @@ items.forEach(item => {
 });
 
 const categories = [
-	{ imgSrc: "./Sources/tee%20icon.png", alt: "T-Shirt", title: "T-Shirts", type: "tee" },
-	{ imgSrc: "./Sources/top%20icon.png", alt: "Top", title: "Tops", type: "top" },
-	{ imgSrc: "./Sources/dress%20icon.png", alt: "Dress", title: "Dress", type: "dress" },
-	{ imgSrc: "./Sources/outwear%20icon.png", alt: "Outwear", title: "Outwears", type: "outwear" },
-	{ imgSrc: "./Sources/bottom%20icon.png", alt: "Bottom", title: "Bottoms", type: "bottom" },
-	{ imgSrc: "./Sources/basic%20icon.png", alt: "Basics", title: "Basics", type: "basic" },
-	{ imgSrc: "./Sources/cny%20icon.png", alt: "CNY Sales", title: "CNY Sales", type: "cny" },
-	{ imgSrc: "./Sources/sales%20icon.png", alt: "Last Chances", title: "Last Chances", type: "sales" }
+	{ imgSrc: "./Sources/tee%20icon.png", alt: "T-Shirt", title: "T-Shirts", type: "Tshirts" },
+	{ imgSrc: "./Sources/top%20icon.png", alt: "Top", title: "Tops", type: "Top" },
+	{ imgSrc: "./Sources/dress%20icon.png", alt: "Dress", title: "Dress", type: "Dress" },
+	{ imgSrc: "./Sources/outwear%20icon.png", alt: "Outwear", title: "Outwears", type: "Outwear" },
+	{ imgSrc: "./Sources/bottom%20icon.png", alt: "Bottom", title: "Bottoms", type: "Bottom" },
+	{ imgSrc: "./Sources/basic%20icon.png", alt: "Basics", title: "Basics", type: "Basic" },
+	{ imgSrc: "./Sources/cny%20icon.png", alt: "CNY Sales", title: "CNY Sales", type: "Chinese New Year Sales" },
+	{ imgSrc: "./Sources/sales%20icon.png", alt: "Last Chances", title: "Last Chances", type: "Last Chances" }
 ];
 
 const categoryContainer = document.querySelector(".item-container.category-container");
