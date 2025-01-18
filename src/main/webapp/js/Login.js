@@ -1,8 +1,7 @@
-const users = [
-  { email: 'user1@example.com', password: 'password123' },
-  { email: 'user2@example.com', password: 'welcome456' },
-  { email: 'user3@example.com', password: 'secure789' },
-];
+
+const admin = [
+  {email: "admin@example.com", password: 'admin123'}
+]
 
 document.getElementById('login-btn').addEventListener('click', () => {
   const email = document.getElementById('email').value.trim();
@@ -24,25 +23,46 @@ document.getElementById('login-btn').addEventListener('click', () => {
     return;
   }
 
-  // Find user in sample data
-  const user = users.find((u) => u.email === email);
-
-  if (!user) {
-    errorMessage1.textContent = 'Email does not exist.';
+  // Check if the email belongs to admin
+  const adminUser = admin.find((a) => a.email === email);
+  if (adminUser) {
+    if (adminUser.password === password) {
+      window.location.href = 'AdminPanel.html'; // Redirect to admin page
+    } else {
+      errorMessage2.textContent = 'Incorrect password for admin.';
+    }
     return;
   }
 
-  // Validate password
-  if (!password) {
-    errorMessage2.textContent = 'Password is required.';
-    return;
-  } else if (user.password !== password) {
-    errorMessage2.textContent = 'Incorrect password. Please try again.';
-    return;
-  }
+  // Fetch customer data and check credentials
+  fetch('/CAT-Project-WebApp/customers')
+      .then(response => response.json())
+      .then(customers => {
+        const user = customers.find(c => c.email === email);
 
-  window.location.href = '../html/mainPage.html'; 
+        if (!user) {
+          errorMessage1.textContent = 'Email does not exist.';
+          return;
+        }
+
+        // Validate password for regular customer
+        if (!password) {
+          errorMessage2.textContent = 'Password is required.';
+          return;
+        } else if (user.password !== password) {
+          errorMessage2.textContent = 'Incorrect password. Please try again.';
+          return;
+        }
+
+        window.location.href = 'mainPage.html'; // Redirect to main page for regular users
+      })
+      .catch(error => {
+        console.error('Error fetching customers data:', error);
+        errorMessage1.textContent = 'An error occurred while checking credentials. Please try again later.';
+      });
 });
+
+
 
 
 // Fetch header

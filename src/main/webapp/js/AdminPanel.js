@@ -1312,3 +1312,8 @@ fetch('/CAT-Project-WebApp/orders')
     })
     .catch(error => console.error('Error fetching orders:', error));
 
+            // admin logout function
+document.querySelector('.logoutButton').addEventListener('click', () => {
+    window.location.href = 'Login.html'; // Redirect to the login page
+});
+
