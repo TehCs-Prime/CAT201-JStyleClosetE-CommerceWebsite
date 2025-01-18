@@ -1,28 +1,3 @@
-const items = [
-  { img: "Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00", category: "tee"},
-  { img: "Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00", category: "tee" },
-  { img: "Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00", category: "tee" },
-  { img: "Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00", category: "tee" },
-  { img: "Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00", category: "tee" },
-  { img: "Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00", category: "top" },
-  { img: "Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00", category: "top" },
-  { img: "Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00", category: "top" },
-  { img: "Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00", category: "top" },
-  { img: "./Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00", category: "dress" },
-  { img: "./Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00", category: "dress" },
-  { img: "./Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00", category: "dress" },
-  { img: "./Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00", category: "dress" },
-  { img: "./Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00", category: "dress" },
-  { img: "./Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00", category: "dress" },
-  { img: "./Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00", category: "outwear" },
-  { img: "./Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00", category: "outwear" },
-  { img: "./Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00", category: "bottom" },
-  { img: "./Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00", category: "bottom" },
-  { img: "./Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00", category: "bottom" },
-  { img: "./Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00", category: "basic" },
-  { img: "./Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00", category: "cny" },
-  { img: "./Sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00", category: "sales" }
-];
 
 // Fetch header
 fetch('Header-HomeBar.html')
@@ -45,8 +20,8 @@ function scrollToClass(className) {
   }
 }
 
-let activeCategory = document.querySelector('.cat-bar a.active-cat').dataset.category || 'all';
-let filteredItems = activeCategory === 'all' ? items : items.filter(item => item.category === activeCategory);
+let items = []; // This will hold the fetched products
+let filteredItems = [];
 const itemsPerPage = 20;
 let currentPage = 1;
 
@@ -58,14 +33,30 @@ const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
 const totalItemCount = document.getElementById('totalItemCount');
 
+
 const urlParams = new URLSearchParams(window.location.search);
-const selectedCategory = urlParams.get('category') || 'all'; 
+const selectedCategory = urlParams.get('category') || 'all';
+
+// Fetch the products from products.json (replace with your API endpoint if needed)
+fetch('/CAT-Project-WebApp/products')  // Adjust the path as needed
+    .then(response => response.json())
+    .then(data => {
+      items = data; // Assign fetched data to items
+      filteredItems = selectedCategory === 'all' ? items : items.filter(item => item.category.toLowerCase() === selectedCategory.toLowerCase()); // Initialize filteredItems with the fetched products
+      updatePagination(); // Update pagination after fetching products
+      renderItems(currentPage); // Render items for the first page
+      updateCatalogHeaderTitle(); // Update the catalog header title
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+    });
+
 
 categoryLinks.forEach(link => {
-  if (link.dataset.category === selectedCategory) {
-      link.classList.add('active-cat'); // Set the active class
+  if (link.dataset.category.toLowerCase() === selectedCategory.toLowerCase()) {
+    link.classList.add('active-cat'); // Set the active class
   } else {
-      link.classList.remove('active-cat'); // Remove the active class for other categories
+    link.classList.remove('active-cat'); // Remove the active class for other categories
   }
 });
 
@@ -81,7 +72,7 @@ function renderItems(page) {
     const itemElement = document.createElement('div');
     itemElement.classList.add('item');
     itemElement.innerHTML = `
-      <img src="${item.img}" alt="${item.name}">
+      <img src="${item.images[0]}" alt="${item.name}">
       <div class="name-container">
         <h4>${item.name}</h4>
       </div>
@@ -140,7 +131,7 @@ categoryLinks.forEach(link => {
     this.classList.add('active-cat');
 
     // Filter items by category
-    filteredItems = category === 'all' ? items : items.filter(item => item.category === category);
+    filteredItems = category === 'all' ? items : items.filter(item => item.category.toLowerCase() === category.toLowerCase());
 
     // Reset to the first page and update pagination
     currentPage = 1;
@@ -172,7 +163,7 @@ function applyFilters() {
   const price = document.getElementById('priceFilter').value;
   const alphabeticalOrder = document.getElementById('charFilter').value;
 
-  filteredItems = activeCategory === 'all' ? items : items.filter(item => item.category === activeCategory);
+  filteredItems = selectedCategory === 'all' ? items : items.filter(item => item.category.toLowerCase() === selectedCategory.toLowerCase());
 
   if (price === 'low-high') {
     filteredItems.sort((a, b) => parseFloat(a.price.replace('RM', '')) - parseFloat(b.price.replace('RM', '')));
@@ -190,10 +181,11 @@ function applyFilters() {
   updatePagination();
 }
 
+// Function to update catalog header title
 function updateCatalogHeaderTitle() {
   const activeCategoryElement = document.querySelector('.cat-bar a.active-cat');
   const catalogHeaderTitle = document.getElementById('catalog-header-title');
-  
+
   if (activeCategoryElement) {
     catalogHeaderTitle.textContent = activeCategoryElement.textContent;
   }

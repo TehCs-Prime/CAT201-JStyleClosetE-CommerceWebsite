@@ -653,7 +653,7 @@ async function handleAddProduct() {
                 <div class="form-group">
                     <label>Category:</label>
                     <select name="category" required>
-                        <option value="T-shirts">T-shirts</option>
+                        <option value="Tshirts">T-shirts</option>
                         <option value="Top">Top</option>
                         <option value="Dress">Dress</option>
                         <option value="Outwear">Outwear</option>
@@ -795,7 +795,7 @@ async function handleEditProduct(productId) {
                         <div class="form-group">
                             <label>Category:</label>
                             <select name="category" required>
-                                <option value="T-shirts" ${selectedProduct.category === 'T-shirts' ? 'selected' : ''}>T-shirts</option>
+                                <option value="Tshirts" ${selectedProduct.category === 'Tshirts' ? 'selected' : ''}>T-shirts</option>
                                 <option value="Top" ${selectedProduct.category === 'Top' ? 'selected' : ''}>Top</option>
                                 <option value="Dress" ${selectedProduct.category === 'Dress' ? 'selected' : ''}>Dress</option>
                                 <option value="Outwear" ${selectedProduct.category === 'Outwear' ? 'selected' : ''}>Outwear</option>
