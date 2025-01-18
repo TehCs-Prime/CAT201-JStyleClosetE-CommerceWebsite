@@ -1,28 +1,27 @@
-
 const items = [
-  { img: "../Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00" },
-  { img: "../Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00" },
-  { img: "../Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00" },
-  { img: "../Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00" },
-  { img: "../Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00" },
-  { img: "../Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00" },
-  { img: "../Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00" },
-  { img: "../Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00" },
-  { img: "../Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00" },
-  { img: "../Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00" },
-  { img: "../Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00" },
-  { img: "../Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00" },
-  { img: "../Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00" },
-  { img: "../Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00" },
-  { img: "../Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00" },
-  { img: "../Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00" },
-  { img: "../Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00" },
-  { img: "../Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00" },
-  { img: "../Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00" },
-  { img: "../Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00" },
-  { img: "../Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00" },
-  { img: "../Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00" },
-  { img: "../Sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00" }
+  { img: "Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00", category: "tee"},
+  { img: "Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00", category: "tee" },
+  { img: "Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00", category: "tee" },
+  { img: "Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00", category: "tee" },
+  { img: "Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00", category: "tee" },
+  { img: "Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00", category: "top" },
+  { img: "Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00", category: "top" },
+  { img: "Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00", category: "top" },
+  { img: "Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00", category: "top" },
+  { img: "./Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00", category: "dress" },
+  { img: "./Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00", category: "dress" },
+  { img: "./Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00", category: "dress" },
+  { img: "./Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00", category: "dress" },
+  { img: "./Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00", category: "dress" },
+  { img: "./Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00", category: "dress" },
+  { img: "./Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00", category: "outwear" },
+  { img: "./Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00", category: "outwear" },
+  { img: "./Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00", category: "bottom" },
+  { img: "./Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00", category: "bottom" },
+  { img: "./Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00", category: "bottom" },
+  { img: "./Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00", category: "basic" },
+  { img: "./Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00", category: "cny" },
+  { img: "./Sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00", category: "sales" }
 ];
 
 // Fetch header
@@ -39,18 +38,6 @@ fetch("Footer-BottomBar.html")
 	document.getElementById("footer").innerHTML = data;
 });
 
-// Update active menu choices
-const menuLinks = document.querySelectorAll('.cat-bar a');
-menuLinks.forEach(link => {
-  link.addEventListener('click', function () {
-    // Remove the 'active' class from all links
-    menuLinks.forEach(link => link.classList.remove('active-cat'));
-    
-    // Add the 'active' class to the clicked link
-    this.classList.add('active-cat');
-  });
-});
-
 function scrollToClass(className) {
   const targetElement = document.querySelector(`.${className}`);
   if (targetElement) {
@@ -58,35 +45,41 @@ function scrollToClass(className) {
   }
 }
 
-// Function to update total item count
-function updateTotalItemCount() {
-  const totalItemCount = document.getElementById('totalItemCount');
-  totalItemCount.textContent = `${filteredItems.length} Product(s)`; // Reflect total filtered items count
-}
-
-const itemContainer = document.querySelector('.item-container');
+let activeCategory = document.querySelector('.cat-bar a.active-cat').dataset.category || 'all';
+let filteredItems = activeCategory === 'all' ? items : items.filter(item => item.category === activeCategory);
 const itemsPerPage = 20;
 let currentPage = 1;
-let filteredItems = items; // Use filtered items to update pagination dynamically
-let totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
-// DOM Elements for pagination
+// DOM Elements
+const itemContainer = document.querySelector('.item-container');
+const categoryLinks = document.querySelectorAll('a[data-category]');
 const pageNumbers = document.getElementById('page-numbers');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
+const totalItemCount = document.getElementById('totalItemCount');
 
-// Function to render items for the current page
+const urlParams = new URLSearchParams(window.location.search);
+const selectedCategory = urlParams.get('category') || 'all'; 
+
+categoryLinks.forEach(link => {
+  if (link.dataset.category === selectedCategory) {
+      link.classList.add('active-cat'); // Set the active class
+  } else {
+      link.classList.remove('active-cat'); // Remove the active class for other categories
+  }
+});
+
+// Function to render items
 function renderItems(page) {
-  itemContainer.innerHTML = ''; // Clear existing items
+  itemContainer.innerHTML = '';
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
   const itemsToRender = filteredItems.slice(startIndex, endIndex);
-  
+
   itemsToRender.forEach(item => {
     const itemElement = document.createElement('div');
-    itemElement.classList.add('item'); // Ensure you're using consistent class names
+    itemElement.classList.add('item');
     itemElement.innerHTML = `
       <img src="${item.img}" alt="${item.name}">
       <div class="name-container">
@@ -102,9 +95,16 @@ function renderItems(page) {
   updateTotalItemCount();
 }
 
+// Function to update total item count
+function updateTotalItemCount() {
+  totalItemCount.textContent = `${filteredItems.length} Product(s)`;
+}
+
 // Function to render pagination buttons
 function renderPagination() {
-  pageNumbers.innerHTML = ''; // Clear existing page numbers
+  pageNumbers.innerHTML = '';
+
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
   for (let i = 1; i <= totalPages; i++) {
     const pageNumber = document.createElement('div');
@@ -120,58 +120,85 @@ function renderPagination() {
     pageNumbers.appendChild(pageNumber);
   }
 
-  // Enable/Disable prev/next buttons
   prevBtn.disabled = currentPage === 1;
   nextBtn.disabled = currentPage === totalPages;
 }
 
-// Function to update the pagination and item display
+// Function to update pagination
 function updatePagination() {
-  totalPages = Math.ceil(filteredItems.length / itemsPerPage); // Update total pages based on filtered items
   renderItems(currentPage);
   renderPagination();
-  scrollToClass("filter-bar");
 }
+
+// Event listeners for category selection
+categoryLinks.forEach(link => {
+  link.addEventListener('click', function () {
+    const category = this.dataset.category;
+
+    // Update active category link
+    categoryLinks.forEach(link => link.classList.remove('active-cat'));
+    this.classList.add('active-cat');
+
+    // Filter items by category
+    filteredItems = category === 'all' ? items : items.filter(item => item.category === category);
+
+    // Reset to the first page and update pagination
+    currentPage = 1;
+    updatePagination();
+    updateCatalogHeaderTitle();
+  });
+});
 
 // Event listeners for Prev/Next buttons
 prevBtn.addEventListener('click', () => {
   if (currentPage > 1) {
     currentPage--;
     updatePagination();
+    scrollToClass("filter-bar");
   }
 });
 
 nextBtn.addEventListener('click', () => {
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   if (currentPage < totalPages) {
     currentPage++;
     updatePagination();
+    scrollToClass("filter-bar");
   }
 });
 
-// Function to apply filters (modification needed for integration with pagination)
+// Function to apply filters
 function applyFilters() {
-  let price = document.getElementById('priceFilter').value;
-  let alphabeticalOrder = document.getElementById('charFilter').value;
+  const price = document.getElementById('priceFilter').value;
+  const alphabeticalOrder = document.getElementById('charFilter').value;
 
-  filteredItems = items;
+  filteredItems = activeCategory === 'all' ? items : items.filter(item => item.category === activeCategory);
 
-  // Filter by price
   if (price === 'low-high') {
-    filteredItems = filteredItems.sort((a, b) => parseFloat(a.price.replace('RM', '').trim()) - parseFloat(b.price.replace('RM', '').trim()));
+    filteredItems.sort((a, b) => parseFloat(a.price.replace('RM', '')) - parseFloat(b.price.replace('RM', '')));
   } else if (price === 'high-low') {
-    filteredItems = filteredItems.sort((a, b) => parseFloat(b.price.replace('RM', '').trim()) - parseFloat(a.price.replace('RM', '').trim()));
+    filteredItems.sort((a, b) => parseFloat(b.price.replace('RM', '')) - parseFloat(a.price.replace('RM', '')));
   }
 
-  // Filter by alphabetical order
   if (alphabeticalOrder === 'a-z') {
-    filteredItems = filteredItems.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically from A to Z
+    filteredItems.sort((a, b) => a.name.localeCompare(b.name));
   } else if (alphabeticalOrder === 'z-a') {
-    filteredItems = filteredItems.sort((a, b) => b.name.localeCompare(a.name)); // Sort alphabetically from Z to A
+    filteredItems.sort((a, b) => b.name.localeCompare(a.name));
   }
 
-  currentPage = 1; // Reset to the first page after applying filters
-  updatePagination(); // Re-render with new filtered items
+  currentPage = 1;
+  updatePagination();
 }
 
-// Initialize pagination and item display
+function updateCatalogHeaderTitle() {
+  const activeCategoryElement = document.querySelector('.cat-bar a.active-cat');
+  const catalogHeaderTitle = document.getElementById('catalog-header-title');
+  
+  if (activeCategoryElement) {
+    catalogHeaderTitle.textContent = activeCategoryElement.textContent;
+  }
+}
+
+// Initialize display
 updatePagination();
+updateCatalogHeaderTitle();
