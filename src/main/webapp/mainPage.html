@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home Page</title>
+	<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+	<link rel="stylesheet" href="./CSS/style.css">
+</head>
+
+<body>
+<div id="header">
+	<script>
+		fetch('Header-HomeBar.html')
+				.then(response => response.text())
+				.then(data => {
+					document.getElementById('Header').innerHTML = data;
+				});
+	</script>
+</div>
+
+<section class="hero wrapper">
+	<div class="carousel">
+		<button class="carousel-btn left-btn" onclick="moveSlide(-1)">
+			<i class='bx bx-chevron-left'></i>
+		</button>
+
+		<div class="carousel-images">
+			<img src="./Sources/crs1.jpg" alt="">
+			<img src="./Sources/crs2.jpg" alt="">
+			<img src="./Sources/crs3.jpg" alt="">
+		</div>
+
+		<button class="carousel-btn right-btn">
+			<i class='bx bx-chevron-right'></i>
+		</button>
+	</div>
+</section>
+
+<section class="item-display" id="new-arrival">
+	<h2 class="section-title">New Arrivals</h2>
+
+	<div class="menu">
+		<ul>
+			<li><a href="#new-arrival" class="active-menu" data-category="men">Men</a></li>
+			<li><a href="#new-arrival" data-category="women">Women</a></li>
+			<li><a href="#new-arrival" data-category="shoes">Shoes</a></li>
+			<li><a href="#new-arrival" data-category="bags">Bags</a></li>
+			<li><a href="#new-arrival" data-category="accessories">Accessories</a></li>
+		</ul>
+	</div>
+
+	<div class="item-container">
+		<!-- Items will be dynamically updated here-->
+	</div>
+
+	<div class="more-container">
+		<a class="more-button">More</a>
+	</div>
+
+</section>
+
+<section class="ads-container">
+	<div class="ads-image">
+		<img src="./Sources/crs1.jpg">
+	</div>
+
+	<div class="ads-text">
+		<h2>UNIQLO x CLS</h2>
+		<p>Shop the full collection.</p>
+		<a href="#" class="ads-button">Shop</a>
+	</div>
+</section>
+
+<section class="item-display" id="promotions">
+	<h2 class="section-title">Promotions</h2>
+	<div class="item-container" id="itemContainer"></div>
+
+	<div class="more-container">
+		<a class="more-button">More</a>
+	</div>
+</section>
+
+<section class="ads-container">
+	<div class="ads-image">
+		<img src="./Sources/crs1.jpg">
+	</div>
+
+	<div class="ads-text">
+		<h2>UNIQLO x CLS</h2>
+		<p>Shop the full collection.</p>
+		<a href="#" class="ads-button">Shop</a>
+	</div>
+</section>
+
+<section class="item-display" id="categories">
+	<h2 class="section-title">Category</h2>
+	<div class="item-container category-container">
+		<div class="item category">
+			<img src="./Sources/top%20icon.png" alt="Top" class="category-icon">
+			<div>
+				<h4>Tops</h4>
+			</div>
+		</div>
+		<div class="item category">
+			<img src="./Sources/tee%20icon.png" alt="Tee" class="category-icon">
+			<div>
+				<h4>Tees</h4>
+			</div>
+		</div>
+		<div class="item category">
+			<img src="./Sources/bottom%20icon.png" alt="Bottom" class="category-icon">
+			<div>
+				<h4>Bottoms</h4>
+			</div>
+		</div>
+		<div class="item category">
+			<img src="./Sources/dress%20icon.png" alt="Dress" class="category-icon">
+			<div>
+				<h4>Dress</h4>
+			</div>
+		</div>
+		<div class="item category">
+			<img src="./Sources/shoes%20icon.png" alt="Shoes" class="category-icon">
+			<div>
+				<h4>Shoes</h4>
+			</div>
+		</div>
+		<div class="item category">
+			<img src="./Sources/bag%20icon.png" alt="Bags" class="category-icon">
+			<div>
+				<h4>Bags</h4>
+			</div>
+		</div>
+		<div class="item category">
+			<img src="./Sources/accesories%20icon.png" alt="Accesories" class="category-icon">
+			<div>
+				<h4>Accessories</h4>
+			</div>
+		</div>
+	</div>
+
+	<div class="more-container">
+		<a class="more-button">More</a>
+	</div>
+
+</section>
+
+<section class="about-us-container" id="about-us">
+	<h2 class="section-title">About Us</h2>
+	<div class="about-us-content">
+		<img src="./Sources/favicon.jpeg" alt="JStyle" class="about-us-img">
+		<div class="text-container">
+			<h3>JStyle</h3>
+			<p>
+				At Jstyles, we believe fashion should celebrate every body, which is why our clothing is designed to fit and flatter all shapes and sizes. As a free-size clothing brand, we focus on creating versatile, stylish, and comfortable pieces that empower individuals to express themselves confidently. Our mission is to promote inclusivity and body positivity by breaking the boundaries of traditional sizing. With a commitment to quality, innovation, and timeless design, Jstyles is more than just a brand—it's a movement towards a world where everyone feels seen, valued, and stylish. Join us in redefining fashion for every body.
+			</p>
+		</div>
+	</div>
+</section>
+
+<footer id="footer">
+	<script>
+		fetch('Footer-BottomBar.html')
+				.then(response => response.text())
+				.then(data => {
+					document.getElementById('Footer').innerHTML = data;
+				})
+	</script>
+</footer>
+
+<script src="./js/mainPage.js"></script>
+
+</body>
+
+</html>
