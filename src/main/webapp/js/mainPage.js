@@ -166,3 +166,44 @@ items.forEach(item => {
 	`;
 	itemContainer.appendChild(itemElement);
 });
+
+const categories = [
+	{ imgSrc: "./Sources/tee%20icon.png", alt: "T-Shirt", title: "T-Shirts", type: "tee" },
+	{ imgSrc: "./Sources/top%20icon.png", alt: "Top", title: "Tops", type: "top" },
+	{ imgSrc: "./Sources/dress%20icon.png", alt: "Dress", title: "Dress", type: "dress" },
+	{ imgSrc: "./Sources/outwear%20icon.png", alt: "Outwear", title: "Outwears", type: "outwear" },
+	{ imgSrc: "./Sources/bottom%20icon.png", alt: "Bottom", title: "Bottoms", type: "bottom" },
+	{ imgSrc: "./Sources/basic%20icon.png", alt: "Basics", title: "Basics", type: "basic" },
+	{ imgSrc: "./Sources/cny%20icon.png", alt: "CNY Sales", title: "CNY Sales", type: "cny" },
+	{ imgSrc: "./Sources/sales%20icon.png", alt: "Last Chances", title: "Last Chances", type: "sales" }
+];
+
+const categoryContainer = document.querySelector(".item-container.category-container");
+
+// Generate and append category items
+categories.forEach(category => {
+	// Create the main item div
+	const itemDiv = document.createElement("div");
+	itemDiv.classList.add("item", "category", category.type);
+
+	// Create the image element
+	const img = document.createElement("img");
+	img.src = category.imgSrc;
+	img.alt = category.alt;
+	img.classList.add("category-icon");
+
+	// Create the title element
+	const title = document.createElement("h4");
+	title.textContent = category.title;
+
+	// Append elements to the item div
+	itemDiv.appendChild(img);
+	itemDiv.appendChild(title);
+
+	itemDiv.addEventListener("click", () => {
+		window.location.href = `Catalog.html?category=${category.type}`;
+	});
+
+	categoryContainer.appendChild(itemDiv);
+});
+

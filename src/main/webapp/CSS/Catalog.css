@@ -65,7 +65,8 @@ body {
 }
 
 .item h4{
-	font-size: var(--small-font);
+	font-size: 1rem;
+  font-weight: 400;
 	color: #555;
 	margin-bottom: 10px;
 }
