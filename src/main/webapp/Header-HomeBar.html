@@ -15,9 +15,8 @@
 
         <div class="NavigationBar">
                 <div class="Logo">
-                    <a href="#">
-                    <!-- <a href ="HomePage.html"> Clicking Logo means to HomePage-->
-                        <img class = "logoPicture" src = "./Sources/Jstyle%20LOGO.jpg" alt="Jstyle outlet">
+                    <a href="mainPage.html">
+                        <img class = "logoPicture" src = "./Sources/Jstyle LOGO.jpg" alt="Jstyle outlet">
                         <div class ="logoName">Jstyle</div>
                     </a>
                 </div>
@@ -35,10 +34,10 @@
                 </div>
 
                 <div class="Section">
-                    <a href="#">NEW ARRIVALS</a>
-                    <a href="#">PROMOTIONS</a>
+                    <a href="mainPage.html#new-arrival">NEW ARRIVALS</a>
+                    <a href="./mainPage.html#promotions">PROMOTIONS</a>
                     <div class="dropdown">
-                        <a href="#" class="dropbtn">CATEGORIES</a>
+                        <a href="./mainPage.html#categories" class="dropbtn">CATEGORIES</a>
                         <div class="dropdown-content mega-menu">
                             <div class="menu-column">
                                 <h3>Clothings</h3>
@@ -63,40 +62,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="dropdown">
-                        <a href="#" class="dropbtn">SALES</a>
-                        <div class="dropdown-content mega-menu">
-                            <div class="menu-column">
-                                <h3>Events</h3>
-                                <a href="#">Chinese New Year Sales 🧧🧨</a>
-                                <a href="#">Christmas 🎅</a>
-                                <a href="#">Disney 🏰</a>
-                                <a href="#">Pokemon</a>
-                                <a href="#">Marvel 🦸‍</a>
-                            </div>
-                            <div class="menu-column">
-                                <h3></h3>
-                                <a href="#">Limited Edition 🔮</a>
-                                <a href="#">Last Chances ⏳</a>
-                                <a href="#">Next in Line 🔜</a>
-                            </div>
-                        </div>
-                    </div>
+
+                    <a href="./mainPage.html#about-us">ABOUT US</a>
+
                 </div>
                 
                 <div class = "icons">
-                    <div class = "Search">
-                        <a href="#" onclick="openSearch()">
-                            <img src="./Sources/Search%20icon.png" alt="Search" >
-                        </a>
-                    </div>
                     <div class = "Profile">
-                        <a href="#">
+                        <a href="UserProfile.html">
                             <img src="./Sources/Profile.png" alt="Profile" >
                         </a>
                     </div>
                     <div class = "Cart">
-                        <a href="#">
+                        <a href="Page-Cart.html">
                             <img src="./Sources/Cart.png" alt="Cart" >
                         </a>
                     </div>
@@ -127,32 +105,12 @@
         <!-- Add overlay div for darkening the background -->
         <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
+        <script src="./js/Header-HomeBar.js"></script>
+
     </body>
 
 
     <script>
-        function openSearch() {
-            document.getElementById('searchOverlay').classList.add('active');
-            document.querySelector('.search-input').focus();
-        }
-
-        function closeSearch() {
-            document.getElementById('searchOverlay').classList.remove('active');
-        }
-
-        function performSearch() {
-            const searchTerm = document.querySelector('.search-input').value;
-            // Add your search logic here
-            console.log('Searching for:', searchTerm);
-        }
-
-        // Close overlay when clicking outside the search container
-        document.getElementById('searchOverlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeSearch();
-            }
-        });
-
         document.querySelector('.mobileView a').onclick = function(e) {
             e.preventDefault();
             openSidebar();

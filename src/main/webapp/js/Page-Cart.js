@@ -168,6 +168,7 @@ placeOrderBtn.addEventListener('click', (e) => {
   if (isValid) {
     // Here you would typically submit the order to your backend
     alert('Order placed successfully!');
+    window.location.href = 'UserProfile.html';
     // Return to home page ? or to order history
   } else {
     alert('Please fill in all required fields');
