@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CustomerDatabase {
 
-    private static final String FILE_PATH = "S:\\USM\\Year2.Sem I\\CAT201 SoftwareDevelopment\\Java\\CAT-Project-WebApp\\src\\main\\webapp\\customers.json";
+    private static final String FILE_PATH = "D:\\Y2S1\\CAT201\\CAT-Project-WebApp\\src\\main\\webapp\\customers.json";
 
     // Read customers from the JSON file
     public List<Customer> readCustomers() {
@@ -22,9 +22,27 @@ public class CustomerDatabase {
     }
 
     // Add a new customer to the database (JSON file)
+    public String generateCustomerId() {
+        List<Customer> customers = readCustomers();
+        if (customers == null || customers.isEmpty()) {
+            return "C001"; // First customer, ID is "C001"
+        }
+
+        // Find the last customer's ID
+        String lastId = customers.get(customers.size() - 1).getId();
+        int lastNumber = Integer.parseInt(lastId.substring(1)); // Get the number part after "C"
+        int nextNumber = lastNumber + 1; // Increment the number part
+        return "C" + String.format("%03d", nextNumber); // Format it with leading zeros (e.g., "C002")
+    }
+
+    // Add a new customer to the database (JSON file)
     public void addCustomer(Customer newCustomer) {
         List<Customer> customers = readCustomers();
         if (customers != null) {
+            // Generate the next customer ID
+            String newCustomerId = generateCustomerId();
+            newCustomer.setId(newCustomerId); // Assign the generated ID to the new customer
+
             customers.add(newCustomer);
             saveCustomers(customers);
         }
@@ -53,4 +71,6 @@ public class CustomerDatabase {
             e.printStackTrace();
         }
     }
+
+
 }
