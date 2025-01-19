@@ -185,7 +185,7 @@
                         customer: customerEmail,
                         products: [{ productId, quantity }],
                         total: "RM  " + (parseFloat(product.price.replace("RM", "").trim()) * quantity).toFixed(2),
-                        status: "pending",
+                        status: "processing",
                         date: new Date().toISOString().split('T')[0]
                     };
 
