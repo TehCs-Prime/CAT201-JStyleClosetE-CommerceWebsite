@@ -1,17 +1,17 @@
 
 // Fetch header
 fetch('Header-HomeBar.html')
-	.then(response => response.text())
-	.then(data => {
-			document.getElementById('header').innerHTML = data;
-	});
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+    });
 
 // Fetch footer
 fetch("Footer-BottomBar.html")
-.then(response => response.text())
-.then(data => {
-	document.getElementById("footer").innerHTML = data;
-});
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer").innerHTML = data;
+    });
 
 function scrollToClass(className) {
   const targetElement = document.querySelector(`.${className}`);
@@ -45,7 +45,7 @@ fetch('/CAT-Project-WebApp/products')  // Adjust the path as needed
       filteredItems = selectedCategory === 'all' ? items : items.filter(item => item.category.toLowerCase() === selectedCategory.toLowerCase()); // Initialize filteredItems with the fetched products
       updatePagination(); // Update pagination after fetching products
       renderItems(currentPage); // Render items for the first page
-      updateCatalogHeaderTitle(); // Update the catalog header title
+      updateCatalogHeaderTitle();
     })
     .catch(error => {
       console.error('Error fetching products:', error);
@@ -162,29 +162,6 @@ nextBtn.addEventListener('click', () => {
   }
 });
 
-// Function to apply filters
-function applyFilters() {
-  const price = document.getElementById('priceFilter').value;
-  const alphabeticalOrder = document.getElementById('charFilter').value;
-
-  filteredItems = selectedCategory === 'all' ? items : items.filter(item => item.category.toLowerCase() === selectedCategory.toLowerCase());
-
-  if (price === 'low-high') {
-    filteredItems.sort((a, b) => parseFloat(a.price.replace('RM', '')) - parseFloat(b.price.replace('RM', '')));
-  } else if (price === 'high-low') {
-    filteredItems.sort((a, b) => parseFloat(b.price.replace('RM', '')) - parseFloat(a.price.replace('RM', '')));
-  }
-
-  if (alphabeticalOrder === 'a-z') {
-    filteredItems.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (alphabeticalOrder === 'z-a') {
-    filteredItems.sort((a, b) => b.name.localeCompare(a.name));
-  }
-
-  currentPage = 1;
-  updatePagination();
-}
-
 // Function to update catalog header title
 function updateCatalogHeaderTitle() {
   const activeCategoryElement = document.querySelector('.cat-bar a.active-cat');
@@ -195,6 +172,46 @@ function updateCatalogHeaderTitle() {
   }
 }
 
+// Function to apply filters
+function applyFilters() {
+  const price = document.getElementById('priceFilter').value;
+  const alphabeticalOrder = document.getElementById('charFilter').value;
+
+  // Get the current active category from the DOM
+  const activeCategoryElement = document.querySelector('.cat-bar a.active-cat');
+  const currentCategory = activeCategoryElement ? activeCategoryElement.dataset.category : 'all';
+
+  // Start filtering from the full items array
+  let filtered = currentCategory === 'all'
+      ? items
+      : items.filter(item => item.category.toLowerCase() === currentCategory.toLowerCase());
+
+  // Apply price sorting
+  if (price === 'low-high') {
+    filtered.sort((a, b) => parseFloat(a.price.replace('RM', '')) - parseFloat(b.price.replace('RM', '')));
+  } else if (price === 'high-low') {
+    filtered.sort((a, b) => parseFloat(b.price.replace('RM', '')) - parseFloat(a.price.replace('RM', '')));
+  }
+
+  // Apply alphabetical order sorting
+  if (alphabeticalOrder === 'a-z') {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (alphabeticalOrder === 'z-a') {
+    filtered.sort((a, b) => b.name.localeCompare(a.name));
+  }
+
+  // Update the global filteredItems array
+  filteredItems = filtered;
+
+  // Reset to the first page and update pagination
+  currentPage = 1;
+  updatePagination();
+}
+
+
 // Initialize display
 updatePagination();
 updateCatalogHeaderTitle();
+
+
+

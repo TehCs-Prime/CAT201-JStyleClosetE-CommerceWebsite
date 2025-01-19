@@ -5,22 +5,22 @@ document.querySelector('.left-btn').addEventListener('click', () => moveSlide(-1
 document.querySelector('.right-btn').addEventListener('click', () => moveSlide(1));
 
 function moveSlide(direction) {
-		const images = document.querySelector('.carousel-images');
-		const totalImages = images.children.length;
+	const images = document.querySelector('.carousel-images');
+	const totalImages = images.children.length;
 
-		// Calculate new index
-		currentIndex += direction;
+	// Calculate new index
+	currentIndex += direction;
 
-		// Wrap around if out of bounds
-		if (currentIndex < 0) {
-		  	currentIndex = totalImages - 1;
-		} else if (currentIndex >= totalImages) {
-				currentIndex = 0;
-		}
+	// Wrap around if out of bounds
+	if (currentIndex < 0) {
+		currentIndex = totalImages - 1;
+	} else if (currentIndex >= totalImages) {
+		currentIndex = 0;
+	}
 
-		// Update transform to show the new image
-		const offset = -currentIndex * 100; // 100% width per image
-		images.style.transform = `translateX(${offset}%)`;
+	// Update transform to show the new image
+	const offset = -currentIndex * 100; // 100% width per image
+	images.style.transform = `translateX(${offset}%)`;
 }
 
 //update active menu choices
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
 fetch("Header-HomeBar.html")
 	.then(response => response.text())
 	.then(data => {
-  	document.getElementById("header").innerHTML = data;
+		document.getElementById("header").innerHTML = data;
 	})
 	.catch(error => console.error("Error loading header:", error));
 
@@ -170,14 +170,14 @@ fetchProducts();
 
 
 const categories = [
-	{ imgSrc: "./Sources/tee%20icon.png", alt: "T-Shirt", title: "T-Shirts", type: "tee" },
+	{ imgSrc: "./Sources/tee%20icon.png", alt: "T-Shirt", title: "T-Shirts", type: "T-shirts" },
 	{ imgSrc: "./Sources/top%20icon.png", alt: "Top", title: "Tops", type: "top" },
 	{ imgSrc: "./Sources/dress%20icon.png", alt: "Dress", title: "Dress", type: "dress" },
 	{ imgSrc: "./Sources/outwear%20icon.png", alt: "Outwear", title: "Outwears", type: "outwear" },
 	{ imgSrc: "./Sources/bottom%20icon.png", alt: "Bottom", title: "Bottoms", type: "bottom" },
 	{ imgSrc: "./Sources/basic%20icon.png", alt: "Basics", title: "Basics", type: "basic" },
-	{ imgSrc: "./Sources/cny%20icon.png", alt: "CNY Sales", title: "CNY Sales", type: "cny" },
-	{ imgSrc: "./Sources/sales%20icon.png", alt: "Last Chances", title: "Last Chances", type: "sales" }
+	{ imgSrc: "./Sources/cny%20icon.png", alt: "CNY Sales", title: "CNY Sales", type: "CNYSales" },
+	{ imgSrc: "./Sources/sales%20icon.png", alt: "Last Chances", title: "Last Chances", type: "LastChances" }
 ];
 
 const categoryContainer = document.querySelector(".item-container.category-container");
@@ -208,4 +208,5 @@ categories.forEach(category => {
 
 	categoryContainer.appendChild(itemDiv);
 });
+
 
