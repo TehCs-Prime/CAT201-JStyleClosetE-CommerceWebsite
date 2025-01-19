@@ -128,6 +128,94 @@
             }
         }
     });
+
+    document.addEventListener('click', event => {
+        if (event.target.classList.contains('add-to-cart')) {
+            // Retrieve product ID and quantity
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            const quantity = parseInt(document.querySelector('.quantity-input').value);
+
+            // Retrieve customer email from local storage
+            const currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
+
+            if (!currentUser || !currentUser.email) {
+                alert('Please log in to add items to your cart.');
+                return;
+            }
+
+            const customerEmail = currentUser.email;
+
+            fetch('/CAT-Project-WebApp/products')
+                .then(response => response.json())
+                .then(products => {
+                    // Get the product ID from the URL (e.g., ?id=P001)
+                    const urlParams = new URLSearchParams(window.location.search);
+                    let productId = urlParams.get('id');
+
+                    // Find the product by ID
+                    const product = products.find(item => item.id === productId);
+
+                    // If the product is not found, display an error message
+                    if (!product) {
+                        document.querySelector('.Product-container').innerHTML = '<p>Product not found.</p>';
+                        return;
+                    }
+
+                    // Add event listeners for thumbnail clicks to change the main image
+                    document.querySelectorAll('.thumbnail').forEach(thumbnail => {
+                        thumbnail.addEventListener('click', () => {
+                            const mainImage = document.getElementById('main-product-image');
+                            mainImage.src = thumbnail.src;
+                        });
+                    });
+
+
+            fetch('/CAT-Project-WebApp/orders')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch existing orders');
+                    }
+                    return response.json();
+                })
+                .then(orders => {
+
+                    const order = {
+                        id: 12345, // Use the new order ID
+                        customer: customerEmail,
+                        products: [{ productId, quantity }],
+                        total: "RM  " + (parseFloat(product.price.replace("RM", "").trim()) * quantity).toFixed(2),
+                        status: "pending",
+                        date: new Date().toISOString().split('T')[0]
+                    };
+
+                    // Step 5: Send the new order to the server
+                    return fetch('/CAT-Project-WebApp/orders', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(order)
+                    });
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to add order');
+                    }
+                    return response.text();
+                })
+                .then(message => {
+                    alert(message);
+                })
+                .catch(error => {
+                    console.error('Error adding order:', error);
+                    alert('Failed to add order. Please try again.');
+                });
+                })
+        }
+    });
+
+
 </script>
 
 </html>
