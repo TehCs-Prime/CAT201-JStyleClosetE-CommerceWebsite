@@ -34,33 +34,58 @@ document.getElementById('login-btn').addEventListener('click', () => {
     return;
   }
 
-  // Fetch customer data and check credentials
-  fetch('/CAT-Project-WebApp/customers')
-      .then(response => response.json())
-      .then(customers => {
-        const user = customers.find(c => c.email === email);
+    // User login process
+    fetch('/CAT-Project-WebApp/customers') // Fetching customer data from customers.json
+        .then(response => response.json())
+        .then(customers => {
+            const user = customers.find(c => c.email === email);  // Compare entered email with customer email
 
-        if (!user) {
-          errorMessage1.textContent = 'Email does not exist.';
-          return;
-        }
+            if (!user) {
+                errorMessage1.textContent = 'Email does not exist.';
+                return;
+            }
 
-        // Validate password for regular customer
-        if (!password) {
-          errorMessage2.textContent = 'Password is required.';
-          return;
-        } else if (user.password !== password) {
-          errorMessage2.textContent = 'Incorrect password. Please try again.';
-          return;
-        }
+            // Validate password for regular customer
+            if (!password) {
+                errorMessage2.textContent = 'Password is required.';
+                return;
+            } else if (user.password !== password) {
+                errorMessage2.textContent = 'Incorrect password. Please try again.';
+                return;
+            }
 
-        window.location.href = 'mainPage.html'; // Redirect to main page for regular users
-      })
-      .catch(error => {
-        console.error('Error fetching customers data:', error);
-        errorMessage1.textContent = 'An error occurred while checking credentials. Please try again later.';
-      });
+            // Fetch orders.json to check the orders for the matched customer
+            fetch('/CAT-Project-WebApp/orders.json')  // Fetching order details from orders.json
+                .then(response => response.json())
+                .then(orders => {
+                    // Find the order for the customer by comparing the email with the customer field in orders.json
+                    const customerOrder = orders.find(order => order.customer === user.email);  // Compare email to customer email
+
+                    // Store the user's data and orders in localStorage
+                    window.localStorage.setItem("currentUser", JSON.stringify({
+                        email: user.email,
+                        name: user.name,
+                        totalOrders: user.totalOrders,
+                        totalSpent: user.totalSpent,
+                        lastOrder: user.lastOrder,
+                        orders: customerOrder || [] // Store the order data, or an empty array if no orders
+                    }));
+
+                    // Redirect to the main page for regular users
+                    window.location.href = 'mainPage.html';
+                })
+                .catch(error => {
+                    console.error('Error fetching orders data:', error);
+                    errorMessage1.textContent = 'An error occurred while fetching orders. Please try again later.';
+                });
+        })
+        .catch(error => {
+            console.error('Error fetching customers data:', error);
+            errorMessage1.textContent = 'An error occurred while checking credentials. Please try again later.';
+        });
+
 });
+
 
 
 

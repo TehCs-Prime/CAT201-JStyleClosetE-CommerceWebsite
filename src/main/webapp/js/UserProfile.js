@@ -19,9 +19,21 @@ const user = {
 	]
 };
 
-// Update account details
-document.getElementById("user-name").textContent = `${user.name}`;
-document.getElementById("user-email").textContent = `${user.email}`;
+const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+
+if (currentUser) {
+	// Access user's email, name, and orders
+	console.log(currentUser.email);  // Access email
+	console.log(currentUser.name);   // Access name
+	console.log(currentUser.orders); // Access orders
+} else {
+	console.log("No user data found.");
+}
+
+// Display user info on the page
+document.getElementById("user-name").textContent = currentUser.name;
+document.getElementById("user-email").textContent = currentUser.email;  // Display email correctly
+  // Make sure to access email correctly
 
 // Update order history
 const orderList = document.getElementById("order-list");
