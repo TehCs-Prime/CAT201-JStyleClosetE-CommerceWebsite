@@ -97,9 +97,9 @@ a:active {
 }
 
 .logoPicture {
-    width: 2.0rem;
+    width: 8.0rem;
     height: auto;
-    background-color: black;
+    background-color: transparent;
     border-radius: 20%;
     margin-left: 3vw;
     margin-right: 15px;
