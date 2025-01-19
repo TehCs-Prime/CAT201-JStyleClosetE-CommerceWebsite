@@ -1035,8 +1035,6 @@ async function handleDeleteProduct(productId) {
                 <td>${customer.id}</td>
                 <td>${customer.name}</td>
                 <td>${customer.email}</td>
-                <td>${customer.totalOrders || 0}</td>
-                <td>${customer.totalSpent || 'RM 0.00'}</td>
                 <td>${customer.lastOrder || 'N/A'}</td>
                 <td>
                     <span class="status-tag status-${customer.status.toLowerCase()}">
@@ -1141,8 +1139,6 @@ async function handleDeleteProduct(productId) {
                 <td>${customer.id}</td>
                 <td>${customer.name}</td>
                 <td>${customer.email}</td>
-                <td>${customer.totalOrders}</td>
-                <td>${customer.totalSpent}</td>
                 <td>${customer.lastOrder}</td>
                 <td>
                     <span class="status-tag status-${customer.status.toLowerCase()}">
