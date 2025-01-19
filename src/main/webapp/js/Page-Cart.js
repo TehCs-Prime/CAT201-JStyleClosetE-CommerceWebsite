@@ -121,8 +121,68 @@ checkoutBtn.addEventListener('click', () => {
   // Scroll to checkout details smoothly
   checkoutDetails.style.display = 'block';
   checkoutDetails.scrollIntoView({ behavior: 'smooth' });
-  
+
   checkoutBtn.style.visibility = 'hidden';
+});
+
+// Place order button click logic
+placeOrderBtn.addEventListener('click', () => {
+  // Retrieve user email from localStorage
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const userEmail = currentUser ? currentUser.email : null;
+
+  if (!userEmail) {
+    alert("Please log in to place the order.");
+    return;
+  }
+
+  // Fetch the orders to find the ones associated with the current user and that are in 'pending' status
+  fetch('/CAT-Project-WebApp/orders')
+      .then(response => response.json())
+      .then(orders => {
+        const ordersToPlace = orders.filter(order =>
+            order.customer === userEmail && order.status === "processing"
+        );
+
+        if (ordersToPlace.length === 0) {
+          alert("No pending orders found to place.");
+          return;
+        }
+
+        // Optionally, you can perform other actions like processing payment or confirming the order
+        // For example, mark the orders as "completed" or "placed"
+        const placeOrderPromises = ordersToPlace.map(order => {
+          const updatedOrder = {
+            ...order,
+            status: "pending" // Changing status to "placed"
+          };
+
+          // Send a PUT request to update the order status
+          return fetch(`/CAT-Project-WebApp/orders/${order.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedOrder)
+          });
+        });
+
+        // Wait for all updates to be completed
+        Promise.all(placeOrderPromises)
+            .then(() => {
+              alert("Your order has been placed successfully!");
+              // Optionally, redirect to another page or update UI
+              location.reload(); // Reload the page to reflect the changes
+            })
+            .catch(error => {
+              console.error("Error placing orders:", error);
+              alert("Failed to place the order.");
+            });
+      })
+      .catch(error => {
+        console.error("Error fetching orders:", error);
+        alert("Failed to load orders.");
+      });
 });
 
 // Handle payment option selection
