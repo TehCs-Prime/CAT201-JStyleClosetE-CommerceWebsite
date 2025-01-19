@@ -16,16 +16,12 @@
                     document.getElementById('Header').innerHTML = data;
                 });
 
-            // Fetch orders data from orders.json
-            fetch('/CAT-Project-WebApp/orders')  // Adjust the path if needed
-                    .then(response => {
-                      // Check if the response is ok (status 200)
-                      if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                      }
-                      return response.json();
-                    })
-                    .then(orders => {
+            // Fetch both orders and products data
+            Promise.all([
+              fetch('/CAT-Project-WebApp/orders').then(response => response.json()),
+              fetch('/CAT-Project-WebApp/products').then(response => response.json())
+            ])
+                    .then(([orders, products]) => {
                       // Retrieve user email from localStorage
                       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
                       const userEmail = currentUser.email;
@@ -35,7 +31,7 @@
                         return;
                       }
 
-                      // Filter orders by customer email
+                      // Filter orders by customer email and status 'processing'
                       const processingOrders = orders.filter(order =>
                               order.customer === userEmail &&
                               order.status === "processing"
@@ -45,25 +41,32 @@
                         console.log("No processing orders found.");
                       }
 
+                      // Map productIds to names
+                      const productNames = products.reduce((acc, product) => {
+                        acc[product.id] = product.name;
+                        return acc;
+                      }, {});
+
                       // Generate HTML to display the orders
                       // Insert the order rows into the table
                       document.querySelector('tbody').innerHTML = processingOrders.map(order => {
                         return order.products.map(product => {
+                          const productName = productNames[product.productId] || product.productId; // Fallback to productId if not found
                           return `
-                            <tr>
-                                <td class="product">
-                                    <div>
-                                        <h3>${product.productId}</h3>
-                                        <p>Quantity: ${product.quantity}</p>
-                                    </div>
-                                </td>
-                                <td class="price">${order.total}</td>
-                            </tr>
-                        `;
+          <tr>
+            <td class="product">
+              <div>
+                <h3>${productName}</h3>
+                <p>Quantity: ${product.quantity}</p>
+              </div>
+            </td>
+            <td class="price">${order.total}</td>
+          </tr>
+        `;
                         }).join('');
                       }).join('');
 
-                      // Optionally, handle voucher, subtotal, etc. here
+                      // Calculate and display total amount
                       const totalAmount = processingOrders.reduce((total, order) => {
                         return total + parseFloat(order.total.replace("RM", "").trim());
                       }, 0);
@@ -72,9 +75,10 @@
                       document.querySelector('.subtotal').textContent = `RM ${totalAmount.toFixed(2)}`;
                     })
                     .catch(error => {
-                      console.error("Error fetching orders:", error);
+                      console.error("Error fetching orders or products:", error);
                       alert("Failed to load orders.");
                     });
+
 
 
         </script>
