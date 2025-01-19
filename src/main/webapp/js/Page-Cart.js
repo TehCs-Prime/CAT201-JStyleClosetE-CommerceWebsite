@@ -126,7 +126,7 @@ checkoutBtn.addEventListener('click', () => {
 });
 
 // Place order button click logic
-placeOrderBtn.addEventListener('click', () => {
+placeOrderBtn.addEventListener('click', async () => {
   // Retrieve user email from localStorage
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const userEmail = currentUser ? currentUser.email : null;
@@ -136,53 +136,58 @@ placeOrderBtn.addEventListener('click', () => {
     return;
   }
 
-  // Fetch the orders to find the ones associated with the current user and that are in 'pending' status
-  fetch('/CAT-Project-WebApp/orders')
-      .then(response => response.json())
-      .then(orders => {
-        const ordersToPlace = orders.filter(order =>
-            order.customer === userEmail && order.status === "processing"
-        );
+  // Function to fetch orders and update them
+  const updateOrders = async () => {
+    const response = await fetch('/CAT-Project-WebApp/orders');
+    if (!response.ok) {
+      throw new Error("Failed to fetch orders. HTTP status: " + response.status);
+    }
 
-        if (ordersToPlace.length === 0) {
-          alert("No pending orders found to place.");
-          return;
-        }
+    const orders = await response.json();
 
-        // Optionally, you can perform other actions like processing payment or confirming the order
-        // For example, mark the orders as "completed" or "placed"
-        const placeOrderPromises = ordersToPlace.map(order => {
-          const updatedOrder = {
-            ...order,
-            status: "pending" // Changing status to "placed"
-          };
+    // Filter orders for the current user with 'processing' status
+    const ordersToUpdate = orders.filter(order =>
+        order.customer === userEmail && order.status === "processing"
+    );
 
-          // Send a PUT request to update the order status
-          return fetch(`/CAT-Project-WebApp/orders/${order.id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedOrder)
-          });
-        });
+    // If no more orders need updating, return true to stop the loop
+    if (ordersToUpdate.length === 0) {
+      return true;
+    }
 
-        // Wait for all updates to be completed
-        Promise.all(placeOrderPromises)
-            .then(() => {
-              alert("Your order has been placed successfully!");
-              // Optionally, redirect to another page or update UI
-              location.reload(); // Reload the page to reflect the changes
-            })
-            .catch(error => {
-              console.error("Error placing orders:", error);
-              alert("Failed to place the order.");
-            });
-      })
-      .catch(error => {
-        console.error("Error fetching orders:", error);
-        alert("Failed to load orders.");
+    // Update all orders with 'processing' status to 'pending'
+    const updatePromises = ordersToUpdate.map(order => {
+      const updatedOrder = {
+        ...order,
+        status: "pending" // Changing status to 'pending'
+      };
+
+      return fetch(`/CAT-Project-WebApp/orders/${order.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedOrder)
       });
+    });
+
+    // Wait for all updates to complete
+    await Promise.all(updatePromises);
+    return false; // Continue looping
+  };
+
+  try {
+    let allUpdated = false;
+    while (!allUpdated) {
+      allUpdated = await updateOrders(); // Keep checking until all orders are updated
+    }
+
+    alert("All orders have been placed successfully!");
+    location.reload(); // Reload the page to reflect the changes
+  } catch (error) {
+    console.error("Error updating orders:", error);
+    alert("Failed to update orders. Please try again.");
+  }
 });
 
 // Handle payment option selection
