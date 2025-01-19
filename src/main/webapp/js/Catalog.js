@@ -80,6 +80,10 @@ function renderItems(page) {
         <h4>${item.price}</h4>
       </div>
     `;
+    itemElement.addEventListener('click', () => {
+      // Redirect to the product-specific page with the productId as a query parameter
+      window.location.href = `Page-ProductDetails.html?id=${item.id}`;
+    });
     itemContainer.appendChild(itemElement);
   });
 

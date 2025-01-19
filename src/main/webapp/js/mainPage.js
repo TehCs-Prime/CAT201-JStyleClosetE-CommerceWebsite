@@ -25,101 +25,70 @@ function moveSlide(direction) {
 
 //update active menu choices
 // Select all menu links
-const menuLinks = document.querySelectorAll('.menu a');
-
-// Add a click event listener to each link
-menuLinks.forEach(link => {
-		link.addEventListener('click', function () {
-				// Remove the 'active' class from all links
-				menuLinks.forEach(link => link.classList.remove('active-menu'));
-
-				// Add the 'active' class to the clicked link
-				this.classList.add('active-menu');
-		});
-});
-
-//Dynamic Content: New Arrived
-document.addEventListener("DOMContentLoaded", function(){
-	const items = {
-		men: [
-			{img: "./Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
-			{img: "./Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
-			{img: "./Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
-			{img: "./Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"},
-			{img: "./Sources/na men 5.jpeg", name: "Jia Chen Tee (Black)", price: "RM 69.00"},
-			{img: "./Sources/na men 6.jpeg", name: "Wooden Dragon Tee (Black)", price: "RM 49.00"},
-			{img: "./Sources/na men 7.jpeg", name: "Alien Tee (Black)", price: "RM 49.00"},
-			{img: "./Sources/na men 8.jpeg", name: "Hoholand Tee (Black)", price: "RM 89.00"}
-		],
-
-		women: [
-			{img: "./Sources/na women 1.jpeg", name: "Women Shirt Dress (Red)", price: "RM 89.90"},
-			{img: "./Sources/na women 2.jpeg", name: "Women Knit Short Sleeve Crop Top (Red)", price: "RM 39.90"},
-			{img: "./Sources/na women 3.jpeg", name: "Women Knit Sleeveless Top (Red)", price: "RM 49.90"},
-			{img: "./Sources/na women 4.jpeg", name: "Women Knit Short Sleeve Crop Top (Light Yellow)", price: "RM 49.90"}
-		],
-
-		shoes: [
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 1", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
-		],
-
-		bags: [
-			{img: "./Sources/favicon.jpeg", name: "Bags Item 1", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
-		],
-
-		accessories: [
-			{img: "./Sources/favicon.jpeg", name: "Acs Item 1", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 2", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 3", price: "$12"},
-			{img: "./Sources/favicon.jpeg", name: "Shoes Item 4", price: "$12"}
-		]
-	};
-
+document.addEventListener("DOMContentLoaded", function () {
 	const menuLinks = document.querySelectorAll('.menu a');
 	const itemContainer = document.querySelector('.item-container');
 
-	// Function to render items based on category
-	function renderItems(category) {
+	// Function to fetch data from products.json
+	async function fetchProducts() {
+		try {
+			const response = await fetch('/CAT-Project-WebApp/products'); // Adjust path if needed
+			if (!response.ok) throw new Error('Failed to load products.json');
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			console.error(error);
+			return [];
+		}
+	}
+
+	// Function to render the latest 8 products
+	async function renderLatestProducts() {
+		const products = await fetchProducts();
+		if (!products || products.length === 0) {
+			itemContainer.innerHTML = '<p>No items found.</p>';
+			return;
+		}
+
+		// Get the latest 8 products
+		const latestProducts = products.slice(-8).reverse(); // Reverse to get the newest first
+
 		itemContainer.innerHTML = ''; // Clear existing items
-		items[category].forEach(item => {
+		latestProducts.forEach(item => {
 			const itemElement = document.createElement('div');
 			itemElement.classList.add('item');
 			itemElement.innerHTML = `
-				<img src="${item.img}" alt="${item.name}">
-				<div class="name-container">
-					<h4>${item.name}</h4>
-				</div>
-				<div class="price-container">
-					<h4>${item.price}</h4>
-				</div>
-				`;
+                <img src="${item.images[0]}" alt="${item.name}">
+                <div class="name-container">
+                    <h4>${item.name}</h4>
+                </div>
+                <div class="price-container">
+                    <h4>${item.price}</h4>
+                </div>
+            `;
+
+			// Add click event listener to redirect to product detail page
+			itemElement.addEventListener('click', () => {
+				window.location.href = `Page-ProductDetails.html?id=${item.id}`;
+			});
+
 			itemContainer.appendChild(itemElement);
 		});
 	}
 
 	// Add click event listener to menu links
 	menuLinks.forEach(link => {
-			link.addEventListener('click', function (event) {
-					event.preventDefault(); // Prevent default link behavior
+		link.addEventListener('click', function (event) {
+			event.preventDefault(); // Prevent default link behavior
 
-					// Remove 'active' class from all links
-					menuLinks.forEach(link => link.classList.remove('active'));
-					this.classList.add('active'); // Add 'active' to the clicked link
-
-					// Get category from data attribute and render items
-					const category = this.dataset.category;
-					renderItems(category);
-			});
+			// Remove 'active-menu' class from all links
+			menuLinks.forEach(link => link.classList.remove('active-menu'));
+			this.classList.add('active-menu'); // Add 'active-menu' to the clicked link
+		});
 	});
 
-	// Initialize with the default category (Men)
-	renderItems('men');
+	// Fetch and render the latest 8 products on page load
+	renderLatestProducts();
 });
 
 
@@ -140,42 +109,75 @@ fetch("Footer-BottomBar.html")
 	.catch(error => console.error("Error loading footer:", error));
 
 
-//Promotion Item Fetch
-const items = [
-	{img: "./Sources/na men 1.jpeg", name: "Jia Chen Tee (Red)", price: "RM 49.00"},
-			{img: "./Sources/na men 2.jpeg", name: "Sphere Logo Tee", price: "RM 69.00"},
-			{img: "./Sources/na men 3.jpeg", name: "NHR Quote Tee", price: "RM 69.00"},
-			{img: "./Sources/na men 4.jpeg", name: "GLLS Tee (Black)", price: "RM 79.00"}
-];
-
-// Select the container element
+// Select the container where products will be displayed
 const container = document.getElementById("itemContainer");
 
-// Generate HTML using a loop
-items.forEach(item => {
-	const itemElement = document.createElement('div');
-	itemElement.classList.add('item');
-	itemElement.innerHTML = `
-			<img src="${item.img}" alt="${item.name}">
-			<div class="name-container">
-					<h4>${item.name}</h4>
-			</div>
-			<div class="price-container">
-					<h4>${item.price}</h4>
-			</div>
-	`;
-	itemContainer.appendChild(itemElement);
-});
+// Fetch all products from the backend
+async function fetchProducts() {
+	try {
+		const response = await fetch("/CAT-Project-WebApp/products"); // Replace with your servlet URL
+		if (!response.ok) {
+			throw new Error("Failed to fetch products");
+		}
+
+		const products = await response.json(); // Parse the response as JSON
+
+		// Filter products with category "cnysales" or "lastchances"
+		const filteredProducts = products.filter(product =>
+			product.category === "CNYSales" || product.category === "LastChances"
+		);
+
+		// Render the filtered products
+		renderProducts(filteredProducts);
+	} catch (error) {
+		console.error("Error fetching products:", error);
+	}
+}
+
+// Render products to the container
+function renderProducts(products) {
+	// Clear any existing content
+	container.innerHTML = "";
+
+	products.forEach(product => {
+		// Create a product element
+		const itemElement = document.createElement("div");
+		itemElement.classList.add("item");
+
+		// Set the HTML structure for the product
+		itemElement.innerHTML = `
+            <img src="${product.images[0]}" alt="${product.name}">
+            <div class="name-container">
+                <h4>${product.name}</h4>
+            </div>
+            <div class="price-container">
+                <h4>${product.price}</h4>
+            </div>
+        `;
+
+		// Add a click event to redirect to the product detail page
+		itemElement.addEventListener("click", () => {
+			window.location.href = `Page-ProductDetails.html?id=${product.id}`;
+		});
+
+		// Append the product element to the container
+		container.appendChild(itemElement);
+	});
+}
+
+// Fetch and display products on page load
+fetchProducts();
+
 
 const categories = [
-	{ imgSrc: "./Sources/tee%20icon.png", alt: "T-Shirt", title: "T-Shirts", type: "Tshirts" },
-	{ imgSrc: "./Sources/top%20icon.png", alt: "Top", title: "Tops", type: "Top" },
-	{ imgSrc: "./Sources/dress%20icon.png", alt: "Dress", title: "Dress", type: "Dress" },
-	{ imgSrc: "./Sources/outwear%20icon.png", alt: "Outwear", title: "Outwears", type: "Outwear" },
-	{ imgSrc: "./Sources/bottom%20icon.png", alt: "Bottom", title: "Bottoms", type: "Bottom" },
-	{ imgSrc: "./Sources/basic%20icon.png", alt: "Basics", title: "Basics", type: "Basic" },
-	{ imgSrc: "./Sources/cny%20icon.png", alt: "CNY Sales", title: "CNY Sales", type: "Chinese New Year Sales" },
-	{ imgSrc: "./Sources/sales%20icon.png", alt: "Last Chances", title: "Last Chances", type: "Last Chances" }
+	{ imgSrc: "./Sources/tee%20icon.png", alt: "T-Shirt", title: "T-Shirts", type: "tee" },
+	{ imgSrc: "./Sources/top%20icon.png", alt: "Top", title: "Tops", type: "top" },
+	{ imgSrc: "./Sources/dress%20icon.png", alt: "Dress", title: "Dress", type: "dress" },
+	{ imgSrc: "./Sources/outwear%20icon.png", alt: "Outwear", title: "Outwears", type: "outwear" },
+	{ imgSrc: "./Sources/bottom%20icon.png", alt: "Bottom", title: "Bottoms", type: "bottom" },
+	{ imgSrc: "./Sources/basic%20icon.png", alt: "Basics", title: "Basics", type: "basic" },
+	{ imgSrc: "./Sources/cny%20icon.png", alt: "CNY Sales", title: "CNY Sales", type: "cny" },
+	{ imgSrc: "./Sources/sales%20icon.png", alt: "Last Chances", title: "Last Chances", type: "sales" }
 ];
 
 const categoryContainer = document.querySelector(".item-container.category-container");
