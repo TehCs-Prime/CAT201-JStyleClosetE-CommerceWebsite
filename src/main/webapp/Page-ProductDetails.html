@@ -206,6 +206,7 @@
                 })
                 .then(message => {
                     alert(message);
+                    window.history.go(-1);
                 })
                 .catch(error => {
                     console.error('Error adding order:', error);
