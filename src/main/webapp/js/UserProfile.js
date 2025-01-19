@@ -1,24 +1,3 @@
-const user = {
-	name: "John Doe",
-	email: "johndoe@example.com",
-	orders: [
-		{
-			productImg: "../Sources/na men 5.jpeg",
-			productName: "BFF Tee",
-			price: "RM189.00",
-			quantity: 1,
-			total: "RM189.00"
-		},
-		{
-			productImg: "../Sources/na men 1.jpeg",
-			productName: "BFF Tee",
-			price: "RM199.00",
-			quantity: 1,
-			total: "RM199.00"
-		}
-	]
-};
-
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
 
 if (currentUser) {
@@ -33,36 +12,7 @@ if (currentUser) {
 // Display user info on the page
 document.getElementById("user-name").textContent = currentUser.name;
 document.getElementById("user-email").textContent = currentUser.email;  // Display email correctly
-  // Make sure to access email correctly
 
-// Update order history
-const orderList = document.getElementById("order-list");
-
-if (user.orders.length > 0) {
-		document.getElementById("order-message").style.display = "none";
-		document.getElementById("order-header").style.display = "flex";
-
-		user.orders.forEach(order => {
-				const orderCard = document.createElement("div");
-				orderCard.className = "order-container-card";
-
-				orderCard.innerHTML = `
-					<div class="order-details">
-						<img src="${order.productImg}" alt="Product Image">
-						<div class="product-details">
-							<span>${order.productName}</span>
-							<span>${order.price}</span>
-						</div>
-					</div>
-
-					<div class="order-quantity">${order.quantity}</div>
-
-					<div class="order-total">${order.total}</div>
-				`;
-
-				orderList.appendChild(orderCard);
-		});
-}
 
 document.getElementById('change-btn').addEventListener('click', () => {
   window.location.href = 'ResetPassword.html';

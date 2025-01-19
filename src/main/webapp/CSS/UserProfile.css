@@ -12,7 +12,7 @@
 
 .user-acc-container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   margin-bottom: 30vh;
 }
@@ -94,6 +94,7 @@
 
 .acc-detail {
   flex-grow: 1;
+  justify-items: center;
 }
 
 .acc-detail button {
