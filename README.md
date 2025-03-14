@@ -12,11 +12,23 @@
 7. [License](#license)
 8. [Acknowledgments](#acknowledgments)
 9. [FAQ](#faq)
+10. [Team Members](#team-members)
 </details>
 
 ## Project Overview 🌟
 
 JStyle Closet is a professional online clothing retail e-commerce platform, offering fashionable, high-quality apparel products. The website sells various clothing items, including tops, T-shirts, dresses, and outerwear. Through user authentication, the platform provides different website views for administrators and customers, delivering a smooth shopping experience for users while offering efficient management capabilities for administrators.
+
+## Team Members 👨‍💻
+
+This project was developed collaboratively by the following team members:
+
+| Name | Role | Contributions |
+|------|------|--------------|
+| **Teh Chun Shen** | Full Stack Developer | UI/UX design, system process flow design and backend development |
+| **Choo Yit Shern** | Backend Developer | Database implementation and connection between frontend and backend |
+| **Liew Zhe Xian** | Frontend Developer | Page design and final adjustments |
+| **Law Zhe Yin** | Business Analyst | Pitching video and documentation |
 
 ## Features 🚀
 
