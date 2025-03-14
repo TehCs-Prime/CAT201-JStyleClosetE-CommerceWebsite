@@ -25,10 +25,10 @@ This project was developed collaboratively by the following team members:
 
 | Name | Role | Contributions |
 |------|------|--------------|
-| **Teh Chun Shen** | Full Stack Developer | UI/UX design, system process flow design and backend development |
-| **Choo Yit Shern** | Backend Developer | Database implementation and connection between frontend and backend |
-| **Liew Zhe Xian** | Frontend Developer | Page design and final adjustments |
-| **Law Zhe Yin** | Business Analyst | Pitching video and documentation |
+| **Teh Chun Shen** | Full Stack Developer | UI/UX design, created system process flows to ensure seamless application logic and participate in backend development |
+| **Choo Yit Shern** | Backend Developer | Designed and implemented the database structure and developed endpoints to facilitate communication between the frontend and backend |
+| **Liew Zhe Xian** | Frontend Developer | Ensuring responsiveness and visual consistency from user interface and conducted final adjustments |
+| **Law Zhe Yin** | Business Analyst | Conducted requirement analysis, prepared detailed documentation and the pitching video presentation |
 
 ## Features 🚀
 
