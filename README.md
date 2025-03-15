@@ -21,24 +21,13 @@
 </details>
 
 <!-- Return to Top Button -->
-<a href="#top" id="return-to-top" style="position: fixed; bottom: 20px; right: 20px; background-color: #007bff; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px; display: none; z-index: 1000;">↑ Top</a>
-
-<script>
-// Show button when user scrolls down 300px
-window.onscroll = function() {
-  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-    document.getElementById("return-to-top").style.display = "block";
-  } else {
-    document.getElementById("return-to-top").style.display = "none";
-  }
-};
-</script>
+<a href="#top" id="return-to-top" style="position: fixed; bottom: 20px; right: 20px; background-color: #007bff; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px; display: none; z-index: 1000;"></a>
 
 <h2 id="project-overview">Project Overview 🌟</h2>
 
 JStyle Closet is a professional online clothing retail e-commerce platform, offering fashionable, high-quality apparel products. The website sells various clothing items, including tops, T-shirts, dresses, and outerwear. Through user authentication, the platform provides different website views for administrators and customers, delivering a smooth shopping experience for users while offering efficient management capabilities for administrators.
 
-![Main Page](src\main\webapp\Sources\MainPage.png)
+![Main Page](src/main/webapp/Sources/MainPage.png)
 
 
 <h2 id="team-members">Team Members 👨‍💻</h2>
@@ -56,42 +45,42 @@ This project was developed collaboratively by the following team members:
 
 ### 1. User Registration and Account Management 👤
 - **User Login**: Users can log in as regular users or administrators (internal use only)
-![Login Page](src\main\webapp\Sources\LoginPage.png)
+![Login Page](src/main/webapp/Sources/LoginPage.png)
 
 - **User Registration**: New users can register accounts
-![Registration Page](src\main\webapp\Sources\NewRegis.jpg)
+![Registration Page](src/main/webapp/Sources/NewRegis.jpg)
 
 - **Password Reset**: Users can reset their passwords
-![Password Reset](src\main\webapp\Sources\ForgotPassword.png)
+![Password Reset](src/main/webapp/Sources/ForgotPassword.png)
 
 - **User Profile**: Users can view details of their profile
-![User Profile](src\main\webapp\Sources\ProfilePage.png)
+![User Profile](src/main/webapp/Sources/ProfilePage.png)
 
 ### 2. Product Catalog 📚
 - **Categorized Display**: Different categories of products are displayed in different pages/sections
-![Product Categories](src\main\webapp\Sources\Categories.png)
+![Product Categories](src/main/webapp/Sources/Categories.png)
 
 - **Product Catalog**: Users can uncover details of the products.
-![Product Catalog](src\main\webapp\Sources\ProductDetails.png)
+![Product Catalog](src/main/webapp/Sources/ProductDetails.png)
 
 ### 3. Shopping Cart 🛒
 
 - **Order Summary**: User can view items added to the cart, overview of the order and apply vouchers for discount!
-![Shopping Cart](src\main\webapp\Sources\CartPage.png)
+![Shopping Cart](src/main/webapp/Sources/CartPage.png)
 
 - **Order Placement**: Users can place orders and proceed to payment gateway
-![Checkout Process](src\main\webapp\Sources\Cart&Checkout.png)
+![Checkout Process](src/main/webapp/Sources/Cart&Checkout.png)
 
 ### 4. Administrator Functions ⚙️
 
 - **Admin Dashboard**: Quick view statistical indicators and most recent orders
-![Admin Dashboard](src\main\webapp\Sources\AdminPanel-Dashboard.png)
+![Admin Dashboard](src/main/webapp/Sources/AdminPanel-Dashboard.png)
 - **Sales Records**: Track sales and user activity, record order history
-![Sales Analytics](src\main\webapp\Sources\AdminPanel-TotalOrder.png)
+![Sales Analytics](src/main/webapp/Sources/AdminPanel-TotalOrder.png)
 - **Product Management**: Manage products by updating, adding, removing and viewing products to the website
-![Product Management](src\main\webapp\Sources\AdminPanel-Products.png)
+![Product Management](src/main/webapp/Sources/AdminPanel-Products.png)
 - **User Management**: View user information
-![User Management](src\main\webapp\Sources\AdminPanel-Customer.png)
+![User Management](src/main/webapp/Sources/AdminPanel-Customer.png)
 
 
 <h2 id="built-with">Built With 🛠️</h2>
@@ -363,17 +352,6 @@ This project is licensed under the USM License - see the LICENSE file or visit t
   </details>
 </div>
 
-<style>
-details {
-  margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
-}
-details summary {
-  cursor: pointer;
-  padding: 8px 0;
-}
-</style>
 
 <p align="center" style="margin-top: 100px;">Thank you for reading our documentation! If you have any questions or suggestions, please don't hesitate to contact us.</p>
 <p align="center">© 2025 Our Team - Aim High with Passion</p>
