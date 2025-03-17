@@ -179,6 +179,9 @@ For testing and demonstration purposes, the following predefined accounts are av
 |----------|----------|-------------|
 | `admin@example.com` | `admin123` | Full administrative access |
 
+#### Account Reset Verification Code
+Verification code: 999999
+
 > **Note**: These accounts are for demonstration purposes only. In a production environment, you should use secure passwords and implement proper authentication mechanisms.
 
 <h2 id="usage-guide">Usage Guide 📖</h2>
