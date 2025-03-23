@@ -360,7 +360,7 @@ This project is licensed under the USM License - see the LICENSE file or visit t
 <p align="center">© 2025 Our Team - Aim High with Passion</p>
 <div align="center">
   <a href="#" style="margin: 0 10px;"><img src="https://img.shields.io/badge/Version-1.0-blue" alt="Version"></a>
-  <a href="#" style="margin: 0 10px;"><img src="https://img.shields.io/badge/License-USM-purple" alt="License"></a>
+  <a href="#" style="margin: 0 10px;"><img src="https://img.shields.io/badge/License-MIT-purple" alt="License"></a>
   <a href="#" style="margin: 0 10px;"><img src="https://img.shields.io/badge/Latest Documentation-March 2025-orange" alt="Documentation"></a>
 </div>
 
